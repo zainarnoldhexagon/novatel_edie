@@ -43,7 +43,7 @@ jobs:
         id: conan
         uses: turtlebrowser/get-conan@main
 
-      - name: Create default Conan profile
+      - name: Setup Conan Packages
         shell: bash
         run: |
           conan profile detect --force
@@ -56,11 +56,11 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.platform[2] }}" == "msvc" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G "Visual Studio 17 2022" -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G "Visual Studio 17 2022" -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc -DCMAKE_MODULE_PATH="build"
           elif [ "${{ matrix.platform[2] }}" == "clang" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_CC=clang -DCMAKE_CXX=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_CC=clang -DCMAKE_CXX=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_MODULE_PATH="build"
           elif [ "${{ matrix.platform[2] }}" == "gcc" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_MODULE_PATH="build"
           fi
 
       - name: Build
