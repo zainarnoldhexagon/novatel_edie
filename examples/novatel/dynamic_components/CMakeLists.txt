@@ -23,6 +23,7 @@ link_directories(
 )
 
 include_directories(
+	${nlohmann_json_INCLUDE_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../src/decoders/common/api
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../src/decoders/dynamic_library/api
 	${CMAKE_CURRENT_SOURCE_DIR}/../../../src/decoders/novatel/api
