@@ -32,9 +32,12 @@ target_include_directories(
     objnovatel PUBLIC extensions/rangecmp
     objnovatel PUBLIC extensions/rxconfig
     objnovatel PUBLIC api
+    objnovatel PUBLIC nlohmann_json::nlohmann_json
     objnovatel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
     objnovatel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../common/api
 )
+
+target_link_libraries(objnovatel PRIVATE nlohmann_json::nlohmann_json)
 
 if(LINUX)
     file(GLOB_RECURSE MY_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/api/*.h*)

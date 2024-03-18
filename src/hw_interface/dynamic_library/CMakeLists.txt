@@ -36,6 +36,9 @@ endif()
 target_include_directories(
     objdynamichwinterface PUBLIC src
     objdynamichwinterface PUBLIC api
+    objdynamichwinterface PUBLIC nlohmann_json::nlohmann_json
     objdynamichwinterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../
     objdynamichwinterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
 )
+
+target_link_libraries(objdynamichwinterface PRIVATE nlohmann_json::nlohmann_json)

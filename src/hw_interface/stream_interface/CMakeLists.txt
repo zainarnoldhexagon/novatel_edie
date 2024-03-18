@@ -35,10 +35,13 @@ set_property(TARGET objstreaminterface PROPERTY FOLDER "hw_interface")
 target_include_directories(
     objstreaminterface PUBLIC src
     objstreaminterface PUBLIC api
+    objstreaminterface PUBLIC nlohmann_json::nlohmann_json
     objstreaminterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
     objstreaminterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../
     objstreaminterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib/driverinterface/api
 )
+
+target_link_libraries(objstreaminterface PRIVATE nlohmann_json::nlohmann_json)
 
 if(LINUX)
     file(GLOB_RECURSE MY_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/api/*.h*)

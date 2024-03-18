@@ -39,6 +39,9 @@ endif()
 target_include_directories(
     objdynamicdecoder PUBLIC src
     objdynamicdecoder PUBLIC api
+    objdynamicdecoder PUBLIC nlohmann_json::nlohmann_json
     objdynamicdecoder PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
     objdynamicdecoder PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
 )
+
+target_link_libraries(objdynamicdecoder PRIVATE nlohmann_json::nlohmann_json)
