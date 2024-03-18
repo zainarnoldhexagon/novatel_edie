@@ -134,6 +134,10 @@ if(GIT_EXECUTABLE)
 endif()
 
 find_package(nlohmann_json REQUIRED)
+find_package(spdlog_setup REQUIRED)
+find_package(cpptoml REQUIRED)
+
+include_directories(${cpptoml_INCLUDE_DIR})
 
 # build EDIE components
 add_subdirectory(src/decoders)
