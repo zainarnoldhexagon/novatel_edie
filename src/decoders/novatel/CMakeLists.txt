@@ -32,7 +32,7 @@ target_include_directories(
     objnovatel PUBLIC extensions/rangecmp
     objnovatel PUBLIC extensions/rxconfig
     objnovatel PUBLIC api
-    objnovatel PUBLIC nlohmann_json::nlohmann_json
+    objnovatel PUBLIC ${nlohmann_json_INCLUDE_DIR}
     objnovatel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
     objnovatel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../common/api
 )
