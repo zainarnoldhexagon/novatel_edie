@@ -138,6 +138,7 @@ find_package(spdlog_setup REQUIRED)
 find_package(cpptoml REQUIRED)
 
 include_directories(${cpptoml_INCLUDE_DIR})
+include_directories(${spdlog_setup_INCLUDE_DIR})
 
 # build EDIE components
 add_subdirectory(src/decoders)
