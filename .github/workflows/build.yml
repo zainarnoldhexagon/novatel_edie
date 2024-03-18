@@ -39,6 +39,16 @@ jobs:
         with:
           version: "17.0"
 
+      - name: Install Conan
+        id: conan
+        uses: turtlebrowser/get-conan@main
+
+      - name: Create default Conan profile
+        shell: bash
+        run: |
+          conan profile detect --force
+          conan install . -of=build --settings compiler.cppstd=17
+
       - name: Install CMake
         uses: lukka/get-cmake@latest
         

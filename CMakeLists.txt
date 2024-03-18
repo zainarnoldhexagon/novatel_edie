@@ -133,6 +133,8 @@ if(GIT_EXECUTABLE)
         -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/GenerateVersionHeader.cmake)
 endif()
 
+find_package(nlohmann_json REQUIRED)
+
 # build EDIE components
 add_subdirectory(src/decoders)
 add_subdirectory(src/hw_interface)

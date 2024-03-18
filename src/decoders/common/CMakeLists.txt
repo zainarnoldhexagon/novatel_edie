@@ -30,6 +30,7 @@ set_property(TARGET objcommon       PROPERTY FOLDER "decoders")
 target_include_directories(
     objcommon PUBLIC src
     objcommon PUBLIC api
+    objcommon PUBLIC nlohmann_json::nlohmann_json
     objcommon PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
 )
 
