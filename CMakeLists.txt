@@ -136,13 +136,16 @@ endif()
 find_package(nlohmann_json REQUIRED)
 find_package(spdlog_setup REQUIRED)
 find_package(spdlog REQUIRED)
+find_package(fmt REQUIRED)
 find_package(cpptoml REQUIRED)
 
 add_compile_definitions(SPDLOG_FMT_EXTERNAL)
+add_compile_definitions(FMT_HEADER_ONLY)
 
 include_directories(${nlohmann_json_INCLUDE_DIR})
 include_directories(${spdlog_setup_INCLUDE_DIR})
 include_directories(${spdlog_INCLUDE_DIR})
+include_directories(${fmt_INCLUDE_DIR})
 include_directories(${cpptoml_INCLUDE_DIR})
 
 set(CONAN_LIBS 
