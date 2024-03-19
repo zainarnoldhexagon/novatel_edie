@@ -113,7 +113,7 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}")
 # Fetch the GoogleTest library
 FetchContent_Declare(
   googletest
-   URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+   URL https://github.com/google/googletest/archive/refs/tags/v1.13.0.zip
 )
 FetchContent_MakeAvailable(googletest)
 
