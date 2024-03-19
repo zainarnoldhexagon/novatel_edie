@@ -42,7 +42,7 @@ target_include_directories(
     objstreaminterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib/driverinterface/api
 )
 
-target_link_libraries(objstreaminterface PRIVATE nlohmann_json::nlohmann_json spdlog_setup::spdlog_setup)
+target_link_libraries(objstreaminterface PRIVATE nlohmann_json::nlohmann_json spdlog_setup::spdlog_setup spdlog::spdlog fmt::fmt)
 
 if(LINUX)
     file(GLOB_RECURSE MY_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/api/*.h*)

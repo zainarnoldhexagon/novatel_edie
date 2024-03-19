@@ -42,4 +42,4 @@ target_include_directories(
     objdynamichwinterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
 )
 
-target_link_libraries(objdynamichwinterface PRIVATE nlohmann_json::nlohmann_json spdlog_setup::spdlog_setup)
+target_link_libraries(objdynamichwinterface PRIVATE nlohmann_json::nlohmann_json spdlog_setup::spdlog_setup spdlog::spdlog fmt::fmt)

@@ -32,10 +32,13 @@ target_include_directories(
     objcommon PUBLIC api
     objcommon PUBLIC ${nlohmann_json_INCLUDE_DIR}
     objcommon PUBLIC ${spdlog_setup_INCLUDE_DIR}
+    objcommon PUBLIC ${spdlog_INCLUDE_DIR}
+    objcommon PUBLIC ${fmt_INCLUDE_DIR}
+    objcommon PUBLIC ${cpptoml_INCLUDE_DIR}
     objcommon PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
 )
 
-target_link_libraries(objcommon PRIVATE nlohmann_json::nlohmann_json spdlog_setup::spdlog_setup)
+target_link_libraries(objcommon PRIVATE nlohmann_json::nlohmann_json spdlog_setup::spdlog_setup spdlog::spdlog fmt::fmt)
 
 if(LINUX)
     file(GLOB_RECURSE MY_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/api/*.h*)
