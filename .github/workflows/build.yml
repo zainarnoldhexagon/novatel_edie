@@ -15,10 +15,10 @@ jobs:
       matrix:
         platform:
           - [windows, windows-latest, msvc, debug]
-          - [windows, windows-latest, msvc, release]
-          #- [windows, windows-latest, gcc, debug]
+          #- [windows, windows-latest, msvc, release]
+          - [windows, windows-latest, gcc, debug]
           #- [windows, windows-latest, gcc, release]
-          #- [windows, windows-latest, clang, debug]
+          - [windows, windows-latest, clang, debug]
           #- [windows, windows-latest, clang, release]
           - [linux, ubuntu-latest, gcc, debug]
           - [linux, ubuntu-latest, gcc, release]
