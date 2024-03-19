@@ -153,6 +153,7 @@ set(CONAN_LIBS
     spdlog_setup::spdlog_setup 
     spdlog::spdlog 
     fmt::fmt
+    cpptoml
 )
 
 # build EDIE components
