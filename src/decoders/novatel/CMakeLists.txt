@@ -36,7 +36,7 @@ target_include_directories(
     objnovatel PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../common/api
 )
 
-target_link_libraries(objnovatel PRIVATE nlohmann_json::nlohmann_json spdlog::spdlog fmt::fmt)
+target_link_libraries(objnovatel PRIVATE ${CONAN_LIBS})
 
 if(LINUX)
     file(GLOB_RECURSE MY_PUBLIC_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/api/*.h*)

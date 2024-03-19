@@ -148,6 +148,13 @@ include_directories(${spdlog_INCLUDE_DIR})
 include_directories(${fmt_INCLUDE_DIR})
 include_directories(${cpptoml_INCLUDE_DIR})
 
+set(CONAN_LIBS 
+    nlohmann_json::nlohmann_json 
+    spdlog_setup::spdlog_setup 
+    spdlog::spdlog 
+    fmt::fmt
+)
+
 # build EDIE components
 add_subdirectory(src/decoders)
 add_subdirectory(src/hw_interface)
