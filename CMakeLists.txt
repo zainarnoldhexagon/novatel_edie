@@ -70,7 +70,7 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang
         set(COMMON_GCC_FLAGS_DEBUG "${COMMON_GCC_FLAGS_DEBUG} -O1")
     endif()
     if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
-        set(COMMON_GCC_CXX_FLAGS "${COMMON_GCC_CXX_FLAGS} -Werror -Wno-format-truncation -Wformat= -Wno-error=format -Werror=format-extra-args")
+        set(COMMON_GCC_CXX_FLAGS "${COMMON_GCC_CXX_FLAGS} -Werror -Wno-format-truncation -Wno-format= -Wno-error=format -Werror=format-extra-args")
     endif()
     if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
         set(COMMON_GCC_CXX_FLAGS "${COMMON_GCC_CXX_FLAGS} -pthread")
