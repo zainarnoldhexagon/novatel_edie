@@ -56,7 +56,7 @@ if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     string(REGEX REPLACE "/O2"  "/Ox"  CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
     
     # Disable narrowing conversion, deprecated warnings, and constant conditional expression warnings
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /wd4244 /wd4996 /wd4127 /WX")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /wd4996 /WX")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Zi")
 elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
     set(COMMON_GCC_CXX_FLAGS "-Wall -fPIC -Wfatal-errors -Wold-style-cast -Wextra -pedantic")
