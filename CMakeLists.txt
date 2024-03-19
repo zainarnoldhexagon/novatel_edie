@@ -71,8 +71,7 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang
     endif()
     if(CMAKE_C_COMPILER_ID STREQUAL "GNU")
         set(COMMON_GCC_CXX_FLAGS "${COMMON_GCC_CXX_FLAGS} -Werror -Wno-format-truncation -Wno-error=format -Wno-format -Wno-format-extra-args")
-    endif()
-    if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+    elseif(CMAKE_C_COMPILER_ID STREQUAL "Clang")
         set(COMMON_GCC_CXX_FLAGS "${COMMON_GCC_CXX_FLAGS} -pthread")
     endif()
 
@@ -110,10 +109,7 @@ message("CMAKE_CXX_COMPILER_TARGET " ${CMAKE_CXX_COMPILER_TARGET})
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}")
 
 # Fetch the GoogleTest library
-FetchContent_Declare(
-  googletest
-   URL https://github.com/google/googletest/archive/refs/tags/v1.13.0.zip
-)
+FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip)
 FetchContent_MakeAvailable(googletest)
 
 # Find Git package, if not need to install manually or through .yml file
