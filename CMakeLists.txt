@@ -152,10 +152,10 @@ include_directories(${cpptoml_INCLUDE_DIR})
 add_subdirectory(src/decoders)
 add_subdirectory(src/hw_interface)
 
-#add_subdirectory(src/decoders/common/test)
-#add_subdirectory(src/decoders/novatel/test)
-#add_subdirectory(src/hw_interface/stream_interface/test)
-#
+add_subdirectory(src/decoders/common/test)
+add_subdirectory(src/decoders/novatel/test)
+add_subdirectory(src/hw_interface/stream_interface/test)
+
 #add_subdirectory(examples/novatel/command_encoding)
 #add_subdirectory(examples/novatel/converter_fileparser)
 #add_subdirectory(examples/novatel/converter_components)
