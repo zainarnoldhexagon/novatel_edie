@@ -51,8 +51,6 @@ endif()
 
 if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     string(REGEX REPLACE "/W3"  "/W4"  CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS}")
-    string(REGEX REPLACE "/MDd" "/MTd" CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG}")
-    string(REGEX REPLACE "/MD"  "/MT"  CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
     string(REGEX REPLACE "/O2"  "/Ox"  CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
     
     # Disable narrowing conversion, deprecated warnings, and constant conditional expression warnings
