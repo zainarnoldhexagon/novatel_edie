@@ -74,7 +74,7 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang
         set(COMMON_GCC_FLAGS_RELEASE "${COMMON_GCC_FLAGS_RELEASE} -s")
     endif()
     if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-        set(COMMON_GCC_CXX_FLAGS "${COMMON_GCC_CXX_FLAGS} -pthread -Wno-unqualified-std-cast-call")
+        set(COMMON_GCC_CXX_FLAGS "${COMMON_GCC_CXX_FLAGS} -pthread")
     endif()
 
     set(CMAKE_C_FLAGS_DEBUG     "${COMMON_GCC_FLAGS_DEBUG}")
