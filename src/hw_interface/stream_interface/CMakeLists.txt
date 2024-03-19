@@ -35,8 +35,6 @@ set_property(TARGET objstreaminterface PROPERTY FOLDER "hw_interface")
 target_include_directories(
     objstreaminterface PUBLIC src
     objstreaminterface PUBLIC api
-    objstreaminterface PUBLIC ${nlohmann_json_INCLUDE_DIR}
-    objstreaminterface PUBLIC ${spdlog_setup_INCLUDE_DIR}
     objstreaminterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
     objstreaminterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../
     objstreaminterface PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../../lib/driverinterface/api

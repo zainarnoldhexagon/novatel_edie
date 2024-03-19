@@ -30,11 +30,6 @@ set_property(TARGET objcommon       PROPERTY FOLDER "decoders")
 target_include_directories(
     objcommon PUBLIC src
     objcommon PUBLIC api
-    objcommon PUBLIC ${nlohmann_json_INCLUDE_DIR}
-    objcommon PUBLIC ${spdlog_setup_INCLUDE_DIR}
-    objcommon PUBLIC ${spdlog_INCLUDE_DIR}
-    objcommon PUBLIC ${fmt_INCLUDE_DIR}
-    objcommon PUBLIC ${cpptoml_INCLUDE_DIR}
     objcommon PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
 )
 

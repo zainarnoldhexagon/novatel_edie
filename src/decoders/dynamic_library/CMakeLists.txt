@@ -39,8 +39,6 @@ endif()
 target_include_directories(
     objdynamicdecoder PUBLIC src
     objdynamicdecoder PUBLIC api
-    objdynamicdecoder PUBLIC ${nlohmann_json_INCLUDE_DIR}
-    objdynamicdecoder PUBLIC ${spdlog_setup_INCLUDE_DIR}
     objdynamicdecoder PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
     objdynamicdecoder PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../../
 )
