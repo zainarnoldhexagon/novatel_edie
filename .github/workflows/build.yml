@@ -56,11 +56,11 @@ jobs:
         shell: bash
         run: |
           if [ "${{ matrix.platform[2] }}" == "msvc" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G "Visual Studio 17 2022" -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G "Visual Studio 17 2022" -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-msvc -DCMAKE_PREFIX_PATH=build -DCMAKE_MODULE_PATH=build
           elif [ "${{ matrix.platform[2] }}" == "clang" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_CC=clang -DCMAKE_CXX=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_CC=clang -DCMAKE_CXX=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_PREFIX_PATH=build -DCMAKE_MODULE_PATH=build
           elif [ "${{ matrix.platform[2] }}" == "gcc" ]; then
-            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu
+            cmake -S . -B build -DCMAKE_BUILD_TYPE=${{ matrix.platform[3] }} -G Ninja -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-${{ matrix.platform[0] }}-gnu -DCMAKE_PREFIX_PATH=build -DCMAKE_MODULE_PATH=build
           fi
 
       - name: Build
@@ -164,7 +164,7 @@ jobs:
 
       - name: Static code analysis
         run: |
-          cmake -S . -B build -DCMAKE_CXX_CLANG_TIDY="clang-tidy" -DCMAKE_BUILD_TYPE=Debug -G Ninja -DCMAKE_CC=clang -DCMAKE_CXX=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-linux-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-linux-gnu
+          cmake -S . -B build -DCMAKE_CXX_CLANG_TIDY="clang-tidy" -DCMAKE_BUILD_TYPE=Debug -G Ninja -DCMAKE_CC=clang -DCMAKE_CXX=clang++ -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_CXX_COMPILER_TARGET=x86_64-pc-linux-gnu -DCMAKE_C_COMPILER_TARGET=x86_64-pc-linux-gnu -DCMAKE_PREFIX_PATH=build -DCMAKE_MODULE_PATH=build
           cmake --build build --parallel --config Debug
 
   # =========================================================
@@ -196,7 +196,7 @@ jobs:
         sudo apt-get install -y gcovr
 
     - name: Configure
-      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=debug -G "Ninja" -DCOVERAGE=ON
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=debug -G "Ninja" -DCOVERAGE=ON -DCMAKE_PREFIX_PATH=build -DCMAKE_MODULE_PATH=build
 
     - name: Build
       run: cmake --build build --parallel --config debug
