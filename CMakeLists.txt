@@ -141,7 +141,7 @@ include_directories(${GTest_INCLUDE_DIR})
 set(CONAN_LIBS 
     nlohmann_json::nlohmann_json 
     fmt::fmt
-    GTest::GTest
+    GTest::gtest
 )
 
 # build EDIE components
