@@ -127,7 +127,7 @@ find_package(nlohmann_json REQUIRED)
 #find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(cpptoml REQUIRED)
-find_package(gtest REQUIRED)
+find_package(GTest REQUIRED)
 
 add_compile_definitions(SPDLOG_FMT_EXTERNAL)
 add_compile_definitions(FMT_HEADER_ONLY)
