@@ -144,7 +144,7 @@ include_directories(${cpptoml_INCLUDE_DIR})
 
 set(CONAN_LIBS 
     nlohmann_json::nlohmann_json 
-    fmt::fmt
+    #fmt::fmt
 )
 
 # build EDIE components
