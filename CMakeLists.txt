@@ -136,7 +136,7 @@ include_directories(${nlohmann_json_INCLUDE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/lib/)
 include_directories(${fmt_INCLUDE_DIR})
 include_directories(${cpptoml_INCLUDE_DIR})
-include_directories(${GTest_INCLUDE_DIR})
+include_directories(${GTest_INCLUDE_DIRS})
 
 set(CONAN_LIBS 
     nlohmann_json::nlohmann_json 
