@@ -51,6 +51,8 @@ endif()
 
 if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     string(REGEX REPLACE "/W3"  "/W4"  CMAKE_CXX_FLAGS         "${CMAKE_CXX_FLAGS}")
+    string(REGEX REPLACE "/MDd" "/MTd" CMAKE_CXX_FLAGS_DEBUG   "${CMAKE_CXX_FLAGS_DEBUG}")
+    string(REGEX REPLACE "/MD"  "/MT"  CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
     string(REGEX REPLACE "/O2"  "/Ox"  CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
     
     # Disable narrowing conversion, deprecated warnings, and constant conditional expression warnings
@@ -106,6 +108,10 @@ message("CMAKE_CXX_COMPILER_TARGET " ${CMAKE_CXX_COMPILER_TARGET})
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}")
 
+# Fetch the GoogleTest library
+FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip)
+FetchContent_MakeAvailable(googletest)
+
 # Find Git package, if not need to install manually or through .yml file
 find_package(Git)
 if(Git_FOUND)
@@ -127,7 +133,6 @@ find_package(nlohmann_json REQUIRED)
 #find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(cpptoml REQUIRED)
-find_package(gtest REQUIRED)
 
 add_compile_definitions(SPDLOG_FMT_EXTERNAL)
 add_compile_definitions(FMT_HEADER_ONLY)
@@ -136,12 +141,10 @@ include_directories(${nlohmann_json_INCLUDE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/lib/)
 include_directories(${fmt_INCLUDE_DIR})
 include_directories(${cpptoml_INCLUDE_DIR})
-include_directories(${GTest_INCLUDE_DIR})
 
 set(CONAN_LIBS 
     nlohmann_json::nlohmann_json 
     fmt::fmt
-    GTest::gtest
 )
 
 # build EDIE components
