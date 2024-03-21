@@ -11,6 +11,3 @@ CMakeToolchain
 
 [options]
 spdlog/1.13.0:header_only=True
-
-[conf]
-spdlog/1.13.0:extra_definitions=SPDLOG_FMT_EXTERNAL
