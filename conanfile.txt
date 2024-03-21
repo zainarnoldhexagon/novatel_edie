@@ -8,6 +8,3 @@ fmt/10.2.1
 [generators]
 CMakeDeps
 CMakeToolchain
-
-[options]
-spdlog/1.13.0:header_only=True

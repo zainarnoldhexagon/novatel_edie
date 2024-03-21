@@ -134,6 +134,9 @@ find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(cpptoml REQUIRED)
 
+add_compile_definitions(SPDLOG_FMT_EXTERNAL)
+add_compile_definitions(FMT_HEADER_ONLY)
+
 include_directories(${nlohmann_json_INCLUDE_DIR})
 include_directories(${spdlog_INCLUDE_DIR})
 include_directories(${spdlog_setup_INCLUDE_DIR})
@@ -142,7 +145,7 @@ include_directories(${cpptoml_INCLUDE_DIR})
 
 set(CONAN_LIBS 
     nlohmann_json::nlohmann_json 
-    spdlog::spdlog_header_only
+    spdlog::spdlog
     spdlog_setup::spdlog_setup
     fmt::fmt
 )
