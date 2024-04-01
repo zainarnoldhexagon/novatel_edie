@@ -108,6 +108,10 @@ message("CMAKE_CXX_COMPILER_TARGET " ${CMAKE_CXX_COMPILER_TARGET})
 
 set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}")
 
+# Fetch the GoogleTest library
+FetchContent_Declare(googletest URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip)
+FetchContent_MakeAvailable(googletest)
+
 # Find Git package, if not need to install manually or through .yml file
 find_package(Git)
 if(Git_FOUND)
@@ -129,7 +133,6 @@ find_package(spdlog_setup REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(cpptoml REQUIRED)
-find_package(GTest REQUIRED)
 
 add_compile_definitions(SPDLOG_FMT_EXTERNAL)
 add_compile_definitions(FMT_HEADER_ONLY)
@@ -139,17 +142,12 @@ include_directories(${spdlog_INCLUDE_DIR})
 include_directories(${spdlog_setup_INCLUDE_DIR})
 include_directories(${fmt_INCLUDE_DIR})
 include_directories(${cpptoml_INCLUDE_DIR})
-include_directories(${GTest_INCLUDE_DIR})
 
 set(CONAN_LIBS 
     nlohmann_json::nlohmann_json 
     spdlog::spdlog
     spdlog_setup::spdlog_setup
     fmt::fmt
-    GTest::gtest
-    GTest::gmock
-    GTest::Main
-    gtest::gtest
 )
 
 # build EDIE components

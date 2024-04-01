@@ -4,7 +4,6 @@ gegles-spdlog_setup/1.1.0
 cpptoml/0.1.1
 spdlog/1.13.0
 fmt/10.2.1
-gtest/1.13.0
 
 [generators]
 CMakeDeps
