@@ -128,14 +128,15 @@ if(GIT_EXECUTABLE)
         -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/GenerateVersionHeader.cmake)
 endif()
 
+add_compile_definitions(SPDLOG_FMT_EXTERNAL)
+add_compile_definitions(FMT_HEADER_ONLY)
+add_compile_definitions(GTEST_USE_STATIC_LIBS)
+
 find_package(nlohmann_json REQUIRED)
 find_package(spdlog_setup REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(fmt REQUIRED)
 find_package(cpptoml REQUIRED)
-
-add_compile_definitions(SPDLOG_FMT_EXTERNAL)
-add_compile_definitions(FMT_HEADER_ONLY)
 
 include_directories(${nlohmann_json_INCLUDE_DIR})
 include_directories(${spdlog_INCLUDE_DIR})
