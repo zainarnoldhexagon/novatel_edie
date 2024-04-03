@@ -147,7 +147,7 @@ set(CONAN_LIBS
     spdlog::spdlog
     spdlog_setup::spdlog_setup
     fmt::fmt
-    GTest::GTest
+    GTest::gtest
 )
 
 # build EDIE components
