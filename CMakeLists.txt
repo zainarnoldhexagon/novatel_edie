@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(novatel-edie VERSION 3.1.0)
+project(novatel-edie)
 
 enable_testing()
 
