@@ -134,6 +134,7 @@ if(GIT_EXECUTABLE)
 endif()
 
 # build EDIE components
+add_subdirectory(examples)
 add_subdirectory(src/decoders)
 add_subdirectory(src/hw_interface)
 
