@@ -165,7 +165,7 @@ class MessageDecoderTypesTest : public ::testing::Test
                   }";
     }
 
-    virtual void SetUp()
+    void SetUp() override
     {
         try
         {
@@ -183,7 +183,7 @@ class MessageDecoderTypesTest : public ::testing::Test
         }
     }
 
-    virtual void TearDown()
+    void TearDown() override
     {
         pclMyDecoderTester->ShutdownLogger();
 

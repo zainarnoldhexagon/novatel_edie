@@ -54,23 +54,18 @@ extern "C"
                                                                double dLowerTimeSec_);
     DECODERS_EXPORT void novatel_filter_set_include_upper_time(novatel::edie::oem::Filter* pclFilter_, uint32_t uiUpperTime_, double dUpperTimeSec_);
     DECODERS_EXPORT void novatel_filter_invert_time_filter(novatel::edie::oem::Filter* pclFilter_, bool bInvert_);
-
     DECODERS_EXPORT void novatel_filter_set_include_decimation(novatel::edie::oem::Filter* pclFilter_, double dPeriodSec_);
     DECODERS_EXPORT void novatel_filter_invert_decimation_filter(novatel::edie::oem::Filter* pclFilter_, bool bInvert_);
-
     DECODERS_EXPORT void novatel_filter_include_time_status(novatel::edie::oem::Filter* pclFilter_, novatel::edie::TIME_STATUS eTimeStatus_);
     DECODERS_EXPORT void novatel_filter_invert_time_status_filter(novatel::edie::oem::Filter* pclFilter_, bool bInvert_);
-
     DECODERS_EXPORT void novatel_filter_include_message_id(novatel::edie::oem::Filter* pclFilter_, uint32_t uiId_,
                                                            novatel::edie::HEADERFORMAT eFormat_ = novatel::edie::HEADERFORMAT::ALL,
                                                            novatel::edie::MEASUREMENT_SOURCE eSource_ = novatel::edie::MEASUREMENT_SOURCE::PRIMARY);
     DECODERS_EXPORT void novatel_filter_invert_message_id_filter(novatel::edie::oem::Filter* pclFilter_, bool bInvert_);
-
     DECODERS_EXPORT void novatel_filter_include_message_name(novatel::edie::oem::Filter* pclFilter_, uint8_t* pucMessageName_,
                                                              novatel::edie::HEADERFORMAT eFormat_ = novatel::edie::HEADERFORMAT::ALL,
                                                              novatel::edie::MEASUREMENT_SOURCE eSource_ = novatel::edie::MEASUREMENT_SOURCE::PRIMARY);
     DECODERS_EXPORT void novatel_filter_invert_message_name_filter(novatel::edie::oem::Filter* pclFilter_, bool bInvert_);
-
     DECODERS_EXPORT void novatel_filter_include_nmea_messages(novatel::edie::oem::Filter* pclFilter_, bool bInvert_);
 
     // novatel::edie::oem::Filter

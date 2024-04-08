@@ -37,11 +37,13 @@
 #include "decoders/common/api/common.hpp"
 #include "decoders/common/api/jsonreader.hpp"
 
+using namespace novatel::edie;
+
 class JsonReaderTest : public testing::Test
 {
   public:
-    virtual void SetUp() {}
-    virtual void TearDown() {}
+    void SetUp() override {}
+    void TearDown() override {}
 };
 
 // -------------------------------------------------------------------------------------------------------
@@ -70,7 +72,7 @@ TEST_F(JsonReaderTest, AppendEnumerations)
 
 TEST_F(JsonReaderTest, AppendMessages)
 {
-    const uint32_t uiMsgID = 690;
+    constexpr uint32_t uiMsgID = 690;
 
     JsonReader clJson;
     clJson.AppendMessages(std::filesystem::path(std::getenv("TEST_DATABASE_PATH")).string());

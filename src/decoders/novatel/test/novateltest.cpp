@@ -79,10 +79,10 @@ class FramerTest : public ::testing::Test
     static void TearDownTestSuite() { pclMyFramer->ShutdownLogger(); }
 
     // Per-test setup
-    void SetUp() { FlushFramer(); }
+    void SetUp() override { FlushFramer(); }
 
     // Per-test teardown
-    void TearDown() { FlushFramer(); }
+    void TearDown() override { FlushFramer(); }
 
   public:
     template <HEADERFORMAT F, STATUS S> void FramerHelper(uint32_t uiLength_, uint32_t uiFrameLength_)
@@ -2973,7 +2973,7 @@ public:
                   }";
    }
 
-   virtual void SetUp()
+   void SetUp() override
    {
       try
       {
@@ -2991,7 +2991,7 @@ public:
       }
    }
 
-   virtual void TearDown()
+   void TearDown() override
    {
       pclMyDecoderTester->ShutdownLogger();
       for (auto it : MsgDefFields) { delete it; }
@@ -3000,9 +3000,9 @@ public:
 
    void CreateEnumField(std::string name, std::string description, int32_t value)
    {
-      EnumField* stField = new EnumField();
-      EnumDefinition* enumDef = new EnumDefinition();
-      EnumDataType* enumDT = new EnumDataType();
+      auto* stField = new EnumField();
+      auto* enumDef = new EnumDefinition();
+      auto* enumDT = new EnumDataType();
       enumDT->name = name;
       enumDT->description = description;
       enumDT->value = value;

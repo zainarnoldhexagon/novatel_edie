@@ -39,6 +39,7 @@
 #include <memory>
 
 #include "circularbuffer.hpp"
+#include "crc32.hpp"
 #include "logger/logger.hpp"
 
 //============================================================================
@@ -141,7 +142,7 @@ class FramerBase
     //
     //! \param[in] bReportUnknownBytes_ Set to true to return unknown bytes.
     //----------------------------------------------------------------------------
-    virtual void SetReportUnknownBytes(bool bReportUnknownBytes_) { bMyReportUnknownBytes = bReportUnknownBytes_; }
+    void SetReportUnknownBytes(bool bReportUnknownBytes_) { bMyReportUnknownBytes = bReportUnknownBytes_; }
 
     //----------------------------------------------------------------------------
     //! \brief Get the number of bytes available in the internal circular buffer.

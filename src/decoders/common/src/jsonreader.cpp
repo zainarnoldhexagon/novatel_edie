@@ -35,7 +35,7 @@
 namespace novatel::edie {
 
 //-----------------------------------------------------------------------
-void from_json(const json& j, novatel::edie::EnumDataType& f)
+void from_json(const json& j, EnumDataType& f)
 {
     f.value = j.at("value");
     f.name = j.at("name");
@@ -43,7 +43,7 @@ void from_json(const json& j, novatel::edie::EnumDataType& f)
 }
 
 //-----------------------------------------------------------------------
-void from_json(const json& j, novatel::edie::BaseDataType& f)
+void from_json(const json& j, BaseDataType& f)
 {
     auto itrDataTypeMapping = DataTypeEnumLookup.find(j.at("name"));
     f.name = itrDataTypeMapping != DataTypeEnumLookup.end() ? itrDataTypeMapping->second : DATA_TYPE::UNKNOWN;
@@ -52,7 +52,7 @@ void from_json(const json& j, novatel::edie::BaseDataType& f)
 }
 
 //-----------------------------------------------------------------------
-void from_json(const json& j, novatel::edie::SimpleDataType& f)
+void from_json(const json& j, SimpleDataType& f)
 {
     from_json(j, static_cast<BaseDataType&>(f));
 
@@ -63,11 +63,10 @@ void from_json(const json& j, novatel::edie::SimpleDataType& f)
 }
 
 //-----------------------------------------------------------------------
-void from_json(const json& j, novatel::edie::BaseField& f)
+void from_json(const json& j, BaseField& f)
 {
     f.name = j.at("name");
     f.description = j.at("description").is_null() ? "" : j.at("description");
-
     auto itrFieldTypeMapping = FieldTypeEnumLookup.find(j.at("type"));
     f.type = itrFieldTypeMapping != FieldTypeEnumLookup.end() ? itrFieldTypeMapping->second : FIELD_TYPE::UNKNOWN;
 
@@ -83,29 +82,27 @@ void from_json(const json& j, novatel::edie::BaseField& f)
 }
 
 //-----------------------------------------------------------------------
-void from_json(const json& j, novatel::edie::EnumField& f)
+void from_json(const json& j, EnumField& f)
 {
     from_json(j, static_cast<BaseField&>(f));
 
-    if (j.at("enumID").is_null()) throw std::runtime_error("Invalid enum ID - cannot be NULL.  JsonDB file is likely corrupted.");
+    if (j.at("enumID").is_null()) { throw std::runtime_error("Invalid enum ID - cannot be NULL. JsonDB file is likely corrupted."); }
 
     f.enumID = j.at("enumID");
 }
 
 //-----------------------------------------------------------------------
-void from_json(const json& j, novatel::edie::ArrayField& fd)
+void from_json(const json& j, ArrayField& fd)
 {
     from_json(j, static_cast<BaseField&>(fd));
-
     fd.arrayLength = j.at("arrayLength");
     fd.dataType = j.at("dataType");
 }
 
 //-----------------------------------------------------------------------
-void from_json(const json& j, novatel::edie::FieldArrayField& fd)
+void from_json(const json& j, FieldArrayField& fd)
 {
     from_json(j, static_cast<BaseField&>(fd));
-
     fd.arrayLength = j.at("arrayLength").is_null() ? 0 : static_cast<uint32_t>(j.at("arrayLength"));
     fd.fieldSize = fd.arrayLength * parse_fields(j.at("fields"), fd.fields);
 }
@@ -136,56 +133,53 @@ void from_json(const json& j, EnumDefinition& ed)
 }
 
 //-----------------------------------------------------------------------
-uint32_t parse_fields(const json& j, std::vector<novatel::edie::BaseField*>& vFields)
+uint32_t parse_fields(const json& j, std::vector<BaseField*>& vFields)
 {
     uint32_t uiFieldSize = 0;
+
     for (const auto& field : j)
     {
         std::string sFieldType = field.at("type").get<std::string>();
-        novatel::edie::BaseDataType stDataType = field.at("dataType").get<novatel::edie::BaseDataType>();
 
         if (sFieldType == "SIMPLE")
         {
-            novatel::edie::BaseField* pstField = new novatel::edie::BaseField;
+            auto* pstField = new BaseField;
             *pstField = field;
             vFields.push_back(pstField);
-            uiFieldSize += stDataType.length;
+            uiFieldSize += field.at("dataType").get<BaseDataType>().length;
         }
         else if (sFieldType == "ENUM")
         {
-            novatel::edie::EnumField* pstField = new novatel::edie::EnumField;
+            auto* pstField = new EnumField;
             *pstField = field;
-            pstField->length = stDataType.length;
+            pstField->length = field.at("dataType").get<BaseDataType>().length;
             vFields.push_back(pstField);
-            uiFieldSize += stDataType.length;
+            uiFieldSize += pstField->length;
         }
         else if (sFieldType == "FIXED_LENGTH_ARRAY" || sFieldType == "VARIABLE_LENGTH_ARRAY" || sFieldType == "STRING")
         {
-            novatel::edie::ArrayField* pstField = new novatel::edie::ArrayField;
+            auto* pstField = new ArrayField;
             *pstField = field;
             vFields.push_back(pstField);
-            uint32_t uiArrayLength = field.at("arrayLength").get<uint32_t>();
-            uiFieldSize += (stDataType.length * uiArrayLength);
+            uiFieldSize += field.at("dataType").get<BaseDataType>().length * field.at("arrayLength").get<uint32_t>();
         }
         else if (sFieldType == "FIELD_ARRAY")
         {
-            novatel::edie::FieldArrayField* pstField = new novatel::edie::FieldArrayField;
+            auto* pstField = new FieldArrayField;
             *pstField = field;
             vFields.push_back(pstField);
         }
-        else
-            throw std::runtime_error("Could not find field type");
+        else { throw std::runtime_error("Could not find field type"); }
     }
+
     return uiFieldSize;
 }
 
 //-----------------------------------------------------------------------
-void parse_enumerators(const json& j, std::vector<novatel::edie::EnumDataType>& vEnumerators)
+void parse_enumerators(const json& j, std::vector<EnumDataType>& vEnumerators)
 {
     for (const auto& enumerator : j) { vEnumerators.push_back(enumerator); }
 }
-
-} // namespace novatel::edie
 
 //-----------------------------------------------------------------------
 template <typename T> void JsonReader::LoadFile(T filePath)
@@ -193,56 +187,24 @@ template <typename T> void JsonReader::LoadFile(T filePath)
     try
     {
         std::fstream json_file;
-        json_file.open(std::filesystem::path(filePath), std::ios::in);
-        json jDefinitions = json::parse(json_file);
 
+        if constexpr (std::is_same<T, std::string>()) { json_file.open(filePath, std::ios::in); }
+        else { json_file.open(std::filesystem::path(filePath), std::ios::in); }
+
+        json jDefinitions = json::parse(json_file);
         vMessageDefinitions.clear();
-        for (const auto& msg : jDefinitions["messages"])
-        {
-            vMessageDefinitions.push_back(msg); // The JSON object is converted to a MessageDefinition object here
-        }
+        // The JSON object is converted to a MessageDefinition object here
+        for (const auto& msg : jDefinitions["messages"]) { vMessageDefinitions.push_back(msg); }
 
         vEnumDefinitions.clear();
-        for (const auto& enm : jDefinitions["enums"])
-        {
-            vEnumDefinitions.push_back(enm); // The JSON object is converted to a EnumDefinition object here
-        }
+        // The JSON object is converted to a EnumDefinition object here
+        for (const auto& enm : jDefinitions["enums"]) { vEnumDefinitions.push_back(enm); }
 
         GenerateMappings();
     }
     catch (std::exception& e)
     {
-        throw novatel::edie::JsonReaderFailure(__func__, __FILE__, __LINE__, filePath, e.what());
-    }
-}
-
-//-----------------------------------------------------------------------
-template <> void JsonReader::LoadFile<std::string>(std::string filePath)
-{
-    try
-    {
-        std::fstream json_file;
-        json_file.open(filePath, std::ios::in);
-        json jDefinitions = json::parse(json_file);
-
-        vMessageDefinitions.clear();
-
-        for (auto& msg : jDefinitions["messages"])
-        {
-            vMessageDefinitions.push_back(msg); // The JSON object is converted to a MessageDefinition object here
-        }
-
-        vEnumDefinitions.clear();
-        for (auto& enm : jDefinitions["enums"])
-        {
-            vEnumDefinitions.push_back(enm); // The JSON object is converted to a EnumDefinition object here
-        }
-
-        GenerateMappings();
-    }
-    catch (std::exception& e)
-    {
-        throw novatel::edie::JsonReaderFailure(__func__, __FILE__, __LINE__, filePath.c_str(), e.what());
+        throw JsonReaderFailure(__func__, __FILE__, __LINE__, filePath, e.what());
     }
 }
 
@@ -257,19 +219,15 @@ template <typename T> void JsonReader::AppendMessages(T filePath_)
 
         for (const auto& msg : jDefinitions["messages"])
         {
-            const novatel::edie::MessageDefinition msgdef = msg;
-
+            const MessageDefinition msgdef = msg;
             RemoveMessage(msgdef.logID, false);
-
             vMessageDefinitions.push_back(msg); // The JSON object is converted to a MessageDefinition object here
         }
 
         for (const auto& enm : jDefinitions["enums"])
         {
-            const novatel::edie::EnumDefinition enmdef = enm;
-
+            const EnumDefinition enmdef = enm;
             RemoveEnumeration(enmdef.name, false);
-
             vEnumDefinitions.push_back(enm); // The JSON object is converted to a EnumDefinition object here
         }
 
@@ -277,7 +235,7 @@ template <typename T> void JsonReader::AppendMessages(T filePath_)
     }
     catch (std::exception& e)
     {
-        throw novatel::edie::JsonReaderFailure(__func__, __FILE__, __LINE__, filePath_, e.what());
+        throw JsonReaderFailure(__func__, __FILE__, __LINE__, filePath_, e.what());
     }
 }
 
@@ -289,21 +247,19 @@ template <typename T> void JsonReader::AppendEnumerations(T filePath_)
         std::fstream json_file;
         json_file.open(std::filesystem::path(filePath_));
         json jDefinitions = json::parse(json_file);
-
-        for (const auto& enm : jDefinitions["enums"])
-        {
-            vEnumDefinitions.push_back(enm); // The JSON object is converted to a EnumDefinition object here
-        }
+        // The JSON object is converted to a EnumDefinition object here
+        for (const auto& enm : jDefinitions["enums"]) { vEnumDefinitions.push_back(enm); }
 
         GenerateMappings();
     }
     catch (std::exception& e)
     {
-        throw novatel::edie::JsonReaderFailure(__func__, __FILE__, __LINE__, filePath_, e.what());
+        throw JsonReaderFailure(__func__, __FILE__, __LINE__, filePath_, e.what());
     }
 }
 
 // explicit template instantiations
+template void JsonReader::LoadFile<std::string>(std::string filePath);
 template void JsonReader::LoadFile<std::u32string>(std::u32string filePath);
 template void JsonReader::LoadFile<char*>(char* filePath);
 template void JsonReader::LoadFile<const char*>(const char* filePath);
@@ -319,8 +275,7 @@ template void JsonReader::AppendEnumerations<char*>(char* filePath);
 //-----------------------------------------------------------------------
 void JsonReader::RemoveMessage(uint32_t iMsgId_, bool bGenerateMappings_)
 {
-    std::vector<novatel::edie::MessageDefinition>::iterator iTer;
-
+    std::vector<MessageDefinition>::iterator iTer;
     iTer = GetMessageIt(iMsgId_);
 
     if (iTer != vMessageDefinitions.end())
@@ -329,13 +284,13 @@ void JsonReader::RemoveMessage(uint32_t iMsgId_, bool bGenerateMappings_)
         vMessageDefinitions.erase(iTer);
     }
 
-    if (bGenerateMappings_) GenerateMappings();
+    if (bGenerateMappings_) { GenerateMappings(); }
 }
 
 //-----------------------------------------------------------------------
 void JsonReader::RemoveEnumeration(std::string strEnumeration_, bool bGenerateMappings_)
 {
-    std::vector<novatel::edie::EnumDefinition>::iterator iTer;
+    std::vector<EnumDefinition>::iterator iTer;
     iTer = GetEnumIt(strEnumeration_);
 
     if (iTer != vEnumDefinitions.end())
@@ -353,16 +308,12 @@ void JsonReader::ParseJson(const std::string& strJsonData_)
     json jDefinitions = json::parse(strJsonData_);
 
     vMessageDefinitions.clear();
-    for (const auto& msg : jDefinitions["logs"])
-    {
-        vMessageDefinitions.push_back(msg); // The JSON object is converted to a MessageDefinition object here
-    }
+    // The JSON object is converted to a MessageDefinition object here
+    for (const auto& msg : jDefinitions["logs"]) { vMessageDefinitions.push_back(msg); }
 
     vEnumDefinitions.clear();
-    for (const auto& enm : jDefinitions["enums"])
-    {
-        vEnumDefinitions.push_back(enm); // The JSON object is converted to a EnumDefinition object here
-    }
+    // The JSON object is converted to a EnumDefinition object here
+    for (const auto& enm : jDefinitions["enums"]) { vEnumDefinitions.push_back(enm); }
 
     GenerateMappings();
 }
@@ -382,12 +333,12 @@ uint32_t JsonReader::MsgNameToMsgId(std::string sMsgName_) const
     }
 
     // If this is an abbrev msg (no format information), we will be able to find the MsgDef
-    const novatel::edie::MessageDefinition* pclMessageDef = GetMsgDef(sMsgName_);
+    const MessageDefinition* pclMessageDef = GetMsgDef(sMsgName_);
+
     if (pclMessageDef)
     {
         uiResponse = static_cast<uint32_t>(false);
-        uiMsgFormat = static_cast<uint32_t>(novatel::edie::MESSAGEFORMAT::ABBREV);
-
+        uiMsgFormat = static_cast<uint32_t>(MESSAGEFORMAT::ABBREV);
         return CreateMsgID(pclMessageDef->logID, uiSiblingID, uiMsgFormat, uiResponse);
     }
 
@@ -395,22 +346,22 @@ uint32_t JsonReader::MsgNameToMsgId(std::string sMsgName_) const
     {
     case 'R': // ASCII Response
         uiResponse = static_cast<uint32_t>(true);
-        uiMsgFormat = static_cast<uint32_t>(novatel::edie::MESSAGEFORMAT::ASCII);
+        uiMsgFormat = static_cast<uint32_t>(MESSAGEFORMAT::ASCII);
         sMsgName_.pop_back();
         break;
     case 'A': // ASCII
         uiResponse = static_cast<uint32_t>(false);
-        uiMsgFormat = static_cast<uint32_t>(novatel::edie::MESSAGEFORMAT::ASCII);
+        uiMsgFormat = static_cast<uint32_t>(MESSAGEFORMAT::ASCII);
         sMsgName_.pop_back();
         break;
     case 'B': // Binary
         uiResponse = static_cast<uint32_t>(false);
-        uiMsgFormat = static_cast<uint32_t>(novatel::edie::MESSAGEFORMAT::BINARY);
+        uiMsgFormat = static_cast<uint32_t>(MESSAGEFORMAT::BINARY);
         sMsgName_.pop_back();
         break;
     default: // Abbreviated ASCII
         uiResponse = static_cast<uint32_t>(false);
-        uiMsgFormat = static_cast<uint32_t>(novatel::edie::MESSAGEFORMAT::ABBREV);
+        uiMsgFormat = static_cast<uint32_t>(MESSAGEFORMAT::ABBREV);
         break;
     }
 
@@ -429,46 +380,45 @@ std::string JsonReader::MsgIdToMsgName(const uint32_t uiMessageID_) const
 
     UnpackMsgID(uiMessageID_, usLogID, uiSiblingID, uiMessageFormat, uiResponse);
 
-    const novatel::edie::MessageDefinition* pstMessageDefinition = GetMsgDef(usLogID);
+    const MessageDefinition* pstMessageDefinition = GetMsgDef(usLogID);
     std::string strMessageName = pstMessageDefinition ? pstMessageDefinition->name : GetEnumString(vEnumDefinitions.data(), usLogID);
 
-    std::string strMessageFormatSuffix = uiResponse                                                                       ? "R"
-                                         : uiMessageFormat == static_cast<uint32_t>(novatel::edie::MESSAGEFORMAT::BINARY) ? "B"
-                                         : uiMessageFormat == static_cast<uint32_t>(novatel::edie::MESSAGEFORMAT::ASCII)
-                                             ? "A"
-                                             : ""; // default to abbreviated ASCII format
+    std::string strMessageFormatSuffix = uiResponse                                                        ? "R"
+                                         : uiMessageFormat == static_cast<uint32_t>(MESSAGEFORMAT::BINARY) ? "B"
+                                         : uiMessageFormat == static_cast<uint32_t>(MESSAGEFORMAT::ASCII)  ? "A"
+                                                                                                           : ""; // default to ABB ASCII
 
-    if (uiSiblingID) strMessageFormatSuffix.append("_").append(std::to_string(uiSiblingID));
+    if (uiSiblingID) { strMessageFormatSuffix.append("_").append(std::to_string(uiSiblingID)); }
 
     return strMessageName.append(strMessageFormatSuffix);
 }
 
 //-----------------------------------------------------------------------
-const novatel::edie::MessageDefinition* JsonReader::GetMsgDef(const std::string& strMsgName_) const
+const MessageDefinition* JsonReader::GetMsgDef(const std::string& strMsgName_) const
 {
     const auto it = mMessageName.find(strMsgName_);
     return it != mMessageName.end() ? it->second : nullptr;
 }
 
 //-----------------------------------------------------------------------
-// TODO need to look into the map and find the right crc and return the msg def for that CRC
-const novatel::edie::MessageDefinition* JsonReader::GetMsgDef(int32_t iMsgID) const
+// TODO: need to look into the map and find the right crc and return the msg def for that CRC
+const MessageDefinition* JsonReader::GetMsgDef(int32_t iMsgID) const
 {
     const auto it = mMessageID.find(iMsgID);
     return it != mMessageID.end() ? it->second : nullptr;
 }
 
 // -------------------------------------------------------------------------------------------------------
-std::vector<novatel::edie::BaseField*> const* novatel::edie::MessageDefinition::GetMsgDefFromCRC(std::shared_ptr<spdlog::logger> pclLogger_,
-                                                                                                 uint32_t& uiMsgDefCRC_) const
+std::vector<BaseField*> const* MessageDefinition::GetMsgDefFromCRC(std::shared_ptr<spdlog::logger> pclLogger_, uint32_t& uiMsgDefCRC_) const
 {
     // If we can't find the correct CRC just default to the latest.
     if (fields.count(uiMsgDefCRC_) == 0)
     {
-        pclLogger_->info("Log DB is missing the log definition {} - {}.  Defaulting to newest version of the "
-                         "log definition.",
-                         name, uiMsgDefCRC_);
+        pclLogger_->info("Log DB is missing the log definition {} - {}.  Defaulting to newest version of the log definition.", name, uiMsgDefCRC_);
         uiMsgDefCRC_ = latestMessageCrc;
     }
+
     return &fields.at(uiMsgDefCRC_);
 }
+
+} // namespace novatel::edie

@@ -48,14 +48,7 @@ EncoderBase::EncoderBase(JsonReader* pclJsonDb_)
 }
 
 // -------------------------------------------------------------------------------------------------------
-void EncoderBase::LoadJsonDb(JsonReader* pclJsonDb_)
-{
-    pclMyMsgDb = pclJsonDb_;
-    InitEnumDefns();
-}
-
-// -------------------------------------------------------------------------------------------------------
-void EncoderBase::InitEnumDefns() {}
+void EncoderBase::LoadJsonDb(JsonReader* pclJsonDb_) { pclMyMsgDb = pclJsonDb_; }
 
 // -------------------------------------------------------------------------------------------------------
 void EncoderBase::InitFieldMaps()

@@ -134,10 +134,6 @@ class EncoderBase
     std::shared_ptr<spdlog::logger> pclMyLogger{Logger::RegisterLogger("encoder")};
     JsonReader* pclMyMsgDb{nullptr};
 
-    EnumDefinition* vMyCommandDefns{nullptr};
-    EnumDefinition* vMyPortAddrDefns{nullptr};
-    EnumDefinition* vMyGPSTimeStatusDefns{nullptr};
-
     static std::unordered_map<uint64_t, std::function<bool(const FieldContainer&, char**, uint32_t&, [[maybe_unused]] JsonReader*)>> asciiFieldMap;
     static std::unordered_map<uint64_t, std::function<bool(const FieldContainer&, char**, uint32_t&, [[maybe_unused]] JsonReader*)>> jsonFieldMap;
     // is there a way to do this with static variables instead?
@@ -160,7 +156,6 @@ class EncoderBase
     [[nodiscard]] bool FieldToJson(const FieldContainer& fc_, char** ppcOutBuf_, uint32_t& uiBytesLeft_);
     [[nodiscard]] bool EncodeJsonBody(const std::vector<FieldContainer>& vInterFormat_, char** ppcOutBuf_, uint32_t& uiBytesLeft_);
 
-    virtual void InitEnumDefns();
     void InitFieldMaps();
 
   public:

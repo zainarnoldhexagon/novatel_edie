@@ -41,7 +41,6 @@ using namespace novatel::edie::oem;
 HeaderDecoder::HeaderDecoder(JsonReader* pclJsonDb_)
 {
     pclMyLogger->debug("HeaderDecoder initializing...");
-
     if (pclJsonDb_ != nullptr) { LoadJsonDb(pclJsonDb_); }
     pclMyLogger->debug("HeaderDecoder initialized");
 }
@@ -50,7 +49,6 @@ HeaderDecoder::HeaderDecoder(JsonReader* pclJsonDb_)
 void HeaderDecoder::LoadJsonDb(JsonReader* pclJsonDb_)
 {
     pclMyMsgDb = pclJsonDb_;
-
     vMyCommandDefns = pclMyMsgDb->GetEnumDefName("Commands");
     vMyPortAddrDefns = pclMyMsgDb->GetEnumDefName("PortAddress");
     vMyGPSTimeStatusDefns = pclMyMsgDb->GetEnumDefName("GPSTimeStatus");

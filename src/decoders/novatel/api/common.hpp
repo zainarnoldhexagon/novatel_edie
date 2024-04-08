@@ -38,8 +38,8 @@
 //-----------------------------------------------------------------------
 // Includes
 //-----------------------------------------------------------------------
-#include <stdint.h>
-#include <string.h>
+#include <cstdint>
+#include <cstring>
 
 #include "decoders/common/api/common.hpp"
 
@@ -270,4 +270,5 @@ struct OEM4BinaryHeader
 #pragma pack(pop)
 
 } // namespace novatel::edie::oem
+
 #endif // NOVATEL_COMMON_HPP

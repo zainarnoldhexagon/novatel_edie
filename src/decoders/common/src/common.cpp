@@ -37,14 +37,7 @@
 using namespace novatel::edie;
 
 //-----------------------------------------------------------------------
-bool IsEqual(double dVal1_, double dVal2_, double dEpsilon_)
-{
-    double dDiff = dVal1_ - dVal2_;
-
-    if (dDiff < 0) { dDiff *= -1.0; }
-
-    return dDiff < dEpsilon_;
-}
+bool IsEqual(double dVal1_, double dVal2_, double dEpsilon_) { return std::abs(dVal1_ - dVal2_) < dEpsilon_; }
 
 //-----------------------------------------------------------------------
 uint32_t CreateMsgID(uint32_t uiMessageID_, uint32_t uiSiblingID_, uint32_t uiMsgFormat_, uint32_t uiResponse_)
@@ -82,7 +75,7 @@ std::string GetEnumString(const EnumDefinition* const stEnumDef_, uint32_t uiEnu
         }
     }
 
-    return std::string("UNKNOWN");
+    return "UNKNOWN";
 }
 
 //-----------------------------------------------------------------------
@@ -106,10 +99,7 @@ int32_t GetResponseId(const EnumDefinition* const stRespDef_, std::string strRes
     {
         for (auto& e : stRespDef_->enumerators)
         {
-            if (e.description == strResp_) // response string is stored in description
-            {
-                return static_cast<int32_t>(e.value);
-            }
+            if (e.description == strResp_) { return static_cast<int32_t>(e.value); }
         }
     }
 
@@ -122,26 +112,25 @@ int32_t ToDigit(char c) { return static_cast<int32_t>(c - '0'); }
 //-----------------------------------------------------------------------
 bool ConsumeAbbrevFormatting(uint64_t ullTokenLength_, char** ppucMessageBuffer_)
 {
-    bool bIsAbbrev = false;
-
-    if ((ullTokenLength_ == 0 || ullTokenLength_ == 1) &&
-        (static_cast<int8_t>(**ppucMessageBuffer_) == '\r' || static_cast<int8_t>(**ppucMessageBuffer_) == '\n' ||
-         static_cast<int8_t>(**ppucMessageBuffer_) == '<'))
+    if (ullTokenLength_ < 2 && (**ppucMessageBuffer_ == '\r' || **ppucMessageBuffer_ == '\n' || **ppucMessageBuffer_ == '<'))
     {
-        // Skip over '\r\n<     '
+        bool bIsAbbrev = false;
+
         while (true)
         {
-            char c = static_cast<char>(**ppucMessageBuffer_);
-            if (c == '\r' || c == '\n') { *ppucMessageBuffer_ += sizeof(int8_t); }
-            else if (c == '<')
+            switch (**ppucMessageBuffer_)
             {
-                *ppucMessageBuffer_ += sizeof(int8_t);
-                bIsAbbrev = true;
+            case '<': bIsAbbrev = true; [[fallthrough]];
+            case '\r': [[fallthrough]];
+            case '\n': ++(*ppucMessageBuffer_); break;
+            case ' ':
+                if (!bIsAbbrev) { return false; }
+                ++(*ppucMessageBuffer_);
+                break;
+            default: return bIsAbbrev;
             }
-            else if (bIsAbbrev && c == ' ') { *ppucMessageBuffer_ += sizeof(int8_t); }
-            else { break; }
         }
     }
 
-    return bIsAbbrev;
+    return false;
 }

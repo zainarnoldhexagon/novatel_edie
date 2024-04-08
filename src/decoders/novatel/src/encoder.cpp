@@ -45,14 +45,6 @@ Encoder::Encoder(JsonReader* pclJsonDb_) : EncoderBase(pclJsonDb_)
 }
 
 // -------------------------------------------------------------------------------------------------------
-void Encoder::InitEnumDefns()
-{
-    vMyCommandDefns = pclMyMsgDb->GetEnumDefName("Commands");
-    vMyPortAddrDefns = pclMyMsgDb->GetEnumDefName("PortAddress");
-    vMyGPSTimeStatusDefns = pclMyMsgDb->GetEnumDefName("GPSTimeStatus");
-}
-
-// -------------------------------------------------------------------------------------------------------
 void Encoder::InitFieldMaps()
 {
     // =========================================================
@@ -206,7 +198,7 @@ bool Encoder::EncodeAsciiHeader(const IntermediateHeader& stInterHeader_, char**
 
     // Message name
     const MessageDefinition* pclMessageDef = pclMyMsgDb->GetMsgDef(stInterHeader_.usMessageID);
-    std::string sMsgName(pclMessageDef ? pclMessageDef->name : GetEnumString(vMyCommandDefns, stInterHeader_.usMessageID));
+    std::string sMsgName(pclMessageDef ? pclMessageDef->name : GetEnumString(pclMyMsgDb->GetEnumDefName("Commands"), stInterHeader_.usMessageID));
     const uint32_t uiSiblingID = stInterHeader_.ucMessageType & static_cast<uint32_t>(MESSAGETYPEMASK::MEASSRC);
     const uint32_t uiResponse = (stInterHeader_.ucMessageType & static_cast<uint32_t>(MESSAGETYPEMASK::RESPONSE)) >> 7;
     sMsgName.append(uiResponse ? "R" : "A"); // Append 'A' for ascii, or 'R' for ascii response
@@ -214,11 +206,13 @@ bool Encoder::EncodeAsciiHeader(const IntermediateHeader& stInterHeader_, char**
         sMsgName.append("_").append(std::to_string(uiSiblingID));
 
     return PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", sMsgName.c_str(), OEM4_ASCII_FIELD_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyPortAddrDefns, stInterHeader_.uiPortAddress).c_str(),
+           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c",
+                         GetEnumString(pclMyMsgDb->GetEnumDefName("PortAddress"), stInterHeader_.uiPortAddress).c_str(),
                          OEM4_ASCII_FIELD_SEPARATOR) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usSequence, OEM4_ASCII_FIELD_SEPARATOR) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.1f%c", stInterHeader_.ucIdleTime * 0.500, OEM4_ASCII_FIELD_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyGPSTimeStatusDefns, stInterHeader_.uiTimeStatus).c_str(),
+           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c",
+                         GetEnumString(pclMyMsgDb->GetEnumDefName("GPSTimeStatus"), stInterHeader_.uiTimeStatus).c_str(),
                          OEM4_ASCII_FIELD_SEPARATOR) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usWeek, OEM4_ASCII_FIELD_SEPARATOR) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.3f%c", stInterHeader_.dMilliseconds / 1000.0, OEM4_ASCII_FIELD_SEPARATOR) &&
@@ -235,17 +229,19 @@ bool Encoder::EncodeAbbrevAsciiHeader(const IntermediateHeader& stInterHeader_, 
 
     // Message name
     const MessageDefinition* pclMessageDef = pclMyMsgDb->GetMsgDef(stInterHeader_.usMessageID);
-    std::string sMsgName(pclMessageDef ? pclMessageDef->name : GetEnumString(vMyCommandDefns, stInterHeader_.usMessageID));
+    std::string sMsgName(pclMessageDef ? pclMessageDef->name : GetEnumString(pclMyMsgDb->GetEnumDefName("Commands"), stInterHeader_.usMessageID));
     const uint32_t uiSiblingID = stInterHeader_.ucMessageType & static_cast<uint32_t>(MESSAGETYPEMASK::MEASSRC);
     if (uiSiblingID) // Append sibling i.e. the _1 of RANGEA_1
         sMsgName.append("_").append(std::to_string(uiSiblingID));
 
     return PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", sMsgName.c_str(), OEM4_ABBREV_ASCII_SEPARATOR) &&
-                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyPortAddrDefns, stInterHeader_.uiPortAddress).c_str(),
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c",
+                                 GetEnumString(pclMyMsgDb->GetEnumDefName("PortAddress"), stInterHeader_.uiPortAddress).c_str(),
                                  OEM4_ABBREV_ASCII_SEPARATOR) &&
                    PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usSequence, OEM4_ABBREV_ASCII_SEPARATOR) &&
                    PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.1f%c", stInterHeader_.ucIdleTime * 0.500, OEM4_ABBREV_ASCII_SEPARATOR) &&
-                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyGPSTimeStatusDefns, stInterHeader_.uiTimeStatus).c_str(),
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c",
+                                 GetEnumString(pclMyMsgDb->GetEnumDefName("GPSTimeStatus"), stInterHeader_.uiTimeStatus).c_str(),
                                  OEM4_ABBREV_ASCII_SEPARATOR) &&
                    PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usWeek, OEM4_ABBREV_ASCII_SEPARATOR) &&
                    PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.3f%c", stInterHeader_.dMilliseconds / 1000.0, OEM4_ABBREV_ASCII_SEPARATOR) &&
@@ -298,7 +294,7 @@ std::string Encoder::JsonHeaderToMsgName(const IntermediateHeader& stInterHeader
 {
     // Message name
     const MessageDefinition* pclMessageDef = pclMyMsgDb->GetMsgDef(stInterHeader_.usMessageID);
-    std::string sMsgName(pclMessageDef ? pclMessageDef->name : GetEnumString(vMyCommandDefns, stInterHeader_.usMessageID));
+    std::string sMsgName(pclMessageDef ? pclMessageDef->name : GetEnumString(pclMyMsgDb->GetEnumDefName("Commands"), stInterHeader_.usMessageID));
     uint32_t uiSiblingID = stInterHeader_.ucMessageType & 0b00011111;
     // Append sibling i.e. the _1 of RANGEA_1
     if (uiSiblingID) { sMsgName.append("_").append(std::to_string(uiSiblingID)); }
@@ -312,11 +308,12 @@ bool Encoder::EncodeJsonHeader(const IntermediateHeader& stInterHeader_, char** 
     return CopyToBuffer(reinterpret_cast<unsigned char**>(ppcOutBuf_), uiBytesLeft_, "{") &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("message": "%s",)", JsonHeaderToMsgName(stInterHeader_).c_str()) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("id": %hu,)", stInterHeader_.usMessageID) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("port": "%s",)", GetEnumString(vMyPortAddrDefns, stInterHeader_.uiPortAddress).c_str()) &&
+           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("port": "%s",)",
+                         GetEnumString(pclMyMsgDb->GetEnumDefName("PortAddress"), stInterHeader_.uiPortAddress).c_str()) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("sequence_num": %hu,)", stInterHeader_.usSequence) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("percent_idle_time": %.1f,)", static_cast<float>(stInterHeader_.ucIdleTime) * 0.500) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("time_status": "%s",)",
-                         GetEnumString(vMyGPSTimeStatusDefns, stInterHeader_.uiTimeStatus).c_str()) &&
+                         GetEnumString(pclMyMsgDb->GetEnumDefName("GPSTimeStatus"), stInterHeader_.uiTimeStatus).c_str()) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("week": %hu,)", stInterHeader_.usWeek) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("seconds": %.3f,)", (stInterHeader_.dMilliseconds / 1000.0)) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, R"("receiver_status": %ld,)", stInterHeader_.uiReceiverStatus) &&

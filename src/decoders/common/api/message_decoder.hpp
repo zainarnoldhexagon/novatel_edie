@@ -37,6 +37,7 @@
 // Includes
 //-----------------------------------------------------------------------
 #include <cassert>
+#include <cstdarg>
 #include <fstream>
 #include <iostream>
 #include <logger/logger.hpp>
@@ -106,22 +107,22 @@ class MessageDecoderBase
     void CreateResponseMsgDefns();
 
   protected:
-    std::unordered_map<uint32_t, std::function<void(std::vector<FieldContainer>&, const BaseField*, char**, [[maybe_unused]] const size_t,
-                                                    [[maybe_unused]] JsonReader*)>>
+    std::unordered_map<
+        uint32_t, std::function<void(std::vector<FieldContainer>&, const BaseField*, char**, [[maybe_unused]] size_t, [[maybe_unused]] JsonReader*)>>
         asciiFieldMap;
     std::unordered_map<uint32_t, std::function<void(std::vector<FieldContainer>&, const BaseField*, json, [[maybe_unused]] JsonReader*)>>
         jsonFieldMap;
 
-    [[nodiscard]] STATUS DecodeBinary(const std::vector<BaseField*> MsgDefFields_, unsigned char** ppucLogBuf_,
+    [[nodiscard]] STATUS DecodeBinary(std::vector<BaseField*> MsgDefFields_, unsigned char** ppucLogBuf_,
                                       std::vector<FieldContainer>& vIntermediateFormat_, uint32_t uiMessageLength_) const;
     template <bool ABB>
-    [[nodiscard]] STATUS DecodeAscii(const std::vector<BaseField*> MsgDefFields_, char** ppcLogBuf_,
+    [[nodiscard]] STATUS DecodeAscii(std::vector<BaseField*> MsgDefFields_, char** ppcLogBuf_,
                                      std::vector<FieldContainer>& vIntermediateFormat_) const;
-    [[nodiscard]] STATUS DecodeJson(const std::vector<BaseField*> MsgDefFields_, json clJsonFields_,
+    [[nodiscard]] STATUS DecodeJson(std::vector<BaseField*> MsgDefFields_, json clJsonFields_,
                                     std::vector<FieldContainer>& vIntermediateFormat_) const;
 
     void DecodeBinaryField(const BaseField* MessageDataType_, unsigned char** ppcLogBuf_, std::vector<FieldContainer>& vIntermediateFormat_) const;
-    void DecodeAsciiField(const BaseField* MessageDataType_, char** ppcToken_, const size_t tokenLength_,
+    void DecodeAsciiField(const BaseField* MessageDataType_, char** ppcToken_, size_t tokenLength_,
                           std::vector<FieldContainer>& vIntermediateFormat_) const;
     void DecodeJsonField(const BaseField* MessageDataType_, json clJsonField_, std::vector<FieldContainer>& vIntermediateFormat_) const;
 
