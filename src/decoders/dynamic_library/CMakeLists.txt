@@ -1,7 +1,7 @@
 set(TARGET_NAME "decoders_dynamic_library")
 file(GLOB_RECURSE SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 add_library(obj${TARGET_NAME} OBJECT ${SOURCES})
-add_library(${TARGET_NAME} SHARED $<TARGET_OBJECTS:obj${TARGET_NAME}> $<TARGET_OBJECTS:objcommon> $<TARGET_OBJECTS:objnovatel> $<TARGET_OBJECTS:objstream_interface> )
+add_library(${TARGET_NAME} SHARED $<TARGET_OBJECTS:obj${TARGET_NAME}> $<TARGET_OBJECTS:objcommon> $<TARGET_OBJECTS:objnovatel> $<TARGET_OBJECTS:objstream_interface>)
 find_package(Threads REQUIRED)
 target_link_libraries(${TARGET_NAME} PRIVATE Threads::Threads)
 add_custom_command(TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/api/ ${CMAKE_SOURCE_DIR}/bin/api/decoders/${TARGET_NAME}/api/)
