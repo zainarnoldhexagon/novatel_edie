@@ -25,6 +25,7 @@
 // ===============================================================================
 
 #include "jsonreader.hpp"
+#include "common.hpp"
 
 namespace novatel::edie {
 
