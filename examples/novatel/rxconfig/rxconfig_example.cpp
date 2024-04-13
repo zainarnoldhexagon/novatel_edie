@@ -116,7 +116,7 @@ int main(int argc, char* argv[])
     MessageDataStruct stEmbeddedMessageData;
 
     RxConfigHandler clRxConfigHandler(&clJsonDb);
-    STATUS eStatus = STATUS::UNKNOWN;
+    auto eStatus = STATUS::UNKNOWN;
 
     while (!stReadStatus.bEOS)
     {

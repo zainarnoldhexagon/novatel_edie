@@ -24,7 +24,6 @@
 // ! \file range_decompressor.hpp
 // ===============================================================================
 
-
 #ifndef RANGEDECOMPRESSOR_HPP
 #define RANGEDECOMPRESSOR_HPP
 

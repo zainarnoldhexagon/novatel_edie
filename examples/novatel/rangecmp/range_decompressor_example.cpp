@@ -139,7 +139,7 @@ int main(int argc, char* argv[])
     OutputFileStream clOFS(sInFilename.append(".DECOMPRESSED.").append(sEncodeFormat).c_str());
     StreamReadStatus stReadStatus;
 
-    STATUS eStatus = STATUS::UNKNOWN;
+    auto eStatus = STATUS::UNKNOWN;
 
     IntermediateHeader stHeader;
     IntermediateMessage stMessage;

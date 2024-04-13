@@ -52,7 +52,7 @@ class Encoder : public EncoderBase
 {
   private:
     // Enum util functions
-    void InitEnumDefns();
+    void InitEnumDefns() override;
     static void InitFieldMaps();
     std::string JsonHeaderToMsgName(const IntermediateHeader& stInterHeader_) const;
 
@@ -64,7 +64,7 @@ class Encoder : public EncoderBase
     // Encode binary
     [[nodiscard]] bool EncodeBinaryHeader(const IntermediateHeader& stInterHeader_, unsigned char** ppcOutBuf_, uint32_t& uiBytesLeft_);
     [[nodiscard]] bool EncodeBinaryShortHeader(const IntermediateHeader& stInterHeader_, unsigned char** ppcOutBuf_, uint32_t& uiBytesLeft_);
-    [[nodiscard]] bool FieldToBinary(const FieldContainer& fc_, unsigned char** ppcOutBuf_, uint32_t& uiBytesLeft_);
+    [[nodiscard]] bool FieldToBinary(const FieldContainer& fc_, unsigned char** ppcOutBuf_, uint32_t& uiBytesLeft_) override;
 
     // Encode ascii
     [[nodiscard]] bool EncodeAsciiHeader(const IntermediateHeader& stInterHeader_, char** ppcOutBuf_, uint32_t& uiBytesLeft_);

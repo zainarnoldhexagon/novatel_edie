@@ -43,7 +43,7 @@ MultiOutputFileStream::~MultiOutputFileStream()
 void MultiOutputFileStream::SelectFileStream(std::u32string s32FileName_)
 {
     bEnableWideCharSupport = true;
-    WCFstreamMap::iterator itFstreamMapIterator = wmMyFstreamMap.find(s32FileName_);
+    auto itFstreamMapIterator = wmMyFstreamMap.find(s32FileName_);
     if (itFstreamMapIterator != wmMyFstreamMap.end()) { pLocalFileStream = itFstreamMapIterator->second; }
     else
     {
@@ -56,7 +56,7 @@ void MultiOutputFileStream::SelectFileStream(std::u32string s32FileName_)
 
 void MultiOutputFileStream::SelectFileStream(std::string stFileName)
 {
-    FstreamMap::iterator itFstreamMapIterator = mMyFstreamMap.find(stFileName);
+    auto itFstreamMapIterator = mMyFstreamMap.find(stFileName);
     if (itFstreamMapIterator != mMyFstreamMap.end()) { pLocalFileStream = itFstreamMapIterator->second; }
     else
     {
@@ -70,7 +70,7 @@ void MultiOutputFileStream::SelectFileStream(std::string stFileName)
 // ---------------------------------------------------------
 void MultiOutputFileStream::ClearWCFileStreamMap()
 {
-    for (WCFstreamMap::iterator itFstreamMapIterator = wmMyFstreamMap.begin(); itFstreamMapIterator != wmMyFstreamMap.end();)
+    for (auto itFstreamMapIterator = wmMyFstreamMap.begin(); itFstreamMapIterator != wmMyFstreamMap.end();)
     {
         if (itFstreamMapIterator->second) { delete itFstreamMapIterator->second; }
         itFstreamMapIterator = wmMyFstreamMap.erase(itFstreamMapIterator);
@@ -81,7 +81,7 @@ void MultiOutputFileStream::ClearWCFileStreamMap()
 // ---------------------------------------------------------
 void MultiOutputFileStream::ClearFileStreamMap()
 {
-    for (FstreamMap::iterator itFstreamMapIterator = mMyFstreamMap.begin(); itFstreamMapIterator != mMyFstreamMap.end();)
+    for (auto itFstreamMapIterator = mMyFstreamMap.begin(); itFstreamMapIterator != mMyFstreamMap.end();)
     {
         if (itFstreamMapIterator->second) { delete itFstreamMapIterator->second; }
         itFstreamMapIterator = mMyFstreamMap.erase(itFstreamMapIterator);
@@ -221,7 +221,7 @@ void MultiOutputFileStream::SelectWCTimeFile(novatel::edie::TIME_STATUS eStatus_
     // Dont consider these time status for calculation.
     if (pLocalFileStream != NULL)
     {
-        if ((eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN) || (eStatus_ == novatel::edie::TIME_STATUS::SATTIME)) return;
+        if ((eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN) || (eStatus_ == novatel::edie::TIME_STATUS::SATTIME)) { return; }
     }
     if (dMyTimeSplitSize * HR_TO_SEC >= MIN_TIME_SPLIT_SEC)
     {
@@ -263,7 +263,7 @@ void MultiOutputFileStream::SelectTimeFile(novatel::edie::TIME_STATUS eStatus_, 
     // Dont consider these time stutus for calculation.
     if (pLocalFileStream != NULL)
     {
-        if (eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN || eStatus_ == novatel::edie::TIME_STATUS::SATTIME) return;
+        if (eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN || eStatus_ == novatel::edie::TIME_STATUS::SATTIME) { return; }
     }
     if (dMyTimeSplitSize * HR_TO_SEC >= MIN_TIME_SPLIT_SEC)
     {
@@ -306,24 +306,18 @@ uint32_t MultiOutputFileStream::WriteData(char* pcData_, uint32_t uiDataLength_,
         switch (eMyFileSplitMethodEnum)
         {
         case SPLIT_LOG:
-            if (bEnableWideCharSupport)
-                SelectWCLogFile(strMsgName_);
-            else
-                SelectLogFile(strMsgName_);
+            if (bEnableWideCharSupport) { SelectWCLogFile(strMsgName_); }
+            else { SelectLogFile(strMsgName_); }
             break;
 
         case SPLIT_SIZE:
-            if (bEnableWideCharSupport)
-                SelectWCSizeFile(uiSize_);
-            else
-                SelectSizeFile(uiSize_);
+            if (bEnableWideCharSupport) { SelectWCSizeFile(uiSize_); }
+            else { SelectSizeFile(uiSize_); }
             break;
 
         case SPLIT_TIME:
-            if (bEnableWideCharSupport)
-                SelectWCTimeFile(eStatus_, usWeek_, dMilliseconds_);
-            else
-                SelectTimeFile(eStatus_, usWeek_, dMilliseconds_);
+            if (bEnableWideCharSupport) { SelectWCTimeFile(eStatus_, usWeek_, dMilliseconds_); }
+            else { SelectTimeFile(eStatus_, usWeek_, dMilliseconds_); }
             break;
         default: break;
         }

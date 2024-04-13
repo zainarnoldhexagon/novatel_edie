@@ -119,7 +119,7 @@ void MessageDecoder::InitOEMFieldMaps()
 
     jsonFieldMap[CalculateBlockCRC32("%id")] = [](std::vector<FieldContainer>& vIntermediateFormat_, const BaseField* MessageDataType_,
                                                   json clJsonField_, [[maybe_unused]] JsonReader* pclMsgDb) {
-        std::string sTemp(clJsonField_.get<std::string>());
+        auto sTemp(clJsonField_.get<std::string>());
 
         uint16_t usSlot = 0;
         int16_t sFreq = 0;

@@ -95,10 +95,8 @@ std::string InputFileStream::WCFileExtension()
 // ---------------------------------------------------------
 std::string InputFileStream::GetFileExtension()
 {
-    if (bEnableWideCharSupport)
-        return WCFileExtension();
-    else
-        return FileExtension();
+    if (bEnableWideCharSupport) { return WCFileExtension(); }
+    else { return FileExtension(); }
 }
 
 // ---------------------------------------------------------

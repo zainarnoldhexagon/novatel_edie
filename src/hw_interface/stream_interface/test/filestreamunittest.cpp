@@ -39,9 +39,9 @@
 class FileStreamTest : public ::testing::Test
 {
   public:
-    virtual void SetUp() {}
+    void SetUp() override {}
 
-    virtual void TearDown() {}
+    void TearDown() override {}
 
   private:
   protected:
@@ -53,7 +53,7 @@ TEST_F(FileStreamTest, Constructors)
     FileStream* pMyTestCommand1 = nullptr;
 
     pMyTestCommand = new FileStream("filestream_file1.asc");
-    std::string testString = std::string("filestream_file1.asc");
+    auto testString = std::string("filestream_file1.asc");
     ASSERT_EQ(testString, pMyTestCommand->GetFileName());
 
     try

@@ -110,7 +110,7 @@ int main(int argc, char* argv[])
     novatel_filter_set_logger_level(pclFilter, static_cast<uint32_t>(spdlog::level::debug));
 
     // Initialize structures and error codes
-    STATUS eStatus = STATUS::UNKNOWN;
+    auto eStatus = STATUS::UNKNOWN;
 
     MetaDataStruct stMetaData;
     MessageDataStruct stMessageData;
