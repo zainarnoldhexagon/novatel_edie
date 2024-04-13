@@ -251,10 +251,7 @@ bool EncoderBase::EncodeAsciiBody(const std::vector<FieldContainer>& vIntermedia
     if constexpr (ABBREVIATED)
     {
         std::string strIndentation(static_cast<uint64_t>(uiIndentationLevel) * indentationLengthAbbASCII(), ' ');
-        if (!PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "<%s", strIndentation.c_str()))
-        {
-            return false;
-        }
+        if (!PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "<%s", strIndentation.c_str())) { return false; }
     }
 
     for (const auto& field : vIntermediateFormat_)
@@ -264,10 +261,7 @@ bool EncoderBase::EncodeAsciiBody(const std::vector<FieldContainer>& vIntermedia
             if (new_indent_line)
             {
                 std::string strIndentation(static_cast<uint64_t>(uiIndentationLevel) * indentationLengthAbbASCII(), ' ');
-                if (!PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "\r\n<%s", strIndentation.c_str()))
-                {
-                    return false;
-                }
+                if (!PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "\r\n<%s", strIndentation.c_str())) { return false; }
                 new_indent_line = false;
             }
         }
@@ -289,10 +283,7 @@ bool EncoderBase::EncodeAsciiBody(const std::vector<FieldContainer>& vIntermedia
                     if (vCurrentFieldArrayField.empty())
                     {
                         std::string strIndentation(static_cast<uint64_t>(uiIndentationLevel + 1) * indentationLengthAbbASCII(), ' ');
-                        if (!PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "\r\n<%s", strIndentation.c_str()))
-                        {
-                            return false;
-                        }
+                        if (!PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "\r\n<%s", strIndentation.c_str())) { return false; }
                     }
                     // Data was printed so a new line is required at the end of the array if there are more fields in the log
                     else

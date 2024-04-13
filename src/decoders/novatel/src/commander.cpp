@@ -77,10 +77,7 @@ void Commander::CreateResponseMsgDefns()
     stRespIdField.name = "response_id";
     stRespIdField.type = FIELD_TYPE::RESPONSE_ID;
     stRespIdField.dataType = stRespIdDataType;
-    if (vMyRespDefns != nullptr)
-    {
-        stRespIdField.enumID = vMyRespDefns->_id;
-    }
+    if (vMyRespDefns != nullptr) { stRespIdField.enumID = vMyRespDefns->_id; }
     stRespIdField.enumDef = vMyRespDefns;
 
     // String response ID

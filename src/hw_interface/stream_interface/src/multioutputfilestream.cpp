@@ -221,10 +221,7 @@ void MultiOutputFileStream::SelectWCTimeFile(novatel::edie::TIME_STATUS eStatus_
     // Dont consider these time status for calculation.
     if (pLocalFileStream != NULL)
     {
-        if ((eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN) || (eStatus_ == novatel::edie::TIME_STATUS::SATTIME))
-        {
-            return;
-        }
+        if ((eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN) || (eStatus_ == novatel::edie::TIME_STATUS::SATTIME)) { return; }
     }
     if (dMyTimeSplitSize * HR_TO_SEC >= MIN_TIME_SPLIT_SEC)
     {
@@ -266,10 +263,7 @@ void MultiOutputFileStream::SelectTimeFile(novatel::edie::TIME_STATUS eStatus_, 
     // Dont consider these time stutus for calculation.
     if (pLocalFileStream != NULL)
     {
-        if (eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN || eStatus_ == novatel::edie::TIME_STATUS::SATTIME)
-        {
-            return;
-        }
+        if (eStatus_ == novatel::edie::TIME_STATUS::UNKNOWN || eStatus_ == novatel::edie::TIME_STATUS::SATTIME) { return; }
     }
     if (dMyTimeSplitSize * HR_TO_SEC >= MIN_TIME_SPLIT_SEC)
     {
@@ -312,36 +306,18 @@ uint32_t MultiOutputFileStream::WriteData(char* pcData_, uint32_t uiDataLength_,
         switch (eMyFileSplitMethodEnum)
         {
         case SPLIT_LOG:
-            if (bEnableWideCharSupport)
-            {
-                SelectWCLogFile(strMsgName_);
-            }
-            else
-            {
-                SelectLogFile(strMsgName_);
-            }
+            if (bEnableWideCharSupport) { SelectWCLogFile(strMsgName_); }
+            else { SelectLogFile(strMsgName_); }
             break;
 
         case SPLIT_SIZE:
-            if (bEnableWideCharSupport)
-            {
-                SelectWCSizeFile(uiSize_);
-            }
-            else
-            {
-                SelectSizeFile(uiSize_);
-            }
+            if (bEnableWideCharSupport) { SelectWCSizeFile(uiSize_); }
+            else { SelectSizeFile(uiSize_); }
             break;
 
         case SPLIT_TIME:
-            if (bEnableWideCharSupport)
-            {
-                SelectWCTimeFile(eStatus_, usWeek_, dMilliseconds_);
-            }
-            else
-            {
-                SelectTimeFile(eStatus_, usWeek_, dMilliseconds_);
-            }
+            if (bEnableWideCharSupport) { SelectWCTimeFile(eStatus_, usWeek_, dMilliseconds_); }
+            else { SelectTimeFile(eStatus_, usWeek_, dMilliseconds_); }
             break;
         default: break;
         }

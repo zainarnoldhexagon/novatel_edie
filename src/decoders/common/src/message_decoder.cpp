@@ -99,10 +99,7 @@ void MessageDecoderBase::InitFieldMaps()
         {
             vIntermediateFormat_.emplace_back(std::string(*ppcToken_, tokenLength_) == "TRUE", MessageDataType_);
         }
-        else
-        {
-            vIntermediateFormat_.emplace_back(static_cast<int32_t>(strtol(*ppcToken_, nullptr, 10)), MessageDataType_);
-        }
+        else { vIntermediateFormat_.emplace_back(static_cast<int32_t>(strtol(*ppcToken_, nullptr, 10)), MessageDataType_); }
     };
 
     asciiFieldMap[CalculateBlockCRC32("%u")] = [](std::vector<FieldContainer>& vIntermediateFormat_, const BaseField* MessageDataType_,
@@ -178,14 +175,8 @@ void MessageDecoderBase::InitFieldMaps()
 
     jsonFieldMap[CalculateBlockCRC32("%d")] = [](std::vector<FieldContainer>& vIntermediateFormat_, const BaseField* MessageDataType_,
                                                  json clJsonField_, [[maybe_unused]] JsonReader* pclMsgDb) {
-        if (MessageDataType_->dataType.name == DATA_TYPE::BOOL)
-        {
-            vIntermediateFormat_.emplace_back(clJsonField_.get<bool>(), MessageDataType_);
-        }
-        else
-        {
-            vIntermediateFormat_.emplace_back(clJsonField_.get<int32_t>(), MessageDataType_);
-        }
+        if (MessageDataType_->dataType.name == DATA_TYPE::BOOL) { vIntermediateFormat_.emplace_back(clJsonField_.get<bool>(), MessageDataType_); }
+        else { vIntermediateFormat_.emplace_back(clJsonField_.get<int32_t>(), MessageDataType_); }
     };
 
     jsonFieldMap[CalculateBlockCRC32("%u")] = [](std::vector<FieldContainer>& vIntermediateFormat_, const BaseField* MessageDataType_,
@@ -228,10 +219,7 @@ void MessageDecoderBase::CreateResponseMsgDefns()
     stRespIdField.name = "response_id";
     stRespIdField.type = FIELD_TYPE::RESPONSE_ID;
     stRespIdField.dataType = stRespIdDataType;
-    if (vMyRespDefns != nullptr)
-    {
-        stRespIdField.enumID = vMyRespDefns->_id;
-    }
+    if (vMyRespDefns != nullptr) { stRespIdField.enumID = vMyRespDefns->_id; }
     stRespIdField.enumDef = vMyRespDefns;
 
     // String response ID
@@ -550,10 +538,7 @@ STATUS MessageDecoderBase::DecodeAscii(const std::vector<BaseField*> MsgDefField
                     }
                 }
             }
-            if (!bIsCommaSeperated)
-            {
-                *ppucLogBuf_ += tokenLength + 1;
-            }
+            if (!bIsCommaSeperated) { *ppucLogBuf_ += tokenLength + 1; }
             break;
         }
         case FIELD_TYPE::FIELD_ARRAY: {

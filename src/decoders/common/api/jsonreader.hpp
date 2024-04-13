@@ -646,32 +646,20 @@ class JsonReader
     {
         // Check string against name map
         auto itName = mMessageName.find(msg.name);
-        if (itName != mMessageName.end())
-        {
-            mMessageName.erase(itName);
-        }
+        if (itName != mMessageName.end()) { mMessageName.erase(itName); }
 
         auto itId = mMessageID.find(msg.logID);
-        if (itId != mMessageID.end())
-        {
-            mMessageID.erase(itId);
-        }
+        if (itId != mMessageID.end()) { mMessageID.erase(itId); }
     }
 
     void RemoveEnumerationMapping(novatel::edie::EnumDefinition& enm)
     {
         // Check string against name map
         auto itName = mEnumName.find(enm.name);
-        if (itName != mEnumName.end())
-        {
-            mEnumName.erase(itName);
-        }
+        if (itName != mEnumName.end()) { mEnumName.erase(itName); }
 
         auto itId = mEnumID.find(enm._id);
-        if (itId != mEnumID.end())
-        {
-            mEnumID.erase(itId);
-        }
+        if (itId != mEnumID.end()) { mEnumID.erase(itId); }
     }
 
     std::vector<novatel::edie::MessageDefinition>::iterator GetMessageIt(uint32_t iMsgId_)

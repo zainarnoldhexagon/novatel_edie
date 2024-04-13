@@ -80,10 +80,7 @@ class MessageDecoderTypesTest : public ::testing::Test
                     ASSERT_NEAR(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz],
                                 std::abs(vTargets[sz]) * std::numeric_limits<T>::epsilon());
                 }
-                else
-                {
-                    ASSERT_EQ(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz]);
-                }
+                else { ASSERT_EQ(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz]); }
             }
         }
 
@@ -124,10 +121,7 @@ class MessageDecoderTypesTest : public ::testing::Test
                     ASSERT_NEAR(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz],
                                 std::abs(vTargets[sz]) * std::numeric_limits<T>::epsilon());
                 }
-                else
-                {
-                    ASSERT_EQ(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz]);
-                }
+                else { ASSERT_EQ(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz]); }
             }
         }
     };
@@ -179,10 +173,7 @@ class MessageDecoderTypesTest : public ::testing::Test
         {
             std::cout << e.what() << std::endl;
 
-            for (auto it : MsgDefFields)
-            {
-                delete it;
-            }
+            for (auto it : MsgDefFields) { delete it; }
 
             MsgDefFields.clear();
         }
@@ -192,10 +183,7 @@ class MessageDecoderTypesTest : public ::testing::Test
     {
         pclMyDecoderTester->ShutdownLogger();
 
-        for (auto it : MsgDefFields)
-        {
-            delete it;
-        }
+        for (auto it : MsgDefFields) { delete it; }
 
         MsgDefFields.clear();
     }

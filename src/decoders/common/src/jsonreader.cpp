@@ -68,14 +68,8 @@ void from_json(const json& j, novatel::edie::BaseField& f)
 
     if (j.find("conversionString") != j.end())
     {
-        if (j.at("conversionString").is_null())
-        {
-            f.conversion = "";
-        }
-        else
-        {
-            f.setConversion(j.at("conversionString"));
-        }
+        if (j.at("conversionString").is_null()) { f.conversion = ""; }
+        else { f.setConversion(j.at("conversionString")); }
     }
 
     f.dataType = j.at("dataType");
@@ -86,10 +80,7 @@ void from_json(const json& j, novatel::edie::EnumField& f)
 {
     from_json(j, static_cast<BaseField&>(f));
 
-    if (j.at("enumID").is_null())
-    {
-        throw std::runtime_error("Invalid enum ID - cannot be NULL.  JsonDB file is likely corrupted.");
-    }
+    if (j.at("enumID").is_null()) { throw std::runtime_error("Invalid enum ID - cannot be NULL.  JsonDB file is likely corrupted."); }
 
     f.enumID = j.at("enumID");
 }
@@ -175,10 +166,7 @@ uint32_t parse_fields(const json& j, std::vector<novatel::edie::BaseField*>& vFi
             *pstField = field;
             vFields.push_back(pstField);
         }
-        else
-        {
-            throw std::runtime_error("Could not find field type");
-        }
+        else { throw std::runtime_error("Could not find field type"); }
     }
     return uiFieldSize;
 }
@@ -333,10 +321,7 @@ void JsonReader::RemoveMessage(uint32_t iMsgId_, bool bGenerateMappings_)
         vMessageDefinitions.erase(iTer);
     }
 
-    if (bGenerateMappings_)
-    {
-        GenerateMappings();
-    }
+    if (bGenerateMappings_) { GenerateMappings(); }
 }
 
 //-----------------------------------------------------------------------
@@ -351,10 +336,7 @@ void JsonReader::RemoveEnumeration(std::string strEnumeration_, bool bGenerateMa
         vEnumDefinitions.erase(iTer);
     }
 
-    if (bGenerateMappings_)
-    {
-        GenerateMappings();
-    }
+    if (bGenerateMappings_) { GenerateMappings(); }
 }
 
 //-----------------------------------------------------------------------
@@ -448,10 +430,7 @@ std::string JsonReader::MsgIdToMsgName(const uint32_t uiMessageID_) const
                                              ? "A"
                                              : ""; // default to abbreviated ASCII format
 
-    if (uiSiblingID)
-    {
-        strMessageFormatSuffix.append("_").append(std::to_string(uiSiblingID));
-    }
+    if (uiSiblingID) { strMessageFormatSuffix.append("_").append(std::to_string(uiSiblingID)); }
 
     return strMessageName.append(strMessageFormatSuffix);
 }

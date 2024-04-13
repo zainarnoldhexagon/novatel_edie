@@ -239,19 +239,19 @@ bool Encoder::EncodeAbbrevAsciiHeader(const IntermediateHeader& stInterHeader_, 
     }
 
     return PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", sMsgName.c_str(), OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyPortAddrDefns, stInterHeader_.uiPortAddress).c_str(),
-                         OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usSequence, OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.1f%c", stInterHeader_.ucIdleTime * 0.500, OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyGPSTimeStatusDefns, stInterHeader_.uiTimeStatus).c_str(),
-                         OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usWeek, OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.3f%c", stInterHeader_.dMilliseconds / 1000.0, OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%08lx%c", stInterHeader_.uiReceiverStatus, OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%04x%c", stInterHeader_.uiMessageDefinitionCRC, OEM4_ABBREV_ASCII_SEPARATOR) &&
-           PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu", stInterHeader_.usReceiverSwVersion)
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyPortAddrDefns, stInterHeader_.uiPortAddress).c_str(),
+                                 OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usSequence, OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.1f%c", stInterHeader_.ucIdleTime * 0.500, OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyGPSTimeStatusDefns, stInterHeader_.uiTimeStatus).c_str(),
+                                 OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usWeek, OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%.3f%c", stInterHeader_.dMilliseconds / 1000.0, OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%08lx%c", stInterHeader_.uiReceiverStatus, OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%04x%c", stInterHeader_.uiMessageDefinitionCRC, OEM4_ABBREV_ASCII_SEPARATOR) &&
+                   PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu", stInterHeader_.usReceiverSwVersion)
                ? bIsEmbeddedHeader_ ? PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%c", OEM4_ABBREV_ASCII_SEPARATOR)
-                     : PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "\r\n")
+                                    : PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "\r\n")
                : false;
 }
 
