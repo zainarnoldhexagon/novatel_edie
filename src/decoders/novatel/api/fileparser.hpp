@@ -27,11 +27,6 @@
 #ifndef NOVATEL_FILEPARSER_HPP
 #define NOVATEL_FILEPARSER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
-#include <unordered_map>
-
 #include "decoders/common/api/common.hpp"
 #include "decoders/novatel/api/parser.hpp"
 #include "hw_interface/stream_interface/api/inputfilestream.hpp"

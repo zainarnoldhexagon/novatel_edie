@@ -27,12 +27,7 @@
 #ifndef OUTPUTSTREAMINTERFACE_HPP
 #define OUTPUTSTREAMINTERFACE_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <string>
-
-#include "decoders/common/api/common.hpp"
 
 //-----------------------------------------------------------------------
 // Globals

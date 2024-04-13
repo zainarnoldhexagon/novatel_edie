@@ -27,9 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_NOVATEL_COMMANDER_HPP
 #define DYNAMIC_LIBRARY_NOVATEL_COMMANDER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/common/api/jsonreader.hpp"
 #include "decoders/novatel/api/commander.hpp"
 #include "decoders/novatel/api/common.hpp"

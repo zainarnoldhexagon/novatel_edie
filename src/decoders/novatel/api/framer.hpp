@@ -27,9 +27,6 @@
 #ifndef NOVATEL_FRAMER_HPP
 #define NOVATEL_FRAMER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/common/api/framer.hpp"
 #include "decoders/novatel/api/common.hpp"
 

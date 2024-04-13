@@ -36,9 +36,6 @@
 #ifndef INPUTMEMORYSTREAM_HPP
 #define INPUTMEMORYSTREAM_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "inputstreaminterface.hpp"
 #include "memorystream.hpp"
 

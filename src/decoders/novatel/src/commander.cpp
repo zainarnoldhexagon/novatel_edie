@@ -26,8 +26,6 @@
 
 #include "decoders/novatel/api/commander.hpp"
 
-#include <bitset>
-
 using namespace novatel::edie;
 using namespace novatel::edie::oem;
 

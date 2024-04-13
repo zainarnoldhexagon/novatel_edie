@@ -24,20 +24,13 @@
 // ! \file rxconfigtest.cpp
 // ===============================================================================
 
-#include <gtest/gtest.h>
-
 #include <chrono>
 #include <filesystem>
-#include <fstream>
-#include <iostream>
+#include <gtest/gtest.h>
 
 #include "decoders/common/api/common.hpp"
 #include "decoders/common/api/jsonreader.hpp"
 #include "decoders/common/api/message_decoder.hpp"
-#include "decoders/novatel/api/encoder.hpp"
-#include "decoders/novatel/api/filter.hpp"
-#include "decoders/novatel/api/framer.hpp"
-#include "decoders/novatel/api/header_decoder.hpp"
 #include "decoders/novatel/api/rxconfig/rxconfig_handler.hpp"
 
 using namespace std;

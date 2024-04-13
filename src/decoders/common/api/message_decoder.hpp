@@ -27,22 +27,12 @@
 #ifndef MESSAGE_DECODER_HPP
 #define MESSAGE_DECODER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
-#include <cassert>
-#include <fstream>
-#include <iostream>
 #include <logger/logger.hpp>
-#include <map>
 #include <nlohmann/json.hpp>
-#include <sstream>
-#include <stdarg.h>
 #include <string>
 #include <variant>
 
 #include "decoders/common/api/common.hpp"
-#include "decoders/common/api/crc32.hpp"
 #include "decoders/common/api/jsonreader.hpp"
 #include "decoders/common/api/message_decoder.hpp"
 

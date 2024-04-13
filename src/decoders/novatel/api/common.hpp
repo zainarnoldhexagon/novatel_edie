@@ -27,9 +27,6 @@
 #ifndef NOVATEL_COMMON_HPP
 #define NOVATEL_COMMON_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <stdint.h>
 #include <string.h>
 

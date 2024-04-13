@@ -27,22 +27,10 @@
 #ifndef NOVATEL_HEADER_DECODER_HPP
 #define NOVATEL_HEADER_DECODER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
-#include <stdarg.h>
-
-#include <cassert>
-#include <fstream>
-#include <iostream>
 #include <logger/logger.hpp>
 #include <nlohmann/json.hpp>
-#include <sstream>
-#include <string>
-#include <variant>
 
 #include "decoders/common/api/common.hpp"
-#include "decoders/common/api/crc32.hpp"
 #include "decoders/common/api/jsonreader.hpp"
 #include "decoders/novatel/api/common.hpp"
 

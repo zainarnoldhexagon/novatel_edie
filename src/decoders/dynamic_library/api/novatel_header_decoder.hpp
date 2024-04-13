@@ -27,11 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_NOVATEL_HEADER_DECODER_HPP
 #define DYNAMIC_LIBRARY_NOVATEL_HEADER_DECODER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
-#include <string.h>
-
 #include "decoders/novatel/api/common.hpp"
 #include "decoders/novatel/api/header_decoder.hpp"
 #include "decoders_export.h"

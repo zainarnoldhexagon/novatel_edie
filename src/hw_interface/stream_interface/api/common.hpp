@@ -27,9 +27,6 @@
 #ifndef STREAMINTERFACE_COMMON_HPP
 #define STREAMINTERFACE_COMMON_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/common/api/common.hpp"
 
 /*! An Enum.

@@ -24,9 +24,6 @@
 // ! \file range_decompressor_example.cpp
 // ===============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <chrono>
 
 #include "src/decoders/common/api/message_decoder.hpp"

@@ -27,9 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_NOVATEL_MESSAGE_DECODER_HPP
 #define DYNAMIC_LIBRARY_NOVATEL_MESSAGE_DECODER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/novatel/api/common.hpp"
 #include "decoders/novatel/api/message_decoder.hpp"
 #include "decoders_export.h"

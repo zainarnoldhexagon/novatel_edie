@@ -27,14 +27,8 @@
 #ifndef FILESTREAM_HPP
 #define FILESTREAM_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
-#include <cstring>
 #include <filesystem>
 #include <fstream>
-#include <iostream>
-#include <limits>
 
 #include "common.hpp"
 

@@ -27,11 +27,7 @@
 #ifndef DYNAMIC_LIBRARY_LOGGER_HPP
 #define DYNAMIC_LIBRARY_LOGGER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <cstdint>
-#include <string>
 
 #include "decoders_export.h"
 

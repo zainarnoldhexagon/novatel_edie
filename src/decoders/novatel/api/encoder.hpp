@@ -27,11 +27,6 @@
 #ifndef NOVATEL_ENCODER_HPP
 #define NOVATEL_ENCODER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
-#include <cassert>
-#include <logger/logger.hpp>
 #include <nlohmann/json.hpp>
 
 #include "decoders/common/api/common.hpp"

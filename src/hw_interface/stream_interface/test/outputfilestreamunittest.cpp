@@ -24,9 +24,8 @@
 // ! \file outputfilestreamunittest.cpp
 // ===============================================================================
 
-#include <gtest/gtest.h>
-
 #include <filesystem>
+#include <gtest/gtest.h>
 #include <string>
 
 #include "hw_interface/stream_interface/api/outputfilestream.hpp"

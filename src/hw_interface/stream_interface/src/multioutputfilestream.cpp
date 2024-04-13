@@ -24,10 +24,10 @@
 // ! \file multioutputfilestream.cpp
 // ===============================================================================
 
-#include "multioutputfilestream.hpp"
-
 #include <iterator>
 #include <map>
+
+#include "multioutputfilestream.hpp"
 
 // ---------------------------------------------------------
 MultiOutputFileStream::~MultiOutputFileStream()

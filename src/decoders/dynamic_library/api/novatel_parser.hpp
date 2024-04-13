@@ -27,9 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_NOVATEL_PARSER_HPP
 #define DYNAMIC_LIBRARY_NOVATEL_PARSER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/novatel/api/common.hpp"
 #include "decoders/novatel/api/parser.hpp"
 #include "decoders_export.h"

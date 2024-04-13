@@ -27,9 +27,6 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <cstdint>
 #include <cstring>
 #include <string>

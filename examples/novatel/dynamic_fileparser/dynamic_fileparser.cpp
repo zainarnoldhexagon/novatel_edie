@@ -24,10 +24,8 @@
 // ! \file dynamic_fileparser.cpp
 // ===============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <chrono>
+#include <stdlib.h>
 
 #include "src/decoders/dynamic_library/api/common_jsonreader.hpp"
 #include "src/decoders/dynamic_library/api/novatel_fileparser.hpp"

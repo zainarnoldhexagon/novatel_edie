@@ -24,9 +24,9 @@
 // ! \file encoder.cpp
 // ===============================================================================
 
-#include "decoders/novatel/api/encoder.hpp"
-
 #include <bitset>
+
+#include "decoders/novatel/api/encoder.hpp"
 
 using namespace novatel::edie;
 using namespace novatel::edie::oem;

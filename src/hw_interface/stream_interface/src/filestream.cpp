@@ -24,13 +24,10 @@
 // ! \file filestream.cpp
 // ===============================================================================
 
-#include "filestream.hpp"
-
-#include <sys/stat.h>
-
 #include <string>
 
 #include "decoders/common/api/nexcept.h"
+#include "filestream.hpp"
 
 using namespace std;
 

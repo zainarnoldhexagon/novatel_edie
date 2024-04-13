@@ -24,9 +24,6 @@
 // ! \file command_encoding.cpp
 // ===============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <chrono>
 
 #include "src/decoders/novatel/api/commander.hpp"

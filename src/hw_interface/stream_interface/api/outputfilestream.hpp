@@ -27,9 +27,6 @@
 #ifndef OUTPUTFILESTREAM_HPP
 #define OUTPUTFILESTREAM_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "filestream.hpp"
 #include "outputstreaminterface.hpp"
 

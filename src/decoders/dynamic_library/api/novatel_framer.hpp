@@ -27,9 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_NOVATEL_FRAMER_HPP
 #define DYNAMIC_LIBRARY_NOVATEL_FRAMER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/novatel/api/common.hpp"
 #include "decoders/novatel/api/filter.hpp"
 #include "decoders/novatel/api/framer.hpp"

@@ -27,9 +27,6 @@
 #ifndef MULTIOUTPUTFILESTREAM_HPP
 #define MULTIOUTPUTFILESTREAM_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <map>
 #include <string>
 

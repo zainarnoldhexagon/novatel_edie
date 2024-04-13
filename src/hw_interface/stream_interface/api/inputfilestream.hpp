@@ -27,9 +27,6 @@
 #ifndef INPUTFILESTREAM_HPP
 #define INPUTFILESTREAM_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "filestream.hpp"
 #include "inputstreaminterface.hpp"
 

@@ -24,9 +24,8 @@
 // ! \file jsonreaderunittest.cpp
 // ===============================================================================
 
-#include <gtest/gtest.h>
-
 #include <filesystem>
+#include <gtest/gtest.h>
 
 #include "decoders/common/api/common.hpp"
 #include "decoders/common/api/jsonreader.hpp"

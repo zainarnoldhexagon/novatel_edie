@@ -24,9 +24,6 @@
 // ! \file dynamic_parser.cpp
 // ===============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <chrono>
 
 #include "src/decoders/dynamic_library/api/common_jsonreader.hpp"

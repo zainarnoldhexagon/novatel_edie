@@ -27,9 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_NOVATEL_FILTER_HPP
 #define DYNAMIC_LIBRARY_NOVATEL_FILTER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/novatel/api/filter.hpp"
 #include "decoders_export.h"
 

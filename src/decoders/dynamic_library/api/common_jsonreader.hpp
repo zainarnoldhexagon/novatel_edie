@@ -27,9 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_COMMON_JSONREADER_HPP
 #define DYNAMIC_LIBRARY_COMMON_JSONREADER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/common/api/jsonreader.hpp"
 #include "decoders_export.h"
 

@@ -27,9 +27,6 @@
 #ifndef DYNAMIC_LIBRARY_NOVATEL_ENCODER_HPP
 #define DYNAMIC_LIBRARY_NOVATEL_ENCODER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/common/api/jsonreader.hpp"
 #include "decoders/novatel/api/common.hpp"
 #include "decoders/novatel/api/encoder.hpp"

@@ -24,9 +24,6 @@
 // ! \file dynamic_components.cpp
 // ===============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "src/decoders/dynamic_library/api/common_jsonreader.hpp"
 #include "src/decoders/dynamic_library/api/novatel_encoder.hpp"
 #include "src/decoders/dynamic_library/api/novatel_filter.hpp"

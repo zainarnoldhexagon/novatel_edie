@@ -27,14 +27,10 @@
 #ifndef NOVATEL_FILTER_HPP
 #define NOVATEL_FILTER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <memory>
 #include <tuple>
 
 #include "decoders/common/api/common.hpp"
-#include "decoders/common/api/jsonreader.hpp"
 #include "decoders/novatel/api/common.hpp"
 #include "decoders/novatel/api/header_decoder.hpp"
 #include "logger/logger.hpp"

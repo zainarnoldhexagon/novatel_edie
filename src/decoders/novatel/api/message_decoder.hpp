@@ -27,9 +27,6 @@
 #ifndef OEM_MESSAGE_DECODER_HPP
 #define OEM_MESSAGE_DECODER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/common/api/message_decoder.hpp"
 
 namespace novatel::edie::oem {

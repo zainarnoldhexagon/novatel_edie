@@ -24,12 +24,9 @@
 // ! \file novateltest.cpp
 // ===============================================================================
 
-#include <gtest/gtest.h>
-
 #include <chrono>
 #include <codecvt>
 #include <filesystem>
-#include <fstream>
 #include <iostream>
 #include <locale>
 #include <nlohmann/json.hpp>
@@ -45,6 +42,7 @@
 #include "hw_interface/stream_interface/api/inputfilestream.hpp"
 #include "hw_interface/stream_interface/api/inputstreaminterface.hpp"
 #include "resources/novatel_message_definitions.hpp"
+#include <gtest/gtest.h>
 
 using json = nlohmann::json;
 

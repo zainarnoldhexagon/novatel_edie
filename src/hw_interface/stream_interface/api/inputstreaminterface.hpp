@@ -27,9 +27,6 @@
 #ifndef INPUTSTREAMINTERFACE_HPP
 #define INPUTSTREAMINTERFACE_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <iostream>
 
 #include "common.hpp"

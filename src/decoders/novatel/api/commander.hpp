@@ -27,9 +27,6 @@
 #ifndef NOVATEL_COMMANDER_HPP
 #define NOVATEL_COMMANDER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include "decoders/common/api/common.hpp"
 #include "decoders/common/api/jsonreader.hpp"
 #include "decoders/novatel/api/common.hpp"

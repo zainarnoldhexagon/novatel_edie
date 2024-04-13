@@ -27,19 +27,14 @@
 #ifndef JSONREADER_HPP
 #define JSONREADER_HPP
 
-//-----------------------------------------------------------------------
-// Includes
-//-----------------------------------------------------------------------
 #include <filesystem>
 #include <fstream>
-#include <iostream>
 #include <logger/logger.hpp>
 #include <map>
 #include <nlohmann/json.hpp>
 #include <string>
 #include <unordered_map>
 
-#include "common.hpp"
 #include "crc32.hpp"
 
 using nlohmann::json;

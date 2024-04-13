@@ -27,15 +27,8 @@
 #ifndef RANGEDECOMPRESSOR_HPP
 #define RANGEDECOMPRESSOR_HPP
 
-#include <cmath>
-#include <cstring>
-#include <list>
-#include <vector>
-
-#include "decoders/common/api/crc32.hpp"
 #include "decoders/novatel/api/encoder.hpp"
 #include "decoders/novatel/api/filter.hpp"
-#include "decoders/novatel/api/framer.hpp"
 #include "decoders/novatel/api/header_decoder.hpp"
 #include "decoders/novatel/api/message_decoder.hpp"
 #include "decoders/novatel/api/rangecmp/common.hpp"

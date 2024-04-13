@@ -24,9 +24,9 @@
 // ! \file header_decoder.cpp
 // ===============================================================================
 
-#include "decoders/novatel/api/header_decoder.hpp"
-
 #include <bitset>
+
+#include "decoders/novatel/api/header_decoder.hpp"
 
 using namespace novatel::edie;
 using namespace novatel::edie::oem;

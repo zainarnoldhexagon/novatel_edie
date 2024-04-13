@@ -24,9 +24,6 @@
 // ! \file converter_components.cpp
 // ===============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <chrono>
 
 #include "logger/logger.hpp"

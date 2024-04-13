@@ -24,11 +24,10 @@
 // ! \file inputfilestream.cpp
 // ===============================================================================
 
-#include "inputfilestream.hpp"
-
 #include <codecvt>
 
-// code
+#include "inputfilestream.hpp"
+
 // ---------------------------------------------------------
 InputFileStream::InputFileStream(const std::u32string s32FileName_)
 {
