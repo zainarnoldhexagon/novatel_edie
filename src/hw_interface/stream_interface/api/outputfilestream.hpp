@@ -58,7 +58,7 @@ class OutputFileStream : public OutputStreamInterface
      *  \brief  Clears MessageDataFilter and FileStream objects.
      *
      */
-    ~OutputFileStream() override;
+    virtual ~OutputFileStream();
 
     /*! FileStream Class object.
      * \sa FileStream
@@ -73,7 +73,7 @@ class OutputFileStream : public OutputStreamInterface
      *  \remark Set Split type and write data to output files. If split type was not set,
      *  Then writing can be done to only one file.
      */
-    uint32_t WriteData(char* cData, uint32_t uiSize) override;
+    uint32_t WriteData(char* cData, uint32_t uiSize);
 
   private:
     /*! Private Copy Constructor

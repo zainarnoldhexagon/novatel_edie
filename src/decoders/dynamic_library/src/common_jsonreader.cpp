@@ -28,7 +28,7 @@
 
 JsonReader* common_jsonreader_init()
 {
-    auto pclJsonDb = new JsonReader();
+    JsonReader* pclJsonDb = new JsonReader();
     return pclJsonDb;
 }
 

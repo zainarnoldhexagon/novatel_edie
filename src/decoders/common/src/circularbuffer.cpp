@@ -36,7 +36,7 @@
 void CircularBuffer::SetCapacity(uint32_t uiCapacity_)
 {
     // Set the size of the buffer (bytes)
-    if (uiCapacity_ <= uiMyCapacity) { return; }
+    if (uiCapacity_ <= uiMyCapacity) return;
 
     const auto pucBuffer = new unsigned char[uiCapacity_];
 
@@ -59,7 +59,7 @@ void CircularBuffer::SetCapacity(uint32_t uiCapacity_)
     }
 
     // Sanity check
-    if (pucMyBuffer == nullptr) { throw nExcept("Out of memory!"); }
+    if (pucMyBuffer == nullptr) throw nExcept("Out of memory!");
 }
 
 //---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ uint32_t CircularBuffer::Append(const unsigned char* pucData_, uint32_t uiBytes_
 
         // If we couldn't enlarge the buffer, reduce the number of bytes
         // that will be copied to (prevent overwriting data)
-        if (uiBytes_ > uiMyCapacity - uiMyLength) { uiBytes_ = uiMyCapacity - uiMyLength; }
+        if (uiBytes_ > uiMyCapacity - uiMyLength) uiBytes_ = uiMyCapacity - uiMyLength;
     }
 
     // Append data to buffer.  Do this in 2 steps, in case of wrap around.
@@ -117,8 +117,8 @@ unsigned char CircularBuffer::GetByte(int32_t iIndex_) const
         return '\0';
     }
 
-    const unsigned char* pucChar = pucMyHead + iIndex_;
-    if (pucChar >= pucMyBuffer + uiMyCapacity) { pucChar -= uiMyCapacity; }
+    unsigned const char* pucChar = pucMyHead + iIndex_;
+    if (pucChar >= pucMyBuffer + uiMyCapacity) pucChar -= uiMyCapacity;
 
     return *pucChar;
 }
@@ -141,7 +141,7 @@ uint32_t CircularBuffer::Copy(unsigned char* pucTarget_, uint32_t uiBytes_) cons
 
         // Now copy the rest of the requested data
         uiCopyBytes = uiBytes_ - uiCopyBytes;
-        if (uiCopyBytes > 0) { memcpy(pucTarget_, pucMyBuffer, uiCopyBytes); }
+        if (uiCopyBytes > 0) memcpy(pucTarget_, pucMyBuffer, uiCopyBytes);
     }
 
     return uiBytes_;
@@ -158,5 +158,5 @@ void CircularBuffer::Discard(uint32_t uiBytes_)
     uiMyLength -= uiBytes_;
 
     // Check for wraparound
-    if (pucMyHead >= pucMyBuffer + uiMyCapacity) { pucMyHead -= uiMyCapacity; }
+    if (pucMyHead >= pucMyBuffer + uiMyCapacity) pucMyHead -= uiMyCapacity;
 }

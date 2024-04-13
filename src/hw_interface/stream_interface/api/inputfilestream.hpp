@@ -58,7 +58,7 @@ class InputFileStream : public InputStreamInterface
     InputFileStream(const char* pFileName);
 
     /*! A default destructor */
-    ~InputFileStream() override;
+    virtual ~InputFileStream();
 
     /*! FileStream pointer to hold created FileStream object in constructor */
     FileStream* pInFileStream;
@@ -69,14 +69,14 @@ class InputFileStream : public InputStreamInterface
      *  \param [in] pReadDataStructure ReadDataStructure pointer to hold decoded log
      *  \return StreamReadStatus read data statistics
      */
-    StreamReadStatus ReadData(ReadDataStructure& pReadDataStructure) override;
+    StreamReadStatus ReadData(ReadDataStructure& pReadDataStructure);
     /*! \fn StreamReadStatus ReadLine
      *  \brief Read one line from the file.
      *
      *  \param [in] szLine String pointer to hold one line dats read from the file.
      *  \return Returns Read statistics structure (StreamReadStatus)
      */
-    StreamReadStatus ReadLine(std::string& szLine) override;
+    StreamReadStatus ReadLine(std::string& szLine);
 
     /*! \fn void Reset(std::streamoff = 0, std::ios_base::seekdir = std::ios::beg)
      *  \brief Set/Reset File Position from which next read will be done.
@@ -86,22 +86,22 @@ class InputFileStream : public InputStreamInterface
      *
      *  \remark After reset, the current file size will be changed accrdingly.
      */
-    void Reset(std::streamoff offset = 0, std::ios_base::seekdir dir = std::ios::beg) override;
+    void Reset(std::streamoff offset = 0, std::ios_base::seekdir dir = std::ios::beg);
 
     /*! \n std::string GetFileExtension()
      *  \brief Returns the extension of the input file to be decoded.
      *
      *  \return  std::string - File Extension name
      */
-    std::string GetFileExtension() override;
-    std::string GetFileName() override;
+    std::string GetFileExtension();
+    std::string GetFileName();
 
     /*! \n uint64_t  GetCurrentFilePosition()
      *  \brief Returns the current file position from which next read will be done.
      *
      *  \return uint64_t  - File current offset
      */
-    uint64_t GetCurrentFilePosition() override;
+    uint64_t GetCurrentFilePosition();
 
     /*! \fn void SetCurrentFileOffset(uint64_t  ullCurrentFileOffset)
      *  \brief Sets the current file offset. It could be read bytes so far.
@@ -109,14 +109,14 @@ class InputFileStream : public InputStreamInterface
      *  \param [in] ullCurrentFileOffset Size of the data from one read size,
      *  Will be append to calculate read bytes so far
      */
-    void SetCurrentFileOffset(uint64_t ullCurrentFileOffset) override;
+    void SetCurrentFileOffset(uint64_t ullCurrentFileOffset);
 
     /*! \fn uint64_t  GetCurrentFileOffset(void)
      *  \brief Returns Cuurent file offset.
      *
      *  \return Cuurent file offset.
      */
-    uint64_t GetCurrentFileOffset(void) const override;
+    uint64_t GetCurrentFileOffset(void) const;
 
   private:
     /*! Private Copy Constructor

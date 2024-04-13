@@ -31,8 +31,8 @@
 class CircularBufferTest : public ::testing::Test
 {
   public:
-    void SetUp() override {}
-    void TearDown() override {}
+    virtual void SetUp() {}
+    virtual void TearDown() {}
 };
 
 // -------------------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ TEST_F(CircularBufferTest, SET_CAPACITY)
 
 TEST_F(CircularBufferTest, APPEND)
 {
-    auto pcData = "test data";
+    const char* pcData = "test data";
     uint32_t uiBytes = static_cast<uint32_t>(strlen(pcData));
     CircularBuffer cCircularBuffer;
     ASSERT_DOUBLE_EQ(cCircularBuffer.Append(reinterpret_cast<const unsigned char*>(pcData), uiBytes), uiBytes);
@@ -70,7 +70,7 @@ TEST_F(CircularBufferTest, APPEND)
 
 TEST_F(CircularBufferTest, GET_BYTE)
 {
-    auto pcData = "test data";
+    const char* pcData = "test data";
     uint32_t uiBytes = static_cast<uint32_t>(strlen(pcData));
 
     CircularBuffer cCircularBuffer;
@@ -88,7 +88,7 @@ TEST_F(CircularBufferTest, GET_BYTE)
 
 TEST_F(CircularBufferTest, DISCARD)
 {
-    auto pcData = "test data";
+    const char* pcData = "test data";
     uint32_t uiBytes = static_cast<uint32_t>(strlen(pcData));
     CircularBuffer cCircularBuffer;
     cCircularBuffer.Append(reinterpret_cast<const unsigned char*>(pcData), uiBytes);
@@ -118,11 +118,11 @@ TEST_F(CircularBufferTest, COPY)
 {
     CircularBuffer cCircularBuffer;
 
-    auto pcData = "test data";
+    const char* pcData = "test data";
     uint32_t uiBytes = static_cast<uint32_t>(strlen(pcData));
     cCircularBuffer.Append(reinterpret_cast<const unsigned char*>(pcData), uiBytes);
 
-    auto pcData_ = std::make_unique<char[]>(uiBytes + 1); // more than uiBytes
+    std::unique_ptr<char[]> pcData_ = std::make_unique<char[]>(uiBytes + 1); // more than uiBytes
     uint32_t uiBytes_ = cCircularBuffer.Copy(reinterpret_cast<unsigned char*>(pcData_.get()), uiBytes + 1);
     ASSERT_EQ(uiBytes_, uiBytes);
 }

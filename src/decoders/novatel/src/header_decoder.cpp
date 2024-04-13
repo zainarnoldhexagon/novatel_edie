@@ -74,9 +74,7 @@ template <ASCIIHEADER eField> bool HeaderDecoder::DecodeAsciiHeaderField(Interme
     // We check if the first character in the field is in the valid format
     if ((bIsLeadingNumberField && !isdigit(**ppcLogBuf_)) || (bIsLeadingAlphaField && !isalpha(**ppcLogBuf_)) ||
         (bIsLeadingHexField && !isxdigit(**ppcLogBuf_)))
-    {
         return false;
-    }
 
     size_t ullTokenLength = strcspn(*ppcLogBuf_, " ,;\r");
 

@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
     Logger::AddRotatingFileLogger(clFilter.GetLogger());
 
     // Initialize structures and error codes
-    auto eStatus = STATUS::UNKNOWN;
+    STATUS eStatus = STATUS::UNKNOWN;
 
     MetaDataStruct stMetaData;
     MessageDataStruct stMessageData;

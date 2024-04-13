@@ -33,8 +33,8 @@
 class JsonReaderTest : public testing::Test
 {
   public:
-    void SetUp() override {}
-    void TearDown() override {}
+    virtual void SetUp() {}
+    virtual void TearDown() {}
 };
 
 // -------------------------------------------------------------------------------------------------------

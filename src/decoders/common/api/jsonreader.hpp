@@ -137,7 +137,7 @@ inline std::string DataTypeConversion(DATA_TYPE eType)
 }
 
 //!< Mapping from String to data type enums.
-static const std::unordered_map<std::string, DATA_TYPE> DataTypeEnumLookup = {
+static std::unordered_map<std::string, DATA_TYPE> const DataTypeEnumLookup = {
     {"BOOL", DATA_TYPE::BOOL},      {"HEXBYTE", DATA_TYPE::HEXBYTE},   {"CHAR", DATA_TYPE::CHAR},
     {"UCHAR", DATA_TYPE::UCHAR},    {"SHORT", DATA_TYPE::SHORT},       {"USHORT", DATA_TYPE::USHORT},
     {"INT", DATA_TYPE::INT},        {"UINT", DATA_TYPE::UINT},         {"LONG", DATA_TYPE::LONG},
@@ -166,7 +166,7 @@ enum class FIELD_TYPE
 };
 
 //!< Mapping from String to field type enums.
-static const std::unordered_map<std::string, FIELD_TYPE> FieldTypeEnumLookup = {{"SIMPLE", FIELD_TYPE::SIMPLE},
+static std::unordered_map<std::string, FIELD_TYPE> const FieldTypeEnumLookup = {{"SIMPLE", FIELD_TYPE::SIMPLE},
                                                                                 {"ENUM", FIELD_TYPE::ENUM},
                                                                                 {"BITFIELD", FIELD_TYPE::BITFIELD},
                                                                                 {"FIXED_LENGTH_ARRAY", FIELD_TYPE::FIXED_LENGTH_ARRAY},
@@ -316,7 +316,7 @@ struct EnumField : novatel::edie::BaseField
 
     EnumField() = default;
 
-    ~EnumField() override = default;
+    ~EnumField() = default;
 
     EnumField* clone() override { return new novatel::edie::EnumField(*this); }
 };
@@ -331,7 +331,7 @@ struct ArrayField : novatel::edie::BaseField
 
     ArrayField() = default;
 
-    ~ArrayField() override = default;
+    ~ArrayField() = default;
 
     ArrayField* clone() override { return new novatel::edie::ArrayField(*this); }
 };
@@ -347,7 +347,7 @@ struct FieldArrayField : novatel::edie::BaseField
 
     FieldArrayField() = default;
 
-    ~FieldArrayField() override
+    ~FieldArrayField()
     {
         for (const auto& field : fields) { delete field; }
     }
@@ -442,7 +442,7 @@ struct MessageDefinition
         return *this;
     }
 
-    const std::vector<BaseField*>* GetMsgDefFromCRC(std::shared_ptr<spdlog::logger> pclLogger_, uint32_t& uiMsgDefCRC_) const;
+    std::vector<BaseField*> const* GetMsgDefFromCRC(std::shared_ptr<spdlog::logger> pclLogger_, uint32_t& uiMsgDefCRC_) const;
 };
 
 // Forward declaration of from_json
@@ -646,20 +646,20 @@ class JsonReader
     {
         // Check string against name map
         auto itName = mMessageName.find(msg.name);
-        if (itName != mMessageName.end()) { mMessageName.erase(itName); }
+        if (itName != mMessageName.end()) mMessageName.erase(itName);
 
         auto itId = mMessageID.find(msg.logID);
-        if (itId != mMessageID.end()) { mMessageID.erase(itId); }
+        if (itId != mMessageID.end()) mMessageID.erase(itId);
     }
 
     void RemoveEnumerationMapping(novatel::edie::EnumDefinition& enm)
     {
         // Check string against name map
         auto itName = mEnumName.find(enm.name);
-        if (itName != mEnumName.end()) { mEnumName.erase(itName); }
+        if (itName != mEnumName.end()) mEnumName.erase(itName);
 
         auto itId = mEnumID.find(enm._id);
-        if (itId != mEnumID.end()) { mEnumID.erase(itId); }
+        if (itId != mEnumID.end()) mEnumID.erase(itId);
     }
 
     std::vector<novatel::edie::MessageDefinition>::iterator GetMessageIt(uint32_t iMsgId_)

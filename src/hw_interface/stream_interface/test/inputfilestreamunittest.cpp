@@ -37,9 +37,9 @@
 class InputFileStreamTest : public ::testing::Test
 {
   public:
-    void SetUp() override {}
+    virtual void SetUp() {}
 
-    void TearDown() override {}
+    virtual void TearDown() {}
 
   private:
   protected:

@@ -53,10 +53,10 @@ class ProprietaryFramerTest : public ::testing::Test
     static void TearDownTestSuite() { pclMyFramer->ShutdownLogger(); }
 
     // Per-test setup
-    void SetUp() override { FlushFramer(); }
+    void SetUp() { FlushFramer(); }
 
     // Per-test teardown
-    void TearDown() override { FlushFramer(); }
+    void TearDown() { FlushFramer(); }
 
   public:
     void WriteFileStreamToFramer(std::string sFilename_)
