@@ -778,7 +778,7 @@ void RangeDecompressor::RangeCmp4ToRange(uint8_t* pucCompressedData_, RangeStruc
     // Clear any dead reference blocks on the whole second.  We should be storing new ones.
     if (dSecondOffset == 0.0) { ammmMyReferenceBlocks[static_cast<uint32_t>(eMeasurementSource)].clear(); }
 
-    SYSTEM eCurrentSatelliteSystem = SYSTEM::UNKNOWN;
+    auto eCurrentSatelliteSystem = SYSTEM::UNKNOWN;
     std::vector<RangeCmp4::SIGNAL_TYPE> vSignals;  // All available signals
     std::vector<uint32_t> vPRNs;                   // All available PRNs
     std::map<uint32_t, uint64_t> mIncludedSignals; // IncludedSignal bitmasks for each PRN.
@@ -994,7 +994,7 @@ RangeDecompressor::Decompress(unsigned char* pucRangeMessageBuffer_, uint32_t ui
     MessageDataStruct stMessageData;
     IntermediateHeader stHeader;
     IntermediateMessage stMessage;
-    STATUS eStatus = STATUS::UNKNOWN;
+    auto eStatus = STATUS::UNKNOWN;
 
     unsigned char* pucTempMessagePointer = pucRangeMessageBuffer_;
     eStatus = clMyHeaderDecoder.Decode(pucTempMessagePointer, stHeader, stMetaData_);

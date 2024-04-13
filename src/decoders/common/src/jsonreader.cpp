@@ -68,10 +68,8 @@ void from_json(const json& j, novatel::edie::BaseField& f)
 
     if (j.find("conversionString") != j.end())
     {
-        if (j.at("conversionString").is_null())
-            f.conversion = "";
-        else
-            f.setConversion(j.at("conversionString"));
+        if (j.at("conversionString").is_null()) { f.conversion = ""; }
+        else { f.setConversion(j.at("conversionString")); }
     }
 
     f.dataType = j.at("dataType");
@@ -82,7 +80,7 @@ void from_json(const json& j, novatel::edie::EnumField& f)
 {
     from_json(j, static_cast<BaseField&>(f));
 
-    if (j.at("enumID").is_null()) throw std::runtime_error("Invalid enum ID - cannot be NULL.  JsonDB file is likely corrupted.");
+    if (j.at("enumID").is_null()) { throw std::runtime_error("Invalid enum ID - cannot be NULL.  JsonDB file is likely corrupted."); }
 
     f.enumID = j.at("enumID");
 }
@@ -136,19 +134,19 @@ uint32_t parse_fields(const json& j, std::vector<novatel::edie::BaseField*>& vFi
     uint32_t uiFieldSize = 0;
     for (const auto& field : j)
     {
-        std::string sFieldType = field.at("type").get<std::string>();
-        novatel::edie::BaseDataType stDataType = field.at("dataType").get<novatel::edie::BaseDataType>();
+        auto sFieldType = field.at("type").get<std::string>();
+        auto stDataType = field.at("dataType").get<novatel::edie::BaseDataType>();
 
         if (sFieldType == "SIMPLE")
         {
-            novatel::edie::BaseField* pstField = new novatel::edie::BaseField;
+            auto pstField = new novatel::edie::BaseField;
             *pstField = field;
             vFields.push_back(pstField);
             uiFieldSize += stDataType.length;
         }
         else if (sFieldType == "ENUM")
         {
-            novatel::edie::EnumField* pstField = new novatel::edie::EnumField;
+            auto pstField = new novatel::edie::EnumField;
             *pstField = field;
             pstField->length = stDataType.length;
             vFields.push_back(pstField);
@@ -156,7 +154,7 @@ uint32_t parse_fields(const json& j, std::vector<novatel::edie::BaseField*>& vFi
         }
         else if (sFieldType == "FIXED_LENGTH_ARRAY" || sFieldType == "VARIABLE_LENGTH_ARRAY" || sFieldType == "STRING")
         {
-            novatel::edie::ArrayField* pstField = new novatel::edie::ArrayField;
+            auto pstField = new novatel::edie::ArrayField;
             *pstField = field;
             vFields.push_back(pstField);
             uint32_t uiArrayLength = field.at("arrayLength").get<uint32_t>();
@@ -164,12 +162,11 @@ uint32_t parse_fields(const json& j, std::vector<novatel::edie::BaseField*>& vFi
         }
         else if (sFieldType == "FIELD_ARRAY")
         {
-            novatel::edie::FieldArrayField* pstField = new novatel::edie::FieldArrayField;
+            auto pstField = new novatel::edie::FieldArrayField;
             *pstField = field;
             vFields.push_back(pstField);
         }
-        else
-            throw std::runtime_error("Could not find field type");
+        else { throw std::runtime_error("Could not find field type"); }
     }
     return uiFieldSize;
 }
@@ -324,7 +321,7 @@ void JsonReader::RemoveMessage(uint32_t iMsgId_, bool bGenerateMappings_)
         vMessageDefinitions.erase(iTer);
     }
 
-    if (bGenerateMappings_) GenerateMappings();
+    if (bGenerateMappings_) { GenerateMappings(); }
 }
 
 //-----------------------------------------------------------------------
@@ -339,7 +336,7 @@ void JsonReader::RemoveEnumeration(std::string strEnumeration_, bool bGenerateMa
         vEnumDefinitions.erase(iTer);
     }
 
-    if (bGenerateMappings_) GenerateMappings();
+    if (bGenerateMappings_) { GenerateMappings(); }
 }
 
 //-----------------------------------------------------------------------
@@ -433,7 +430,7 @@ std::string JsonReader::MsgIdToMsgName(const uint32_t uiMessageID_) const
                                              ? "A"
                                              : ""; // default to abbreviated ASCII format
 
-    if (uiSiblingID) strMessageFormatSuffix.append("_").append(std::to_string(uiSiblingID));
+    if (uiSiblingID) { strMessageFormatSuffix.append("_").append(std::to_string(uiSiblingID)); }
 
     return strMessageName.append(strMessageFormatSuffix);
 }
@@ -454,7 +451,7 @@ const novatel::edie::MessageDefinition* JsonReader::GetMsgDef(int32_t iMsgID) co
 }
 
 // -------------------------------------------------------------------------------------------------------
-std::vector<novatel::edie::BaseField*> const* novatel::edie::MessageDefinition::GetMsgDefFromCRC(std::shared_ptr<spdlog::logger> pclLogger_,
+const std::vector<novatel::edie::BaseField*>* novatel::edie::MessageDefinition::GetMsgDefFromCRC(std::shared_ptr<spdlog::logger> pclLogger_,
                                                                                                  uint32_t& uiMsgDefCRC_) const
 {
     // If we can't find the correct CRC just default to the latest.

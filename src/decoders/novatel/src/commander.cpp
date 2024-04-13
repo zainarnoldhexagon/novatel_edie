@@ -77,7 +77,7 @@ void Commander::CreateResponseMsgDefns()
     stRespIdField.name = "response_id";
     stRespIdField.type = FIELD_TYPE::RESPONSE_ID;
     stRespIdField.dataType = stRespIdDataType;
-    if (vMyRespDefns != nullptr) stRespIdField.enumID = vMyRespDefns->_id;
+    if (vMyRespDefns != nullptr) { stRespIdField.enumID = vMyRespDefns->_id; }
     stRespIdField.enumDef = vMyRespDefns;
 
     // String response ID
@@ -109,7 +109,7 @@ Commander::Encode(const char* pcAbbrevAsciiCommand_, const uint32_t uiAbbrevAsci
 
     if (eEncodeFormat_ != ENCODEFORMAT::ASCII && eEncodeFormat_ != ENCODEFORMAT::BINARY) { return STATUS::UNSUPPORTED; }
 
-    const std::string strAbbrevAsciiCommand = std::string(pcAbbrevAsciiCommand_, uiAbbrevAsciiCommandLength_);
+    const auto strAbbrevAsciiCommand = std::string(pcAbbrevAsciiCommand_, uiAbbrevAsciiCommandLength_);
     const size_t ullPos = strAbbrevAsciiCommand.find_first_of(' ');
     const std::string strCmdName = strAbbrevAsciiCommand.substr(0, ullPos);
     const std::string strCmdParams = strAbbrevAsciiCommand.substr(ullPos + 1, strAbbrevAsciiCommand.length());

@@ -70,10 +70,10 @@ class FramerTest : public ::testing::Test
     static void TearDownTestSuite() { pclMyFramer->ShutdownLogger(); }
 
     // Per-test setup
-    void SetUp() { FlushFramer(); }
+    void SetUp() override { FlushFramer(); }
 
     // Per-test teardown
-    void TearDown() { FlushFramer(); }
+    void TearDown() override { FlushFramer(); }
 
   public:
     template <HEADERFORMAT F, STATUS S> void FramerHelper(uint32_t uiLength_, uint32_t uiFrameLength_)
@@ -206,7 +206,9 @@ TEST_F(FramerTest, ASCII_BYTE_BY_BYTE)
          ASSERT_EQ(stTestMetaData, stExpectedMetaData);
       }
       else if (uiRemainingBytes == 0)
-         break;
+      {
+          break;
+      }
    }
 
    stExpectedMetaData.uiLength = uiLogSize;
@@ -380,10 +382,14 @@ TEST_F(FramerTest, BINARY_BYTE_BY_BYTE)
       stExpectedMetaData.uiLength = uiLogSize - uiRemainingBytes;
 
       if (stExpectedMetaData.uiLength == OEM4_BINARY_SYNC_LENGTH)
-         stExpectedMetaData.eFormat = HEADERFORMAT::BINARY;
+      {
+          stExpectedMetaData.eFormat = HEADERFORMAT::BINARY;
+      }
 
       if (uiRemainingBytes == 0)
-         break;
+      {
+          break;
+      }
 
       ASSERT_EQ(STATUS::INCOMPLETE, pclMyFramer->GetFrame(pucMyTestFrameBuffer.get(), MAX_BINARY_MESSAGE_LENGTH, stTestMetaData));
       ASSERT_EQ(stTestMetaData, stExpectedMetaData);
@@ -498,7 +504,9 @@ TEST_F(FramerTest, SHORT_ASCII_BYTE_BY_BYTE)
          ASSERT_EQ(stTestMetaData, stExpectedMetaData);
       }
       else if (uiRemainingBytes == 0)
-         break;
+      {
+          break;
+      }
    }
 
    stExpectedMetaData.uiLength = uiLogSize;
@@ -620,10 +628,14 @@ TEST_F(FramerTest, SHORT_BINARY_BYTE_BY_BYTE)
       stExpectedMetaData.uiLength = uiLogSize - uiRemainingBytes;
 
       if (stExpectedMetaData.uiLength == OEM4_SHORT_BINARY_SYNC_LENGTH)
-         stExpectedMetaData.eFormat = HEADERFORMAT::SHORT_BINARY;
+      {
+          stExpectedMetaData.eFormat = HEADERFORMAT::SHORT_BINARY;
+      }
 
       if (uiRemainingBytes == 0)
-         break;
+      {
+          break;
+      }
 
       ASSERT_EQ(STATUS::INCOMPLETE, pclMyFramer->GetFrame(pucMyTestFrameBuffer.get(), MAX_SHORT_BINARY_MESSAGE_LENGTH, stTestMetaData));
       ASSERT_EQ(stTestMetaData, stExpectedMetaData);
@@ -730,7 +742,9 @@ TEST_F(FramerTest, NMEA_BYTE_BY_BYTE)
       stExpectedMetaData.uiLength = uiLogSize - uiRemainingBytes;
 
       if (uiRemainingBytes == 0)
-         break;
+      {
+          break;
+      }
 
       ASSERT_EQ(STATUS::INCOMPLETE, pclMyFramer->GetFrame(pucMyTestFrameBuffer.get(), MAX_NMEA_MESSAGE_LENGTH, stTestMetaData));
       ASSERT_EQ(stTestMetaData, stExpectedMetaData);
@@ -935,7 +949,7 @@ protected:
    }
 
 public:
-   typedef void (*logchecker)(char*, char*);
+   using logchecker = void(*)(char*, char*);
 
    enum
    {
@@ -2964,7 +2978,7 @@ public:
                   }";
    }
 
-   virtual void SetUp()
+   void SetUp() override
    {
       try
       {
@@ -2982,7 +2996,7 @@ public:
       }
    }
 
-   virtual void TearDown()
+   void TearDown() override
    {
       pclMyDecoderTester->ShutdownLogger();
       for (auto it : MsgDefFields) { delete it; }
@@ -2991,9 +3005,9 @@ public:
 
    void CreateEnumField(std::string name, std::string description, int32_t value)
    {
-      EnumField* stField = new EnumField();
-      EnumDefinition* enumDef = new EnumDefinition();
-      EnumDataType* enumDT = new EnumDataType();
+       auto stField = new EnumField();
+       auto enumDef = new EnumDefinition();
+       auto enumDT = new EnumDataType();
       enumDT->name = name;
       enumDT->description = description;
       enumDT->value = value;
@@ -3013,7 +3027,7 @@ TEST_F(NovatelTypesTest, ASCII_GPSTIME_MSEC_VALID)
     std::vector<FieldContainer> vIntermediateFormat_;
     vIntermediateFormat_.reserve(4);
 
-    const char* testInput = "-1.000,0.000,604800.000,4294967295.000";
+    auto testInput = "-1.000,0.000,604800.000,4294967295.000";
 
     STATUS stDecoderStatus = pclMyDecoderTester->TestDecodeAscii(MsgDefFields, &testInput, vIntermediateFormat_);
 

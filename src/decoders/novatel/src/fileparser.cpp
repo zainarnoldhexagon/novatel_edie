@@ -169,7 +169,7 @@ bool FileParser::ReadStream()
 // -------------------------------------------------------------------------------------------------------
 [[nodiscard]] STATUS FileParser::Read(MessageDataStruct& stMessageData_, MetaDataStruct& stMetaData_)
 {
-    STATUS eStatus = STATUS::UNKNOWN;
+    auto eStatus = STATUS::UNKNOWN;
     while (true)
     {
         eStatus = clMyParser.Read(stMessageData_, stMetaData_);

@@ -46,7 +46,9 @@ bool Framer::IsAbbrevSeparatorCRLF(const uint32_t uiPosition_) const
 bool Framer::IsEmptyAbbrevLine(uint32_t uiCircularBufferPosition_) const
 {
     while (clMyCircularDataBuffer[uiCircularBufferPosition_--] == OEM4_ABBREV_ASCII_SEPARATOR)
-        if (clMyCircularDataBuffer[uiCircularBufferPosition_] == OEM4_ABBREV_ASCII_SYNC) return true;
+    {
+        if (clMyCircularDataBuffer[uiCircularBufferPosition_] == OEM4_ABBREV_ASCII_SYNC) { return true; }
+    }
 
     return false;
 }
@@ -60,16 +62,16 @@ bool Framer::IsAbbrevAsciiResponse() const
 
     if (uiMyAbbrevAsciiHeaderPosition + OK_LEN < clMyCircularDataBuffer.GetLength())
     {
-        for (uint32_t i = 0; i < OK_LEN; i++) szResponse[i] = clMyCircularDataBuffer[uiMyAbbrevAsciiHeaderPosition + i];
+        for (uint32_t i = 0; i < OK_LEN; i++) { szResponse[i] = clMyCircularDataBuffer[uiMyAbbrevAsciiHeaderPosition + i]; }
 
-        if (strstr(szResponse, "OK")) return true;
+        if (strstr(szResponse, "OK")) { return true; }
     }
 
     if (uiMyAbbrevAsciiHeaderPosition + ERROR_LEN < clMyCircularDataBuffer.GetLength())
     {
-        for (uint32_t i = 0; i < ERROR_LEN; i++) szResponse[i] = clMyCircularDataBuffer[uiMyAbbrevAsciiHeaderPosition + i];
+        for (uint32_t i = 0; i < ERROR_LEN; i++) { szResponse[i] = clMyCircularDataBuffer[uiMyAbbrevAsciiHeaderPosition + i]; }
 
-        if (strstr(szResponse, "ERROR")) return true;
+        if (strstr(szResponse, "ERROR")) { return true; }
     }
 
     return false;

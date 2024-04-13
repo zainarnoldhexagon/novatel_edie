@@ -33,11 +33,11 @@
 class MultiOutputFileStreamTest : public ::testing::Test
 {
   public:
-    virtual void SetUp() {}
+    void SetUp() override {}
 
-    virtual void TearDown() {}
+    void TearDown() override {}
 
-    typedef std::map<std::string, FileStream*> FstreamMap;
+    using FstreamMap = std::map<std::string, FileStream*>;
     MultiOutputFileStream::FstreamMap::iterator itFstreamMapIterator;
     MultiOutputFileStream::WCFstreamMap::iterator itWFstreamMapIterator;
 
@@ -113,7 +113,7 @@ TEST_F(MultiOutputFileStreamTest, ConfigureBase32StringFileName)
 // Test the SelectLogFile method.
 TEST_F(MultiOutputFileStreamTest, SelectLogFile)
 {
-    typedef std::map<std::string, FileStream*> FstreamMap;
+    using FstreamMap = std::map<std::string, FileStream*>;
     FstreamMap myMap;
 
     pMyTestCommand = new MultiOutputFileStream();
@@ -145,7 +145,7 @@ TEST_F(MultiOutputFileStreamTest, SelectLogFile)
 // Test the SelectLogFile method.
 TEST_F(MultiOutputFileStreamTest, Select32StringLogFile)
 {
-    typedef std::map<std::u32string, FileStream*> WCFstreamMap;
+    using WCFstreamMap = std::map<std::u32string, FileStream*>;
     WCFstreamMap myMap;
 
     pMyTestCommand = new MultiOutputFileStream();
@@ -190,7 +190,9 @@ TEST_F(MultiOutputFileStreamTest, WriteData)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simple fails
+    }
 
     ifile.close();
 
@@ -215,7 +217,9 @@ TEST_F(MultiOutputFileStreamTest, WriteDataWideFile)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simple fails
+    }
 
     ifile.close();
 
@@ -241,7 +245,9 @@ TEST_F(MultiOutputFileStreamTest, ConfigureSplitBySize)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simple fails
+    }
 
     ifile.close();
 
@@ -276,7 +282,9 @@ TEST_F(MultiOutputFileStreamTest, ConfigureSplitByTime)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simpley fails
+    }
 
     ifile.close();
 

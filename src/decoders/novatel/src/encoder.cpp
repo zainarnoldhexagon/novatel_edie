@@ -205,7 +205,9 @@ bool Encoder::EncodeAsciiHeader(const IntermediateHeader& stInterHeader_, char**
     const uint32_t uiResponse = (stInterHeader_.ucMessageType & static_cast<uint32_t>(MESSAGETYPEMASK::RESPONSE)) >> 7;
     sMsgName.append(uiResponse ? "R" : "A"); // Append 'A' for ascii, or 'R' for ascii response
     if (uiSiblingID)                         // Append sibling i.e. the _1 of RANGEA_1
+    {
         sMsgName.append("_").append(std::to_string(uiSiblingID));
+    }
 
     return PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", sMsgName.c_str(), OEM4_ASCII_FIELD_SEPARATOR) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyPortAddrDefns, stInterHeader_.uiPortAddress).c_str(),
@@ -232,7 +234,9 @@ bool Encoder::EncodeAbbrevAsciiHeader(const IntermediateHeader& stInterHeader_, 
     std::string sMsgName(pclMessageDef ? pclMessageDef->name : GetEnumString(vMyCommandDefns, stInterHeader_.usMessageID));
     const uint32_t uiSiblingID = stInterHeader_.ucMessageType & static_cast<uint32_t>(MESSAGETYPEMASK::MEASSRC);
     if (uiSiblingID) // Append sibling i.e. the _1 of RANGEA_1
+    {
         sMsgName.append("_").append(std::to_string(uiSiblingID));
+    }
 
     return PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", sMsgName.c_str(), OEM4_ABBREV_ASCII_SEPARATOR) &&
                    PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", GetEnumString(vMyPortAddrDefns, stInterHeader_.uiPortAddress).c_str(),
@@ -263,7 +267,9 @@ bool Encoder::EncodeAsciiShortHeader(const IntermediateHeader& stInterHeader_, c
     const uint32_t uiResponse = (stInterHeader_.ucMessageType & static_cast<uint32_t>(MESSAGETYPEMASK::RESPONSE)) >> 7;
     sMsgName.append(uiResponse ? "R" : "A"); // Append 'A' for ascii, or 'R' for ascii response
     if (uiSiblingID)                         // Append sibling i.e. the _1 of RANGEA_1
+    {
         sMsgName.append("_").append(std::to_string(uiSiblingID));
+    }
 
     return PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", sMsgName.c_str(), OEM4_ASCII_FIELD_SEPARATOR) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usWeek, OEM4_ASCII_FIELD_SEPARATOR) &&
@@ -280,7 +286,9 @@ bool Encoder::EncodeAbbrevAsciiShortHeader(const IntermediateHeader& stInterHead
     std::string sMsgName(pclMyMsgDb->GetMsgDef(stInterHeader_.usMessageID)->name);
     uint32_t uiSiblingID = stInterHeader_.ucMessageType & static_cast<uint32_t>(MESSAGETYPEMASK::MEASSRC);
     if (uiSiblingID) // Append sibling i.e. the _1 of RANGEA_1
+    {
         sMsgName.append("_").append(std::to_string(uiSiblingID));
+    }
 
     return PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%s%c", sMsgName.c_str(), OEM4_ABBREV_ASCII_SEPARATOR) &&
            PrintToBuffer(ppcOutBuf_, uiBytesLeft_, "%hu%c", stInterHeader_.usWeek, OEM4_ABBREV_ASCII_SEPARATOR) &&
@@ -339,7 +347,7 @@ Encoder::Encode(unsigned char** ppucBuffer_, uint32_t uiBufferSize_, Intermediat
 
     if (!pclMyMsgDb) { return STATUS::NO_DATABASE; }
 
-    STATUS eStatus = STATUS::UNKNOWN;
+    auto eStatus = STATUS::UNKNOWN;
     unsigned char* pucTempEncodeBuffer = *ppucBuffer_;
 
     if (eFormat_ == ENCODEFORMAT::JSON)
