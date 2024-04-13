@@ -33,8 +33,8 @@
 class CRC32Test : public testing::Test
 {
   public:
-    void SetUp() override {}
-    void TearDown() override {}
+    virtual void SetUp() {}
+    virtual void TearDown() {}
 };
 
 // -------------------------------------------------------------------------------------------------------
@@ -49,11 +49,11 @@ TEST_F(CRC32Test, CalculateBlockCRC32)
     uint32_t uiCalculatedCRC = 0;
     uint64_t uiTerminatorIndex = sMessage.length() - (novatel::edie::oem::OEM4_ASCII_CRC_LENGTH + 3);
 
-    if (uiTerminatorIndex == 0) { return; }
+    if (uiTerminatorIndex == 0) return;
 
     for (uint64_t i = 1ULL; i < uiTerminatorIndex; i++)
     {
-        if (sMessage[i] == '\0') { break; }
+        if (sMessage[i] == '\0') break;
         CalculateCharacterCRC32(uiCalculatedCRC, sMessage[i]);
     }
 

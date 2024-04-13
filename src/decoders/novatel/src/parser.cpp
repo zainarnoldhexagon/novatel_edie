@@ -196,7 +196,7 @@ uint32_t Parser::Write(unsigned char* pcData_, uint32_t uiDataSize_) { return cl
 STATUS
 Parser::Read(MessageDataStruct& stMessageData_, MetaDataStruct& stMetaData_, bool bDecodeIncompleteAbbv)
 {
-    auto eStatus = STATUS::UNKNOWN;
+    STATUS eStatus = STATUS::UNKNOWN;
 
     IntermediateHeader stHeader;
     IntermediateMessage stMessage;

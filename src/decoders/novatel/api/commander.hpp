@@ -166,7 +166,7 @@ class Commander
 
         if (eEncodeFormat_ != ENCODEFORMAT::ASCII && eEncodeFormat_ != ENCODEFORMAT::BINARY) { return STATUS::UNSUPPORTED; }
 
-        const auto strAbbrevAsciiCommand = std::string(pcAbbrevAsciiCommand_, uiAbbrevAsciiCommandLength_);
+        const std::string strAbbrevAsciiCommand = std::string(pcAbbrevAsciiCommand_, uiAbbrevAsciiCommandLength_);
         const size_t ullPos = strAbbrevAsciiCommand.find_first_of(' ');
         const std::string strCmdName = strAbbrevAsciiCommand.substr(0, ullPos);
         const std::string strCmdParams = strAbbrevAsciiCommand.substr(ullPos + 1, strAbbrevAsciiCommand.length());

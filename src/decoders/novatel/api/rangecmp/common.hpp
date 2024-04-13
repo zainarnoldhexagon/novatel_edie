@@ -986,15 +986,15 @@ struct ChannelTrackingStatusStruct
                           ((static_cast<uint32_t>(eSignalType) << CTS_SIGNAL_TYPE_SHIFT) & CTS_SIGNAL_TYPE_MASK) |
                           ((static_cast<uint32_t>(uiSVChannelNumber) << CTS_SV_CHANNEL_NUMBER_SHIFT) & CTS_SV_CHANNEL_NUMBER_MASK);
 
-        if (bPhaseLocked) { uiWord |= CTS_PHASE_LOCK_MASK; }
-        if (bParityKnown) { uiWord |= CTS_PARITY_KNOWN_MASK; }
-        if (bCodeLocked) { uiWord |= CTS_CODE_LOCKED_MASK; }
-        if (bGrouped) { uiWord |= CTS_GROUPING_MASK; }
-        if (bPrimaryL1Channel) { uiWord |= CTS_PRIMARY_L1_CHANNEL_MASK; }
-        if (bHalfCycleAdded) { uiWord |= CTS_CARRIER_PHASE_MASK; }
-        if (bDigitalFilteringOnSignal) { uiWord |= CTS_DIGITAL_FILTERING_MASK; }
-        if (bPRNLocked) { uiWord |= CTS_PRN_LOCK_MASK; }
-        if (bChannelAssignmentForced) { uiWord |= CTS_CHANNEL_ASSIGNMENT_MASK; }
+        if (bPhaseLocked) uiWord |= CTS_PHASE_LOCK_MASK;
+        if (bParityKnown) uiWord |= CTS_PARITY_KNOWN_MASK;
+        if (bCodeLocked) uiWord |= CTS_CODE_LOCKED_MASK;
+        if (bGrouped) uiWord |= CTS_GROUPING_MASK;
+        if (bPrimaryL1Channel) uiWord |= CTS_PRIMARY_L1_CHANNEL_MASK;
+        if (bHalfCycleAdded) uiWord |= CTS_CARRIER_PHASE_MASK;
+        if (bDigitalFilteringOnSignal) uiWord |= CTS_DIGITAL_FILTERING_MASK;
+        if (bPRNLocked) uiWord |= CTS_PRN_LOCK_MASK;
+        if (bChannelAssignmentForced) uiWord |= CTS_CHANNEL_ASSIGNMENT_MASK;
 
         return uiWord;
     }
