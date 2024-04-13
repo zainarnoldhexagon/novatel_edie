@@ -57,7 +57,7 @@ class RxConfigHandler
     RxConfigHandler(const RxConfigHandler&&) = delete;
     RxConfigHandler& operator=(const RxConfigHandler&) = delete;
 
-    static constexpr const char* szAbbrevASCIIEmbeddedHeaderPrefix = "<     ";
+    static constexpr auto szAbbrevASCIIEmbeddedHeaderPrefix = "<     ";
     static constexpr uint32_t uiINTERNAL_BUFFER_SIZE = MESSAGE_SIZE_MAX;
 
     Framer clMyFramer;

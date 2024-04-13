@@ -115,17 +115,46 @@ class MessageDecoderBase
     {
         return [](std::vector<FieldContainer>& vIntermediate_, const BaseField* MessageDataType_, char** ppcToken_,
                   [[maybe_unused]] const size_t tokenLength_, [[maybe_unused]] JsonReader* pclMsgDb) {
-            if constexpr (std::is_same_v<T, int8_t>) vIntermediate_.emplace_back(static_cast<T>(strtol(*ppcToken_, nullptr, R)), MessageDataType_);
-            if constexpr (std::is_same_v<T, int16_t>) vIntermediate_.emplace_back(static_cast<T>(strtol(*ppcToken_, nullptr, R)), MessageDataType_);
-            if constexpr (std::is_same_v<T, int32_t>) vIntermediate_.emplace_back(static_cast<T>(strtol(*ppcToken_, nullptr, R)), MessageDataType_);
-            if constexpr (std::is_same_v<T, int64_t>) vIntermediate_.emplace_back(static_cast<T>(strtoll(*ppcToken_, nullptr, R)), MessageDataType_);
-            if constexpr (std::is_same_v<T, uint8_t>) vIntermediate_.emplace_back(static_cast<T>(strtoul(*ppcToken_, nullptr, R)), MessageDataType_);
-            if constexpr (std::is_same_v<T, uint16_t>) vIntermediate_.emplace_back(static_cast<T>(strtoul(*ppcToken_, nullptr, R)), MessageDataType_);
-            if constexpr (std::is_same_v<T, uint32_t>) vIntermediate_.emplace_back(static_cast<T>(strtoul(*ppcToken_, nullptr, R)), MessageDataType_);
+            if constexpr (std::is_same_v<T, int8_t>)
+            {
+                vIntermediate_.emplace_back(static_cast<T>(strtol(*ppcToken_, nullptr, R)), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, int16_t>)
+            {
+                vIntermediate_.emplace_back(static_cast<T>(strtol(*ppcToken_, nullptr, R)), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, int32_t>)
+            {
+                vIntermediate_.emplace_back(static_cast<T>(strtol(*ppcToken_, nullptr, R)), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, int64_t>)
+            {
+                vIntermediate_.emplace_back(static_cast<T>(strtoll(*ppcToken_, nullptr, R)), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, uint8_t>)
+            {
+                vIntermediate_.emplace_back(static_cast<T>(strtoul(*ppcToken_, nullptr, R)), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, uint16_t>)
+            {
+                vIntermediate_.emplace_back(static_cast<T>(strtoul(*ppcToken_, nullptr, R)), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, uint32_t>)
+            {
+                vIntermediate_.emplace_back(static_cast<T>(strtoul(*ppcToken_, nullptr, R)), MessageDataType_);
+            }
             if constexpr (std::is_same_v<T, uint64_t>)
+            {
                 vIntermediate_.emplace_back(static_cast<T>(strtoull(*ppcToken_, nullptr, R)), MessageDataType_);
-            if constexpr (std::is_same_v<T, float>) vIntermediate_.emplace_back(strtof(*ppcToken_, nullptr), MessageDataType_);
-            if constexpr (std::is_same_v<T, double>) vIntermediate_.emplace_back(strtod(*ppcToken_, nullptr), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, float>)
+            {
+                vIntermediate_.emplace_back(strtof(*ppcToken_, nullptr), MessageDataType_);
+            }
+            if constexpr (std::is_same_v<T, double>)
+            {
+                vIntermediate_.emplace_back(strtod(*ppcToken_, nullptr), MessageDataType_);
+            }
         };
     }
 

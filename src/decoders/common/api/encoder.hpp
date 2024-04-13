@@ -95,9 +95,13 @@ template <typename T> [[nodiscard]] bool CopyToBuffer(unsigned char** ppucBuffer
     uint32_t uiItemSize_;
 
     if constexpr (std::is_same<T, const char>())
+    {
         uiItemSize_ = static_cast<uint32_t>(strlen(ptItem_));
+    }
     else
+    {
         uiItemSize_ = sizeof(*ptItem_);
+    }
 
     if (uiBytesLeft_ < uiItemSize_) { return false; }
     memcpy(*ppucBuffer_, ptItem_, uiItemSize_);

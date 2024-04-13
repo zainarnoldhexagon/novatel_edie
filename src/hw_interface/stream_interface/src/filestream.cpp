@@ -66,30 +66,45 @@ void FileStream::OpenFile(FILEMODES eMode)
     {
     case FILEMODES::APPEND:
         MyStream.open(clFilePath, ios::out | ios::app | ios::binary);
-        if (MyStream.fail()) throw nExcept("file does not exist");
+        if (MyStream.fail())
+        {
+            throw nExcept("file does not exist");
+        }
         break;
 
     case FILEMODES::INSERT:
         MyStream.open(clFilePath, ios::out | ios::ate | ios::binary);
-        if (MyStream.fail()) throw nExcept("file does not exist");
+        if (MyStream.fail())
+        {
+            throw nExcept("file does not exist");
+        }
 
         break;
 
     case FILEMODES::INPUT:
         MyStream.open(clFilePath, ios::in | ios::binary);
-        if (MyStream.fail()) throw nExcept("file does not exist");
+        if (MyStream.fail())
+        {
+            throw nExcept("file does not exist");
+        }
 
         break;
 
     case FILEMODES::OUTPUT:
         MyStream.open(clFilePath, ios::out | ios::binary);
-        if (MyStream.fail()) throw nExcept("file does not exist");
+        if (MyStream.fail())
+        {
+            throw nExcept("file does not exist");
+        }
 
         break;
 
     case FILEMODES::TRUNCATE:
         MyStream.open(clFilePath, ios::in | ios::out | ios::trunc | ios::binary);
-        if (MyStream.fail()) throw nExcept("file does not exist");
+        if (MyStream.fail())
+        {
+            throw nExcept("file does not exist");
+        }
 
         break;
 
@@ -104,14 +119,20 @@ void FileStream::OpenFile(FILEMODES eMode)
 void FileStream::CloseFile()
 {
     MyStream.close();
-    if (MyStream.fail()) throw nExcept("\"%s\" close file failed", clFilePath.u32string().c_str());
+    if (MyStream.fail())
+    {
+        throw nExcept("\"%s\" close file failed", clFilePath.u32string().c_str());
+    }
 }
 
 // ---------------------------------------------------------
 void FileStream::FlushFile()
 {
     MyStream.flush();
-    if (MyStream.fail()) throw nExcept("\"%s\" flush file failed", clFilePath.string().c_str());
+    if (MyStream.fail())
+    {
+        throw nExcept("\"%s\" flush file failed", clFilePath.string().c_str());
+    }
 }
 
 // ---------------------------------------------------------
@@ -176,7 +197,10 @@ uint32_t FileStream::WriteFile(char* cData, uint32_t uiSize)
 void FileStream::CalculateFileSize()
 {
     uintmax_t filesize = std::filesystem::file_size(clFilePath);
-    if (filesize > 0) ullMyFileLength = filesize;
+    if (filesize > 0)
+    {
+        ullMyFileLength = filesize;
+    }
 }
 
 // ---------------------------------------------------------
@@ -197,9 +221,13 @@ void FileStream::GetFileSize()
 uint32_t FileStream::CalculatePercentage(uint64_t ullCurrentFileRead)
 {
     if (ullMyFileLength == 0L)
+    {
         return 100;
+    }
     else
+    {
         return static_cast<uint32_t>(ullCurrentFileRead * 100 / ullMyFileLength);
+    }
 }
 
 // ---------------------------------------------------------

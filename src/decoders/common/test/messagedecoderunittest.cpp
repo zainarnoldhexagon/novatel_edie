@@ -70,16 +70,20 @@ class MessageDecoderTypesTest : public ::testing::Test
                 // there is an issue here in that some data types can have multiple conversion strings or sizes
                 // associated with them. In order to fix this, we may want these DataType functions to return a
                 // vector so we can iterate through every possible valid combination of a basefield
-                const BaseField stMessageDataType = BaseField("", FIELD_TYPE::SIMPLE, DataTypeConversion(D), DataTypeSize(D), D);
+                const auto stMessageDataType = BaseField("", FIELD_TYPE::SIMPLE, DataTypeConversion(D), DataTypeSize(D), D);
                 const char* tempStr = vstrTestInput[sz].c_str();
                 MessageDecoderBase::DecodeAsciiField(&stMessageDataType, const_cast<char**>(&tempStr), vstrTestInput[sz].length(),
                                                      vIntermediateFormat_);
 
                 if constexpr (std::is_same_v<T, float> || std::is_same_v<T, double>)
+                {
                     ASSERT_NEAR(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz],
                                 std::abs(vTargets[sz]) * std::numeric_limits<T>::epsilon());
+                }
                 else
+                {
                     ASSERT_EQ(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz]);
+                }
             }
         }
 
@@ -88,7 +92,7 @@ class MessageDecoderTypesTest : public ::testing::Test
             std::vector<FieldContainer> vIntermediateFormat;
             vIntermediateFormat.reserve(1);
 
-            const BaseField stMessageDataType = BaseField("", FIELD_TYPE::SIMPLE, DataTypeConversion(D), DataTypeSize(D) + 1, D);
+            const auto stMessageDataType = BaseField("", FIELD_TYPE::SIMPLE, DataTypeConversion(D), DataTypeSize(D) + 1, D);
             const char* tempStr = strTestInput.c_str();
             ASSERT_THROW(
                 MessageDecoderBase::DecodeAsciiField(&stMessageDataType, const_cast<char**>(&tempStr), strTestInput.length(), vIntermediateFormat),
@@ -110,16 +114,20 @@ class MessageDecoderTypesTest : public ::testing::Test
                 // there is an issue here in that some data types can have multiple conversion strings or sizes
                 // associated with them. In order to fix this, we may want these DataType functions to return a
                 // vector so we can iterate through every possible valid combination of a basefield
-                const BaseField stMessageDataType = BaseField("", FIELD_TYPE::SIMPLE, DataTypeConversion(D), DataTypeSize(D), D);
+                const auto stMessageDataType = BaseField("", FIELD_TYPE::SIMPLE, DataTypeConversion(D), DataTypeSize(D), D);
                 // there should be a better way to do this
                 uint8_t* pucTestInput = vvucTestInput[sz].data();
                 MessageDecoderBase::DecodeBinaryField(&stMessageDataType, &pucTestInput, vIntermediateFormat_);
 
                 if constexpr (std::is_same_v<T, float> || std::is_same_v<T, double>)
+                {
                     ASSERT_NEAR(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz],
                                 std::abs(vTargets[sz]) * std::numeric_limits<T>::epsilon());
+                }
                 else
+                {
                     ASSERT_EQ(std::get<T>(vIntermediateFormat_[0].field_value), vTargets[sz]);
+                }
             }
         }
     };
@@ -159,7 +167,7 @@ class MessageDecoderTypesTest : public ::testing::Test
                   }";
     }
 
-    virtual void SetUp()
+    void SetUp() override
     {
         try
         {
@@ -171,26 +179,32 @@ class MessageDecoderTypesTest : public ::testing::Test
         {
             std::cout << e.what() << std::endl;
 
-            for (auto it : MsgDefFields) delete it;
+            for (auto it : MsgDefFields)
+            {
+                delete it;
+            }
 
             MsgDefFields.clear();
         }
     }
 
-    virtual void TearDown()
+    void TearDown() override
     {
         pclMyDecoderTester->ShutdownLogger();
 
-        for (auto it : MsgDefFields) delete it;
+        for (auto it : MsgDefFields)
+        {
+            delete it;
+        }
 
         MsgDefFields.clear();
     }
 
     void CreateEnumField(std::string name, std::string description, int32_t value)
     {
-        EnumField* stField = new EnumField();
-        EnumDefinition* enumDef = new EnumDefinition();
-        EnumDataType* enumDT = new EnumDataType();
+        auto stField = new EnumField();
+        auto enumDef = new EnumDefinition();
+        auto enumDT = new EnumDataType();
         enumDT->name = name;
         enumDT->description = description;
         enumDT->value = value;
@@ -261,7 +275,7 @@ TEST_F(MessageDecoderTypesTest, ASCII_CHAR_BYTE_INVALID_INPUT)
     std::vector<FieldContainer> vIntermediateFormat_;
     vIntermediateFormat_.reserve(1);
 
-    const char* testInput = "4";
+    auto testInput = "4";
     pclMyDecoderTester->TestDecodeAscii(MsgDefFields, &testInput, vIntermediateFormat_);
 
     ASSERT_EQ(std::get<int8_t>(vIntermediateFormat_[0].field_value), '4');
@@ -273,7 +287,7 @@ TEST_F(MessageDecoderTypesTest, ASCII_BOOL_INVALID_INPUT)
     std::vector<FieldContainer> vIntermediateFormat_;
     vIntermediateFormat_.reserve(1);
 
-    const char* testInput = "True";
+    auto testInput = "True";
     pclMyDecoderTester->TestDecodeAscii(MsgDefFields, &testInput, vIntermediateFormat_);
 
     ASSERT_EQ(std::get<bool>(vIntermediateFormat_[0].field_value), false);
@@ -283,17 +297,23 @@ TEST_F(MessageDecoderTypesTest, ASCII_ENUM_VALID)
 {
     std::vector<std::pair<std::string, int32_t>> vTestInput = {{"UNKNOWN", 20}, {"APPROXIMATE", 60}, {"SATTIME", 200}};
 
-    for (const auto& input : vTestInput) CreateEnumField(input.first, "", input.second);
+    for (const auto& input : vTestInput)
+    {
+        CreateEnumField(input.first, "", input.second);
+    }
 
     std::vector<FieldContainer> vIntermediateFormat;
     vIntermediateFormat.reserve(vTestInput.size());
 
-    const char* testInput = "UNKNOWN,APPROXIMATE,SATTIME";
+    auto testInput = "UNKNOWN,APPROXIMATE,SATTIME";
 
     ASSERT_EQ(pclMyDecoderTester->TestDecodeAscii(MsgDefFields, &testInput, vIntermediateFormat), STATUS::SUCCESS);
     ASSERT_EQ(vIntermediateFormat.size(), vTestInput.size());
 
-    for (size_t sz = 0; sz < vTestInput.size(); ++sz) ASSERT_EQ(std::get<int32_t>(vIntermediateFormat[sz].field_value), vTestInput[sz].second);
+    for (size_t sz = 0; sz < vTestInput.size(); ++sz)
+    {
+        ASSERT_EQ(std::get<int32_t>(vIntermediateFormat[sz].field_value), vTestInput[sz].second);
+    }
 }
 
 TEST_F(MessageDecoderTypesTest, ASCII_STRING_VALID)
@@ -320,7 +340,7 @@ TEST_F(MessageDecoderTypesTest, ASCII_TYPE_INVALID)
     std::vector<FieldContainer> vIntermediateFormat_;
     vIntermediateFormat_.reserve(1);
 
-    const char* testInput = "garbage";
+    auto testInput = "garbage";
 
     ASSERT_THROW(pclMyDecoderTester->TestDecodeAscii(MsgDefFields, &testInput, vIntermediateFormat_), std::runtime_error);
 }
@@ -380,7 +400,7 @@ TEST_F(MessageDecoderTypesTest, SIMPLE_FIELD_WIDTH_VALID)
     IntermediateMessage vIntermediateFormat;
     vIntermediateFormat.reserve(MsgDefFields.size());
 
-    const char* testInput = "TRUE,0x63,227,56,2734,-3842,38283,54244,-4359,5293,79338432,-289834,2.54,5.44061788e+03";
+    auto testInput = "TRUE,0x63,227,56,2734,-3842,38283,54244,-4359,5293,79338432,-289834,2.54,5.44061788e+03";
 
     ASSERT_EQ(STATUS::SUCCESS, pclMyDecoderTester->TestDecodeAscii(MsgDefFields, &testInput, vIntermediateFormat));
     // TODO: Keep this here or make a file for testing common encoder?

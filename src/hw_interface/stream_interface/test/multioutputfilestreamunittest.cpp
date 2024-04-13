@@ -33,9 +33,9 @@
 class MultiOutputFileStreamTest : public ::testing::Test
 {
   public:
-    virtual void SetUp() {}
+    void SetUp() override {}
 
-    virtual void TearDown() {}
+    void TearDown() override {}
 
     typedef std::map<std::string, FileStream*> FstreamMap;
     MultiOutputFileStream::FstreamMap::iterator itFstreamMapIterator;
@@ -190,7 +190,9 @@ TEST_F(MultiOutputFileStreamTest, WriteData)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simple fails
+    }
 
     ifile.close();
 
@@ -215,7 +217,9 @@ TEST_F(MultiOutputFileStreamTest, WriteDataWideFile)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simple fails
+    }
 
     ifile.close();
 
@@ -241,7 +245,9 @@ TEST_F(MultiOutputFileStreamTest, ConfigureSplitBySize)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simple fails
+    }
 
     ifile.close();
 
@@ -276,7 +282,9 @@ TEST_F(MultiOutputFileStreamTest, ConfigureSplitByTime)
         // The file exists, and is open for input
     }
     else
+    {
         ASSERT_TRUE(4 == 5); // Simpley fails
+    }
 
     ifile.close();
 

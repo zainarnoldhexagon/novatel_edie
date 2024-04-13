@@ -125,9 +125,9 @@ int main(int argc, char* argv[])
     unsigned char* pucEncodedMessageBuffer = acEncodeBuffer;
 
     // Initialize structures and error codes
-    STATUS eFramerStatus = STATUS::UNKNOWN;
-    STATUS eDecoderStatus = STATUS::UNKNOWN;
-    STATUS eEncoderStatus = STATUS::UNKNOWN;
+    auto eFramerStatus = STATUS::UNKNOWN;
+    auto eDecoderStatus = STATUS::UNKNOWN;
+    auto eEncoderStatus = STATUS::UNKNOWN;
 
     IntermediateHeader stHeader;
     IntermediateMessage stMessage;
