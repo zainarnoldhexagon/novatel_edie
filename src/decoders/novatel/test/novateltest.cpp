@@ -2792,7 +2792,7 @@ TEST_F(FileParserTest, LOGGER)
    spdlog::level::level_enum eLevel = spdlog::level::off;
 
    // FileParser logger
-   ASSERT_NE(spdlog::get("novatel_fileparser"), nullptr);
+   ASSERT_NE(spdlog::get("novatel_file_parser"), nullptr);
    std::shared_ptr<spdlog::logger> novatel_fileparser = pclFp->GetLogger();
    pclFp->SetLoggerLevel(eLevel);
    ASSERT_EQ(novatel_fileparser->level(), eLevel);
