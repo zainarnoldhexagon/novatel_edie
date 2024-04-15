@@ -33,7 +33,6 @@
 #include "decoders/common/api/message_decoder.hpp"
 #include "decoders/novatel/api/rxconfig/rxconfig_handler.hpp"
 
-using namespace std;
 using namespace novatel::edie;
 using namespace novatel::edie::oem;
 

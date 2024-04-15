@@ -46,7 +46,6 @@
 
 using json = nlohmann::json;
 
-using namespace std;
 using namespace novatel::edie;
 using namespace novatel::edie::oem;
 

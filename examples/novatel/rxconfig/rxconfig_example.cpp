@@ -35,7 +35,6 @@
 #include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
 #include "src/version.h"
 
-using namespace std;
 using namespace novatel::edie;
 using namespace novatel::edie::oem;
 
@@ -94,9 +93,9 @@ int main(int argc, char* argv[])
     // Load the database
     JsonReader clJsonDb;
     pclLogger->info("Loading Database...");
-    auto tStart = chrono::high_resolution_clock::now();
+    auto tStart = std::chrono::high_resolution_clock::now();
     clJsonDb.LoadFile(sJsonDB);
-    pclLogger->info("Done in {}ms", chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - tStart).count());
+    pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
     // Initialize FS structures and buffers
     StreamReadStatus stReadStatus;

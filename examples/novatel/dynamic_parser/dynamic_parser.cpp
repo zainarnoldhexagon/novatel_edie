@@ -33,7 +33,6 @@
 #include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
 #include "src/version.h"
 
-using namespace std;
 using namespace novatel::edie;
 using namespace novatel::edie::oem;
 
@@ -90,13 +89,13 @@ int main(int argc, char* argv[])
     }
 
     pclLogger->info("Loading Database...");
-    auto tStart = chrono::high_resolution_clock::now();
+    auto tStart = std::chrono::high_resolution_clock::now();
     JsonReader* pclJsonDb = common_jsonreader_init();
     common_jsonreader_load_file(pclJsonDb, sJsonDB.c_str());
-    pclLogger->info("Done in {}ms", chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - tStart).count());
+    pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
     // Setup timers
-    auto tLoop = chrono::high_resolution_clock::now();
+    auto tLoop = std::chrono::high_resolution_clock::now();
     uint32_t uiCounter = 0;
 
     // Setup the EDIE components
@@ -127,8 +126,8 @@ int main(int argc, char* argv[])
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());
 
     uint32_t uiCompleteMessages = 0;
-    tStart = chrono::high_resolution_clock::now();
-    tLoop = chrono::high_resolution_clock::now();
+    tStart = std::chrono::high_resolution_clock::now();
+    tLoop = std::chrono::high_resolution_clock::now();
     while (!stReadStatus.bEOS)
     {
         stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
@@ -146,16 +145,16 @@ int main(int argc, char* argv[])
                 uiCompleteMessages++;
             }
 
-            if (chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - tLoop).count() > 1000)
+            if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tLoop).count() > 1000)
             {
                 uiCounter++;
                 pclLogger->info("{} logs/s", uiCompleteMessages / uiCounter);
-                tLoop = chrono::high_resolution_clock::now();
+                tLoop = std::chrono::high_resolution_clock::now();
             }
         } while (eStatus != STATUS::BUFFER_EMPTY);
     }
     pclLogger->info("Converted {} logs in {}s from {}", uiCompleteMessages,
-                    (chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - tStart).count() / 1000.0),
+                    (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count() / 1000.0),
                     sInFilename.c_str());
 
     Logger::Shutdown();

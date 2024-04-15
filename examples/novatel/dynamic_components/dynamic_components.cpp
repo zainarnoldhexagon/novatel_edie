@@ -34,7 +34,6 @@
 #include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
 #include "src/version.h"
 
-using namespace std;
 using namespace novatel::edie;
 using namespace novatel::edie::oem;
 
@@ -91,13 +90,13 @@ int main(int argc, char* argv[])
     }
 
     pclLogger->info("Loading Database...");
-    auto tStart = chrono::high_resolution_clock::now();
+    auto tStart = std::chrono::high_resolution_clock::now();
     JsonReader* pclJsonDb = common_jsonreader_init();
     common_jsonreader_load_file(pclJsonDb, sJsonDB.c_str());
-    pclLogger->info("Done in {}ms", chrono::duration_cast<chrono::milliseconds>(chrono::high_resolution_clock::now() - tStart).count());
+    pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
     // Setup timers
-    auto tLoop = chrono::high_resolution_clock::now();
+    auto tLoop = std::chrono::high_resolution_clock::now();
 
     // Setup the EDIE components
     Framer* pclFramer = novatel_framer_init();
@@ -147,8 +146,8 @@ int main(int argc, char* argv[])
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());
 
-    tStart = chrono::high_resolution_clock::now();
-    tLoop = chrono::high_resolution_clock::now();
+    tStart = std::chrono::high_resolution_clock::now();
+    tLoop = std::chrono::high_resolution_clock::now();
 
     while (!stReadStatus.bEOS)
     {

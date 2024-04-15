@@ -29,7 +29,6 @@
 #include "decoders/novatel/api/framer.hpp"
 #include "hw_interface/stream_interface/api/inputfilestream.hpp"
 
-using namespace std;
 using namespace novatel::edie;
 using namespace novatel::edie::oem;
 

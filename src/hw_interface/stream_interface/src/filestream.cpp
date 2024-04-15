@@ -29,8 +29,6 @@
 #include "decoders/common/api/nexcept.h"
 #include "filestream.hpp"
 
-using namespace std;
-
 // ---------------------------------------------------------
 FileStream::FileStream(const std::u32string s32FileName_)
 {
@@ -65,30 +63,30 @@ void FileStream::OpenFile(FILEMODES eMode)
     switch (eMode)
     {
     case FILEMODES::APPEND:
-        MyStream.open(clFilePath, ios::out | ios::app | ios::binary);
+        MyStream.open(clFilePath, std::ios::out | std::ios::app | std::ios::binary);
         if (MyStream.fail()) { throw nExcept("file does not exist"); }
         break;
 
     case FILEMODES::INSERT:
-        MyStream.open(clFilePath, ios::out | ios::ate | ios::binary);
+        MyStream.open(clFilePath, std::ios::out | std::ios::ate | std::ios::binary);
         if (MyStream.fail()) { throw nExcept("file does not exist"); }
 
         break;
 
     case FILEMODES::INPUT:
-        MyStream.open(clFilePath, ios::in | ios::binary);
+        MyStream.open(clFilePath, std::ios::in | std::ios::binary);
         if (MyStream.fail()) { throw nExcept("file does not exist"); }
 
         break;
 
     case FILEMODES::OUTPUT:
-        MyStream.open(clFilePath, ios::out | ios::binary);
+        MyStream.open(clFilePath, std::ios::out | std::ios::binary);
         if (MyStream.fail()) { throw nExcept("file does not exist"); }
 
         break;
 
     case FILEMODES::TRUNCATE:
-        MyStream.open(clFilePath, ios::in | ios::out | ios::trunc | ios::binary);
+        MyStream.open(clFilePath, std::ios::in | std::ios::out | std::ios::trunc | std::ios::binary);
         if (MyStream.fail()) { throw nExcept("file does not exist"); }
 
         break;
