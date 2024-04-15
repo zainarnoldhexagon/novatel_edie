@@ -27,7 +27,7 @@
 #include <chrono>
 
 #include "src/decoders/novatel/api/commander.hpp"
-#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;

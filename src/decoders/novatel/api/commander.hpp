@@ -28,7 +28,7 @@
 #define NOVATEL_COMMANDER_HPP
 
 #include "decoders/common/api/common.hpp"
-#include "decoders/common/api/jsonreader.hpp"
+#include "decoders/common/api/json_reader.hpp"
 #include "decoders/novatel/api/common.hpp"
 #include "decoders/novatel/api/encoder.hpp"
 #include "decoders/novatel/api/message_decoder.hpp"

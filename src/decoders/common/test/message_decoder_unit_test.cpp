@@ -21,7 +21,7 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file messagedecoderunittest.cpp
+// ! \file message_decoder_unit_test.cpp
 // ===============================================================================
 
 #include <gtest/gtest.h>

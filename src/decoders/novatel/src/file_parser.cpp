@@ -21,10 +21,10 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file fileparser.cpp
+// ! \file file_parser.cpp
 // ===============================================================================
 
-#include "decoders/novatel/api/fileparser.hpp"
+#include "decoders/novatel/api/file_parser.hpp"
 
 using namespace novatel::edie;
 using namespace novatel::edie::oem;

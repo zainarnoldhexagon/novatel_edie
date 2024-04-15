@@ -31,16 +31,16 @@
 #include <locale>
 #include <nlohmann/json.hpp>
 
-#include "decoders/common/api/jsonreader.hpp"
+#include "decoders/common/api/json_reader.hpp"
 #include "decoders/common/api/message_decoder.hpp"
 #include "decoders/novatel/api/commander.hpp"
 #include "decoders/novatel/api/encoder.hpp"
-#include "decoders/novatel/api/fileparser.hpp"
+#include "decoders/novatel/api/file_parser.hpp"
 #include "decoders/novatel/api/filter.hpp"
 #include "decoders/novatel/api/framer.hpp"
 #include "decoders/novatel/api/header_decoder.hpp"
-#include "hw_interface/stream_interface/api/inputfilestream.hpp"
-#include "hw_interface/stream_interface/api/inputstreaminterface.hpp"
+#include "hw_interface/stream_interface/api/input_file_stream.hpp"
+#include "hw_interface/stream_interface/api/input_stream_interface.hpp"
 #include "resources/novatel_message_definitions.hpp"
 #include <gtest/gtest.h>
 

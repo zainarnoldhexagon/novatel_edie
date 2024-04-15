@@ -21,11 +21,11 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file jsonreader.hpp
+// ! \file json_reader.hpp
 // ===============================================================================
 
-#ifndef JSONREADER_HPP
-#define JSONREADER_HPP
+#ifndef JSON_READER_HPP
+#define JSON_READER_HPP
 
 #include <filesystem>
 #include <fstream>

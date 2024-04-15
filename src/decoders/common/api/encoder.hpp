@@ -27,7 +27,7 @@
 #ifndef ENCODER_HPP
 #define ENCODER_HPP
 
-#include "decoders/common/api/jsonreader.hpp"
+#include "decoders/common/api/json_reader.hpp"
 #include "decoders/common/api/message_decoder.hpp"
 
 namespace novatel::edie {

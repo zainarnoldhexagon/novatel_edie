@@ -28,8 +28,8 @@
 
 #include "src/decoders/common/api/common.hpp"
 #include "src/decoders/novatel/api/rxconfig/rxconfig_handler.hpp"
-#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
-#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;

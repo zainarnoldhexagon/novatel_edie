@@ -21,41 +21,21 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file crc32unittest.cpp
+// ! \file common_json_reader.hpp
 // ===============================================================================
 
-#include <gtest/gtest.h>
+#ifndef DYNAMIC_LIBRARY_COMMON_JSON_READER_HPP
+#define DYNAMIC_LIBRARY_COMMON_JSON_READER_HPP
 
-#include "decoders/common/api/common.hpp"
-#include "decoders/common/api/crc32.hpp"
-#include "decoders/novatel/api/common.hpp"
+#include "decoders/common/api/json_reader.hpp"
+#include "decoders_export.h"
 
-class CRC32Test : public testing::Test
+extern "C"
 {
-  public:
-    void SetUp() override {}
-    void TearDown() override {}
-};
-
-// -------------------------------------------------------------------------------------------------------
-// CRC32 Unit Tests
-// -------------------------------------------------------------------------------------------------------
-TEST_F(CRC32Test, CalculateBlockCRC32)
-{
-    std::string sMessage("#BESTPOSA,SPECIAL,0,72.5,FINESTEERING,2000,202512.000,02000020,b1f6,32768;SOL_COMPUTED,"
-                         "SINGLE,17.44306884140,78.37411522222,649.8119,-76.8000,WGS84,0.9206,1.0236,1.9887,\"\",0."
-                         "000,0.000,34,34,34,34,00,06,39,33*42d4f5cc\r\n");
-
-    uint32_t uiCalculatedCRC = 0;
-    uint64_t uiTerminatorIndex = sMessage.length() - (novatel::edie::oem::OEM4_ASCII_CRC_LENGTH + 3);
-
-    if (uiTerminatorIndex == 0) { return; }
-
-    for (uint64_t i = 1ULL; i < uiTerminatorIndex; i++)
-    {
-        if (sMessage[i] == '\0') { break; }
-        CalculateCharacterCRC32(uiCalculatedCRC, sMessage[i]);
-    }
-
-    ASSERT_EQ(uiCalculatedCRC, 0x42d4f5ccUL);
+    DECODERS_EXPORT JsonReader* common_json_reader_init();
+    DECODERS_EXPORT bool common_json_reader_load_file(JsonReader* pclJsonDb_, const char* pcJsonDBFilepath_);
+    DECODERS_EXPORT bool common_json_reader_parse_json(JsonReader* pclJsonDb_, const char* pcJsonData_);
+    DECODERS_EXPORT bool common_json_reader_delete(JsonReader* pclJsonDb_);
 }
+
+#endif // DYNAMIC_LIBRARY_COMMON_JSON_READER_HPP

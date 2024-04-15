@@ -29,7 +29,7 @@
 #include <gtest/gtest.h>
 
 #include "decoders/common/api/common.hpp"
-#include "decoders/common/api/jsonreader.hpp"
+#include "decoders/common/api/json_reader.hpp"
 #include "decoders/common/api/message_decoder.hpp"
 #include "decoders/novatel/api/rxconfig/rxconfig_handler.hpp"
 

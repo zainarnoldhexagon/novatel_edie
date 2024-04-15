@@ -26,9 +26,9 @@
 
 #include <chrono>
 
-#include "src/decoders/novatel/api/fileparser.hpp"
-#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
-#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
+#include "src/decoders/novatel/api/file_parser.hpp"
+#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;

@@ -21,21 +21,62 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file common_jsonreader.hpp
+// ! \file common_json_reader.cpp
 // ===============================================================================
 
-#ifndef DYNAMIC_LIBRARY_COMMON_JSONREADER_HPP
-#define DYNAMIC_LIBRARY_COMMON_JSONREADER_HPP
+#include "common_json_reader.hpp"
 
-#include "decoders/common/api/jsonreader.hpp"
-#include "decoders_export.h"
-
-extern "C"
+JsonReader* common_json_reader_init()
 {
-    DECODERS_EXPORT JsonReader* common_jsonreader_init();
-    DECODERS_EXPORT bool common_jsonreader_load_file(JsonReader* pclJsonDb_, const char* pcJsonDBFilepath_);
-    DECODERS_EXPORT bool common_jsonreader_parse_json(JsonReader* pclJsonDb_, const char* pcJsonData_);
-    DECODERS_EXPORT bool common_jsonreader_delete(JsonReader* pclJsonDb_);
+    auto pclJsonDb = new JsonReader();
+    return pclJsonDb;
 }
 
-#endif // DYNAMIC_LIBRARY_COMMON_JSONREADER_HPP
+bool common_json_reader_load_file(JsonReader* pclJsonDb_, const char* pcJsonDBFilepath_)
+{
+    if (!pclJsonDb_) { return false; }
+
+    try
+    {
+        pclJsonDb_->LoadFile(pcJsonDBFilepath_);
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool common_json_reader_parse_json(JsonReader* pclJsonDb_, const char* pcJsonData_)
+{
+    if (!pclJsonDb_) { return false; }
+
+    try
+    {
+        pclJsonDb_->ParseJson(pcJsonData_);
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool common_json_reader_delete(JsonReader* pclJsonDb_)
+{
+    if (!pclJsonDb_) { return false; }
+
+    try
+    {
+        delete pclJsonDb_;
+        pclJsonDb_ = nullptr;
+    }
+    catch (...)
+    {
+        return false;
+    }
+
+    return true;
+}

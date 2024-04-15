@@ -26,11 +26,11 @@
 
 #include <chrono>
 
-#include "src/decoders/dynamic_library/api/common_jsonreader.hpp"
-#include "src/decoders/dynamic_library/api/novatel_fileparser.hpp"
+#include "src/decoders/dynamic_library/api/common_json_reader.hpp"
+#include "src/decoders/dynamic_library/api/novatel_file_parser.hpp"
 #include "src/decoders/dynamic_library/api/novatel_filter.hpp"
-#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
-#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;
@@ -90,8 +90,8 @@ int main(int argc, char* argv[])
 
     pclLogger->info("Loading Database...");
     auto tStart = std::chrono::high_resolution_clock::now();
-    JsonReader* pclJsonDb = common_jsonreader_init();
-    common_jsonreader_load_file(pclJsonDb, sJsonDB.c_str());
+    JsonReader* pclJsonDb = common_json_reader_init();
+    common_json_reader_load_file(pclJsonDb, sJsonDB.c_str());
     pclLogger->info("Done in {}ms",
                     std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
@@ -100,7 +100,7 @@ int main(int argc, char* argv[])
     uint32_t uiCounter = 0;
 
     // Set up the EDIE components
-    FileParser* pclFileParser = novatel_fileparser_init(pclJsonDb);
+    FileParser* pclFileParser = novatel_file_parser_init(pclJsonDb);
     pclFileParser->SetEncodeFormat(eEncodeFormat);
 
     Filter* pclFilter = novatel_filter_init();
@@ -112,7 +112,7 @@ int main(int argc, char* argv[])
     MetaDataStruct stMetaData;
     MessageDataStruct stMessageData;
 
-    novatel_fileparser_set_filter(pclFileParser, pclFilter);
+    novatel_file_parser_set_filter(pclFileParser, pclFilter);
 
     // Initialize FS structures and buffers
     ReadDataStructure stReadData;
@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());
 
-    if (!novatel_fileparser_set_stream(pclFileParser, &clIFS))
+    if (!novatel_file_parser_set_stream(pclFileParser, &clIFS))
     {
         pclLogger->error("Failed to set stream!");
         exit(1);
@@ -139,7 +139,7 @@ int main(int argc, char* argv[])
     {
         try
         {
-            eStatus = novatel_fileparser_read(pclFileParser, &stMessageData, &stMetaData);
+            eStatus = novatel_file_parser_read(pclFileParser, &stMessageData, &stMetaData);
             if (eStatus == STATUS::SUCCESS)
             {
                 clConvertedLogsOFS.WriteData(reinterpret_cast<char*>(stMessageData.pucMessage), stMessageData.uiMessageLength);
@@ -157,7 +157,7 @@ int main(int argc, char* argv[])
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tLoop).count() > 1000)
         {
             uiCounter++;
-            pclLogger->info("{}% {} logs/s", novatel_fileparser_get_percent_read(pclFileParser), uiCompleteMessages / uiCounter);
+            pclLogger->info("{}% {} logs/s", novatel_file_parser_get_percent_read(pclFileParser), uiCompleteMessages / uiCounter);
             tLoop = std::chrono::high_resolution_clock::now();
         }
     }
@@ -167,6 +167,6 @@ int main(int argc, char* argv[])
 
     Logger::Shutdown();
 
-    novatel_fileparser_delete(pclFileParser);
+    novatel_file_parser_delete(pclFileParser);
     return 0;
 }

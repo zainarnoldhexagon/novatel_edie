@@ -21,62 +21,41 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file common_jsonreader.cpp
+// ! \file crc32_unit_test.cpp
 // ===============================================================================
 
-#include "common_jsonreader.hpp"
+#include <gtest/gtest.h>
 
-JsonReader* common_jsonreader_init()
+#include "decoders/common/api/common.hpp"
+#include "decoders/common/api/crc32.hpp"
+#include "decoders/novatel/api/common.hpp"
+
+class CRC32Test : public testing::Test
 {
-    auto pclJsonDb = new JsonReader();
-    return pclJsonDb;
-}
+  public:
+    void SetUp() override {}
+    void TearDown() override {}
+};
 
-bool common_jsonreader_load_file(JsonReader* pclJsonDb_, const char* pcJsonDBFilepath_)
+// -------------------------------------------------------------------------------------------------------
+// CRC32 Unit Tests
+// -------------------------------------------------------------------------------------------------------
+TEST_F(CRC32Test, CalculateBlockCRC32)
 {
-    if (!pclJsonDb_) { return false; }
+    std::string sMessage("#BESTPOSA,SPECIAL,0,72.5,FINESTEERING,2000,202512.000,02000020,b1f6,32768;SOL_COMPUTED,"
+                         "SINGLE,17.44306884140,78.37411522222,649.8119,-76.8000,WGS84,0.9206,1.0236,1.9887,\"\",0."
+                         "000,0.000,34,34,34,34,00,06,39,33*42d4f5cc\r\n");
 
-    try
-    {
-        pclJsonDb_->LoadFile(pcJsonDBFilepath_);
-    }
-    catch (...)
-    {
-        return false;
-    }
+    uint32_t uiCalculatedCRC = 0;
+    uint64_t uiTerminatorIndex = sMessage.length() - (novatel::edie::oem::OEM4_ASCII_CRC_LENGTH + 3);
 
-    return true;
-}
+    if (uiTerminatorIndex == 0) { return; }
 
-bool common_jsonreader_parse_json(JsonReader* pclJsonDb_, const char* pcJsonData_)
-{
-    if (!pclJsonDb_) { return false; }
-
-    try
+    for (uint64_t i = 1ULL; i < uiTerminatorIndex; i++)
     {
-        pclJsonDb_->ParseJson(pcJsonData_);
-    }
-    catch (...)
-    {
-        return false;
+        if (sMessage[i] == '\0') { break; }
+        CalculateCharacterCRC32(uiCalculatedCRC, sMessage[i]);
     }
 
-    return true;
-}
-
-bool common_jsonreader_delete(JsonReader* pclJsonDb_)
-{
-    if (!pclJsonDb_) { return false; }
-
-    try
-    {
-        delete pclJsonDb_;
-        pclJsonDb_ = nullptr;
-    }
-    catch (...)
-    {
-        return false;
-    }
-
-    return true;
+    ASSERT_EQ(uiCalculatedCRC, 0x42d4f5ccUL);
 }

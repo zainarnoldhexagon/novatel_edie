@@ -24,14 +24,14 @@
 // ! \file dynamic_components.cpp
 // ===============================================================================
 
-#include "src/decoders/dynamic_library/api/common_jsonreader.hpp"
+#include "src/decoders/dynamic_library/api/common_json_reader.hpp"
 #include "src/decoders/dynamic_library/api/novatel_encoder.hpp"
 #include "src/decoders/dynamic_library/api/novatel_filter.hpp"
 #include "src/decoders/dynamic_library/api/novatel_framer.hpp"
 #include "src/decoders/dynamic_library/api/novatel_header_decoder.hpp"
 #include "src/decoders/dynamic_library/api/novatel_message_decoder.hpp"
-#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
-#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;
@@ -91,8 +91,8 @@ int main(int argc, char* argv[])
 
     pclLogger->info("Loading Database...");
     auto tStart = std::chrono::high_resolution_clock::now();
-    JsonReader* pclJsonDb = common_jsonreader_init();
-    common_jsonreader_load_file(pclJsonDb, sJsonDB.c_str());
+    JsonReader* pclJsonDb = common_json_reader_init();
+    common_json_reader_load_file(pclJsonDb, sJsonDB.c_str());
     pclLogger->info("Done in {}ms",
                     std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 

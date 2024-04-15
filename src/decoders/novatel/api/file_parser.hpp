@@ -29,8 +29,8 @@
 
 #include "decoders/common/api/common.hpp"
 #include "decoders/novatel/api/parser.hpp"
-#include "hw_interface/stream_interface/api/inputfilestream.hpp"
-#include "hw_interface/stream_interface/api/outputfilestream.hpp"
+#include "hw_interface/stream_interface/api/input_file_stream.hpp"
+#include "hw_interface/stream_interface/api/output_file_stream.hpp"
 
 namespace novatel::edie::oem {
 

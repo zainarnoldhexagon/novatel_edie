@@ -24,7 +24,7 @@
 // ! \file jsonreader.cpp
 // ===============================================================================
 
-#include "jsonreader.hpp"
+#include "json_reader.hpp"
 #include "common.hpp"
 
 namespace novatel::edie {
