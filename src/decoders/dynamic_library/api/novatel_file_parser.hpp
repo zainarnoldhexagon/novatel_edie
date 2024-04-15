@@ -31,7 +31,7 @@
 #include "decoders/novatel/api/file_parser.hpp"
 #include "decoders/novatel/api/filter.hpp"
 #include "decoders_export.h"
-#include "hw_interface/stream_interface/api/input_file_stream.hpp"
+#include "hw_interface/stream_interface/api/inputfilestream.hpp"
 
 extern "C"
 {

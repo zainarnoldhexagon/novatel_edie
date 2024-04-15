@@ -32,8 +32,8 @@
 #include "src/decoders/novatel/api/framer.hpp"
 #include "src/decoders/novatel/api/header_decoder.hpp"
 #include "src/decoders/novatel/api/rangecmp/range_decompressor.hpp"
-#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
-#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;

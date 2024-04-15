@@ -39,8 +39,8 @@
 #include "decoders/novatel/api/filter.hpp"
 #include "decoders/novatel/api/framer.hpp"
 #include "decoders/novatel/api/header_decoder.hpp"
-#include "hw_interface/stream_interface/api/input_file_stream.hpp"
-#include "hw_interface/stream_interface/api/input_stream_interface.hpp"
+#include "hw_interface/stream_interface/api/inputfilestream.hpp"
+#include "hw_interface/stream_interface/api/inputstreaminterface.hpp"
 #include "resources/novatel_message_definitions.hpp"
 #include <gtest/gtest.h>
 

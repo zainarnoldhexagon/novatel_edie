@@ -30,8 +30,8 @@
 #include "src/decoders/dynamic_library/api/novatel_framer.hpp"
 #include "src/decoders/dynamic_library/api/novatel_header_decoder.hpp"
 #include "src/decoders/dynamic_library/api/novatel_message_decoder.hpp"
-#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
-#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;

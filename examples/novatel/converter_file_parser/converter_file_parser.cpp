@@ -21,14 +21,14 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file converter_fileparser.cpp
+// ! \file converter_file_parser.cpp
 // ===============================================================================
 
 #include <chrono>
 
 #include "src/decoders/novatel/api/file_parser.hpp"
-#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
-#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;

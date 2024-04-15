@@ -21,16 +21,16 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file fileparser.hpp
+// ! \file file_parser.hpp
 // ===============================================================================
 
-#ifndef NOVATEL_FILEPARSER_HPP
-#define NOVATEL_FILEPARSER_HPP
+#ifndef NOVATEL_FILE_PARSER_HPP
+#define NOVATEL_FILE_PARSER_HPP
 
 #include "decoders/common/api/common.hpp"
 #include "decoders/novatel/api/parser.hpp"
-#include "hw_interface/stream_interface/api/input_file_stream.hpp"
-#include "hw_interface/stream_interface/api/output_file_stream.hpp"
+#include "hw_interface/stream_interface/api/inputfilestream.hpp"
+#include "hw_interface/stream_interface/api/outputfilestream.hpp"
 
 namespace novatel::edie::oem {
 
@@ -48,7 +48,7 @@ class FileParser
     FileParser& operator=(const FileParser&) = delete;
 
   private:
-    std::shared_ptr<spdlog::logger> pclMyLogger{Logger::RegisterLogger("novatel_fileparser")};
+    std::shared_ptr<spdlog::logger> pclMyLogger{Logger::RegisterLogger("novatel_file_parser")};
 
     Parser clMyParser;
     InputFileStream* pclMyInputStream;
@@ -253,4 +253,4 @@ class FileParser
 };
 
 } // namespace novatel::edie::oem
-#endif // NOVATEL_FILEPARSER_HPP
+#endif // NOVATEL_FILE_PARSER_HPP

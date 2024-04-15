@@ -29,8 +29,8 @@
 #include "src/decoders/dynamic_library/api/common_json_reader.hpp"
 #include "src/decoders/dynamic_library/api/novatel_filter.hpp"
 #include "src/decoders/dynamic_library/api/novatel_parser.hpp"
-#include "src/hw_interface/stream_interface/api/input_file_stream.hpp"
-#include "src/hw_interface/stream_interface/api/output_file_stream.hpp"
+#include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
+#include "src/hw_interface/stream_interface/api/outputfilestream.hpp"
 #include "src/version.h"
 
 using namespace novatel::edie;
