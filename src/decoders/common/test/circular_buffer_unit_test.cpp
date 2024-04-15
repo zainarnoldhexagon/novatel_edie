@@ -21,7 +21,7 @@
 // |  DEALINGS IN THE SOFTWARE.                                                  |
 // |                                                                             |
 // ===============================================================================
-// ! \file circularbufferunittest.cpp
+// ! \file circular_buffer_unit_test.cpp
 // ===============================================================================
 
 #include <gtest/gtest.h>
