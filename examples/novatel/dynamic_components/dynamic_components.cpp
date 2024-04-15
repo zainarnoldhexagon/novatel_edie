@@ -93,7 +93,8 @@ int main(int argc, char* argv[])
     auto tStart = std::chrono::high_resolution_clock::now();
     JsonReader* pclJsonDb = common_jsonreader_init();
     common_jsonreader_load_file(pclJsonDb, sJsonDB.c_str());
-    pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
+    pclLogger->info("Done in {}ms",
+                    std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
     // Set up the EDIE components
     Framer* pclFramer = novatel_framer_init();

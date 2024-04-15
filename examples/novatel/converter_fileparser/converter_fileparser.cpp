@@ -102,7 +102,8 @@ int main(int argc, char* argv[])
     pclLogger->info("Loading Database...");
     auto tStart = std::chrono::high_resolution_clock::now();
     clJsonDb.LoadFile(sJsonDB);
-    pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
+    pclLogger->info("Done in {}ms",
+                    std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
     // Set up timers
     auto tLoop = std::chrono::high_resolution_clock::now();
