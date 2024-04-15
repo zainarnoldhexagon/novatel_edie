@@ -25,7 +25,6 @@
 // ===============================================================================
 
 #include <chrono>
-#include <stdlib.h>
 
 #include "src/decoders/dynamic_library/api/common_jsonreader.hpp"
 #include "src/decoders/dynamic_library/api/novatel_fileparser.hpp"
@@ -99,7 +98,7 @@ int main(int argc, char* argv[])
     auto tLoop = std::chrono::high_resolution_clock::now();
     uint32_t uiCounter = 0;
 
-    // Setup the EDIE components
+    // Set up the EDIE components
     FileParser* pclFileParser = novatel_fileparser_init(pclJsonDb);
     pclFileParser->SetEncodeFormat(eEncodeFormat);
 
@@ -120,7 +119,7 @@ int main(int argc, char* argv[])
     stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
     stReadData.uiDataSize = sizeof(acIFSReadBuffer);
 
-    // Setup filestreams
+    // Set up file streams
     InputFileStream clIFS(sInFilename.c_str());
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());

@@ -64,8 +64,8 @@ int main(int argc, char* argv[])
     }
     if (argc == 4 || argc == 5) { sEncodeFormat = argv[3]; }
 
-    std::string sAppendmsg = "";
-    if (argc == 5) { sAppendmsg = argv[4]; }
+    std::string sAppendMsg;
+    if (argc == 5) { sAppendMsg = argv[4]; }
 
     // Check command line arguments
     std::string sJsonDB = argv[1];
@@ -98,10 +98,10 @@ int main(int argc, char* argv[])
 
     pclLogger->info("Appending Message...");
     tStart = std::chrono::high_resolution_clock::now();
-    clJsonDb.AppendMessages(sAppendmsg);
+    clJsonDb.AppendMessages(sAppendMsg);
     pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
-    // Setup timers
+    // Set up timers
     auto tLoop = std::chrono::high_resolution_clock::now();
 
     Parser clParser(&clJsonDb);
@@ -130,7 +130,7 @@ int main(int argc, char* argv[])
     stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
     stReadData.uiDataSize = sizeof(acIFSReadBuffer);
 
-    // Setup filestreams
+    // Set up file streams
     InputFileStream clIFS(sInFilename.c_str());
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());

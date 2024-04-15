@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
     char* pcEncodedMessageBuffer = acEncodeBuffer;
     uint32_t uiEncodeBufferLength = MAX_ASCII_MESSAGE_LENGTH;
 
-    logger->info("Coverting \"{}\" to {}", argv[3], strEncodeFormat);
+    logger->info("Converting \"{}\" to {}", argv[3], strEncodeFormat);
     STATUS eCommanderStatus =
         clCommander.Encode(argv[3], static_cast<uint32_t>(strlen(argv[3])), pcEncodedMessageBuffer, uiEncodeBufferLength, eEncodeFormat);
     if (eCommanderStatus != STATUS::SUCCESS)

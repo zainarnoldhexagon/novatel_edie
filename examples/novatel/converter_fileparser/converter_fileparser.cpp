@@ -25,7 +25,6 @@
 // ===============================================================================
 
 #include <chrono>
-#include <cstdlib>
 
 #include "src/decoders/novatel/api/fileparser.hpp"
 #include "src/hw_interface/stream_interface/api/inputfilestream.hpp"
@@ -105,7 +104,7 @@ int main(int argc, char* argv[])
     clJsonDb.LoadFile(sJsonDB);
     pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
-    // Setup timers
+    // Set up timers
     auto tLoop = std::chrono::high_resolution_clock::now();
 
     FileParser clFileParser(&clJsonDb);
@@ -133,7 +132,7 @@ int main(int argc, char* argv[])
     stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
     stReadData.uiDataSize = sizeof(acIFSReadBuffer);
 
-    // Setup filestreams
+    // Set up file streams
     InputFileStream clIFS(sInFilename.c_str());
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());
@@ -175,10 +174,10 @@ int main(int argc, char* argv[])
             tLoop = std::chrono::high_resolution_clock::now();
         }
     }
+
     pclLogger->info("Converted {} logs in {}s from {}", uiCompleteMessages,
                     (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count() / 1000.0),
                     sInFilename.c_str());
-
     Logger::Shutdown();
     return 0;
 }

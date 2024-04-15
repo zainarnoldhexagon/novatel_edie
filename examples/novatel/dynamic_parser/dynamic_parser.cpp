@@ -94,11 +94,11 @@ int main(int argc, char* argv[])
     common_jsonreader_load_file(pclJsonDb, sJsonDB.c_str());
     pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
-    // Setup timers
+    // Set up timers
     auto tLoop = std::chrono::high_resolution_clock::now();
     uint32_t uiCounter = 0;
 
-    // Setup the EDIE components
+    // Set up the EDIE components
     Parser* pclParser = novatel_parser_init(pclJsonDb);
     pclParser->SetEncodeFormat(eEncodeFormat);
 
@@ -120,7 +120,7 @@ int main(int argc, char* argv[])
     stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
     stReadData.uiDataSize = sizeof(acIFSReadBuffer);
 
-    // Setup filestreams
+    // Set up file streams
     InputFileStream clIFS(sInFilename.c_str());
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());

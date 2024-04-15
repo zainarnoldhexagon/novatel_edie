@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
     clJsonDb.LoadFile(sJsonDB);
     pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
-    // Setup timers
+    // Set up timers
     auto tLoop = std::chrono::high_resolution_clock::now();
 
     Parser clParser(&clJsonDb);
@@ -122,7 +122,7 @@ int main(int argc, char* argv[])
     stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
     stReadData.uiDataSize = sizeof(acIFSReadBuffer);
 
-    // Setup filestreams
+    // Set up file streams
     InputFileStream clIFS(sInFilename.c_str());
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());

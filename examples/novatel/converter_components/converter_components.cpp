@@ -99,10 +99,7 @@ int main(int argc, char* argv[])
     clJsonDb.LoadFile(sJsonDB);
     pclLogger->info("Done in {}ms", std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - tStart).count());
 
-    // Setup timers
-    auto tLoop = std::chrono::high_resolution_clock::now();
-
-    // Setup the EDIE components
+    // Set up the EDIE components
     Framer clFramer;
     clFramer.SetLoggerLevel(spdlog::level::debug);
     Logger::AddConsoleLogging(clFramer.GetLogger());
@@ -131,7 +128,7 @@ int main(int argc, char* argv[])
     Logger::AddConsoleLogging(clFilter.GetLogger());
     Logger::AddRotatingFileLogger(clFilter.GetLogger());
 
-    // Setup buffers
+    // Set up buffers
     unsigned char acFrameBuffer[MAX_ASCII_MESSAGE_LENGTH];
     unsigned char* pucFrameBuffer = acFrameBuffer;
     unsigned char acEncodeBuffer[MAX_ASCII_MESSAGE_LENGTH];
@@ -155,13 +152,12 @@ int main(int argc, char* argv[])
     stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
     stReadData.uiDataSize = sizeof(acIFSReadBuffer);
 
-    // Setup filestreams
+    // Setup file streams
     InputFileStream clIFS(sInFilename.c_str());
     OutputFileStream clConvertedLogsOFS(sInFilename.append(".").append(sEncodeFormat).c_str());
     OutputFileStream clUnknownBytesOFS(sInFilename.append(".UNKNOWN").c_str());
 
     tStart = std::chrono::high_resolution_clock::now();
-    tLoop = std::chrono::high_resolution_clock::now();
 
     while (!stReadStatus.bEOS)
     {
@@ -186,7 +182,7 @@ int main(int argc, char* argv[])
                 pucFrameBuffer[stMetaData.uiLength] = '\0';
                 pclLogger->info("Framed: {}", reinterpret_cast<char*>(pucFrameBuffer));
 
-                // Decode the header.  Get meta data here and populate the Intermediate header.
+                // Decode the header.  Get metadata here and populate the Intermediate header.
                 eDecoderStatus = clHeaderDecoder.Decode(pucFrameBuffer, stHeader, stMetaData);
 
                 if (eDecoderStatus == STATUS::SUCCESS)
@@ -195,7 +191,7 @@ int main(int argc, char* argv[])
                     if (!clFilter.DoFiltering(stMetaData)) { continue; }
 
                     pucFrameBuffer += stMetaData.uiHeaderLength;
-                    // Decode the Log, pass the meta data and populate the intermediate log.
+                    // Decode the Log, pass the metadata and populate the intermediate log.
                     eDecoderStatus = clMessageDecoder.Decode(pucFrameBuffer, stMessage, stMetaData);
 
                     if (eDecoderStatus == STATUS::SUCCESS)

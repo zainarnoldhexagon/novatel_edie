@@ -24,9 +24,6 @@
 // ! \file rxconfig_example.cpp
 // ===============================================================================
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #include <chrono>
 
 #include "src/decoders/common/api/common.hpp"
@@ -104,7 +101,7 @@ int main(int argc, char* argv[])
     stReadData.cData = reinterpret_cast<char*>(acIFSReadBuffer);
     stReadData.uiDataSize = sizeof(acIFSReadBuffer);
 
-    // Setup filestreams
+    // Set up file streams
     InputFileStream clIFS(sInFilename.c_str());
     OutputFileStream clConvertedRxConfigOFS((sInFilename + std::string(".").append(sEncodeFormat)).c_str());
     OutputFileStream clStrippedRxConfigOFS((sInFilename + std::string(".STRIPPED.").append(sEncodeFormat)).c_str());
@@ -134,19 +131,17 @@ int main(int argc, char* argv[])
                 // Make the embedded message valid by flipping the CRC.
                 if (eEncodeFormat == ENCODEFORMAT::ASCII)
                 {
-                    // Flip the CRC at the end of the embedded message and add a CRLF so it becomes
-                    // a valid command.
+                    // Flip the CRC at the end of the embedded message and add a CRLF, so it becomes a valid command.
                     auto* pcCRCBegin =
                         reinterpret_cast<char*>((stEmbeddedMessageData.pucMessage + stEmbeddedMessageData.uiMessageLength) - OEM4_ASCII_CRC_LENGTH);
-                    uint32_t uiFlippedCRC = strtoul(pcCRCBegin, NULL, 16) ^ 0xFFFFFFFF;
+                    uint32_t uiFlippedCRC = strtoul(pcCRCBegin, nullptr, 16) ^ 0xFFFFFFFF;
                     snprintf(pcCRCBegin, OEM4_ASCII_CRC_LENGTH + 1, "%08x", uiFlippedCRC);
                     clStrippedRxConfigOFS.WriteData(reinterpret_cast<char*>(stEmbeddedMessageData.pucMessage), stEmbeddedMessageData.uiMessageLength);
                     clStrippedRxConfigOFS.WriteData(const_cast<char*>("\r\n"), 2);
                 }
                 else if (eEncodeFormat == ENCODEFORMAT::BINARY)
                 {
-                    // Flip the CRC at the end of the embedded message so it becomes a valid
-                    // command.
+                    // Flip the CRC at the end of the embedded message, so it becomes a valid command.
                     auto* puiCRCBegin = reinterpret_cast<uint32_t*>((stEmbeddedMessageData.pucMessage + stEmbeddedMessageData.uiMessageLength) -
                                                                     OEM4_BINARY_CRC_LENGTH);
                     *puiCRCBegin ^= 0xFFFFFFFF;
